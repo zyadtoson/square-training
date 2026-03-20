@@ -609,9 +609,21 @@
         <button class="btn-login" onclick="doLoginT()">دخول ←</button>
       </div>
       <div id="sf" style="display:none;">
-        <input type="text" class="linput" id="su" placeholder="اسم المستخدم..." onkeydown="if(event.key==='Enter')doLoginS()">
+        <input type="text" class="linput" id="su" placeholder="اسم المستخدم (Username)..." onkeydown="if(event.key==='Enter')doLoginS()">
         <input type="password" class="linput" id="sp" placeholder="كلمة المرور..." onkeydown="if(event.key==='Enter')doLoginS()">
         <button class="btn-login" onclick="doLoginS()">دخول ←</button>
+        <div style="margin-top:16px;font-size:0.86rem;color:#999;cursor:pointer;" onclick="toggleReg(true)">
+          ليس لديك حساب؟ <span style="color:#C41818;font-weight:700;">سجل الآن كطالب جديد</span>
+        </div>
+      </div>
+      <div id="sreg" style="display:none;">
+        <input type="text" class="linput" id="sr-name" placeholder="الاسم الكامل (سيظهر للمعلم)..." onkeydown="if(event.key==='Enter')doRegisterS()">
+        <input type="text" class="linput" id="sr-uname" dir="ltr" placeholder="اختر اسم مستخدم..." onkeydown="if(event.key==='Enter')doRegisterS()">
+        <input type="password" class="linput" id="sr-pass" dir="ltr" placeholder="اختر كلمة مرور..." onkeydown="if(event.key==='Enter')doRegisterS()">
+        <button class="btn-login" style="background:#22c55e;" onclick="doRegisterS()">إنشاء حساب ←</button>
+        <div style="margin-top:16px;font-size:0.86rem;color:#999;cursor:pointer;" onclick="toggleReg(false)">
+          لديك حساب بالفعل؟ <span style="color:#C41818;font-weight:700;">تسجيل الدخول</span>
+        </div>
       </div>
       <div class="lerr" id="lerr"></div>
     </div>
@@ -632,6 +644,7 @@
       <h1>Square <span>Training</span> Center</h1>
     </div>
     <span class="spacer"></span>
+    <button class="btn-logout" style="background:#333;border-color:#555;color:#eee;margin-left:8px;" onclick="openSettings()">⚙️ إعدادات</button>
     <span style="color:#777;font-size:0.82rem;margin-left:14px;">لوحة المعلم</span>
     <button class="btn-logout" onclick="doLogout()">خروج</button>
   </div>
@@ -757,6 +770,27 @@
   </div>
 </div>
 
+<!-- ════════ MODAL: SETTINGS ════════ -->
+<div class="mover" id="m-settings">
+  <div class="modal">
+    <h3>⚙️ إعدادات المعلم</h3>
+    <div class="mfg">
+      <label>كلمة المرور الجديدة</label>
+      <input type="password" id="t-new-pass" dir="ltr" placeholder="اكتب كلمة مرور المعلم الجديدة...">
+      <p style="font-size:0.75rem;color:#888;margin-top:6px;">اتركها فارغة للإبقاء على كلمة المرور الحالية.</p>
+    </div>
+    <div class="mfg">
+      <label>إعادة ضبط النظام <small style="color:#ff6b6b;">(تحذير: سيمسح كل البيانات!)</small></label>
+      <button onclick="factoryReset()" style="background:rgba(196,24,24,0.1);border:1px solid #C41818;color:#ff6b6b;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:0.82rem;margin-top:4px;">⚠️ حذف كل الطلاب والمهام</button>
+    </div>
+    <div class="err" id="m-settings-err"></div>
+    <div class="mfoot">
+      <button class="bcnl" onclick="closeM('m-settings')">إلغاء</button>
+      <button class="bsave" onclick="saveSettings()">تحديث الإعدادات</button>
+    </div>
+  </div>
+</div>
+
 <!-- ════════ MODAL: REVIEW ════════ -->
 <div class="mover" id="m-rev">
   <div class="modal">
@@ -828,6 +862,14 @@
   }
 
   async function sha(txt) {
+    if (!window.crypto || !window.crypto.subtle) {
+      let hash = 0;
+      for (let i = 0; i < txt.length; i++) {
+        hash = ((hash << 5) - hash) + txt.charCodeAt(i);
+        hash = hash & hash;
+      }
+      return 'fallback_' + Math.abs(hash).toString(16);
+    }
     const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
     return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
   }
@@ -872,23 +914,36 @@
     }
   };
 
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyC70DTDEMRR4iFYaYCRMqFQeZA91hAEEQI",
+    authDomain: "square-training-center.firebaseapp.com",
+    projectId: "square-training-center",
+    storageBucket: "square-training-center.firebasestorage.app",
+    messagingSenderId: "465618202045",
+    appId: "1:465618202045:web:d5b26b377f442a3ed9b6d4"
+  };
+
   // ══════════════════════════════════════════════════════
   //  BOOT
   // ══════════════════════════════════════════════════════
   async function boot() {
-    const saved = localStorage.getItem('sq_fb');
-    if (!saved) { show('v-setup'); return; }
-    loader(true, 'جاري الاتصال...');
+    loader(true, 'جاري الاتصال بقاعدة البيانات...');
     try {
-      const app = initializeApp(JSON.parse(saved), 'sq');
+      const app = initializeApp(FIREBASE_CONFIG, 'sq');
       db = getFirestore(app);
-      await getDoc(doc(db, 'config', 'app'));  // test connection
+      
+      const snap = await getDoc(doc(db, 'config', 'app'));
+      if (!snap.exists() || !snap.data().initialized) {
+        // Initial setup automatic fallback
+        const defaultHash = await sha('1234');
+        await setDoc(doc(db, 'config', 'app'), { teacherPasswordHash: defaultHash, initialized: true, createdAt: new Date().toISOString() });
+      }
+      
       loader(false);
       show('v-login');
-    } catch (_) {
+    } catch (e) {
       loader(false);
-      localStorage.removeItem('sq_fb');
-      show('v-setup');
+      alert('حدث خطأ أثناء محاولة الاتصال بـ Firebase: ' + (e.message || e));
     }
   }
 
@@ -901,6 +956,13 @@
     g('rt-s').className = 'rtab' + (r === 'student' ? ' active' : '');
     g('tf').style.display = r === 'teacher' ? 'block' : 'none';
     g('sf').style.display = r === 'student'  ? 'block' : 'none';
+    if(g('sreg')) g('sreg').style.display = 'none';
+    g('lerr').textContent = '';
+  };
+
+  window.toggleReg = show => {
+    g('sf').style.display = show ? 'none' : 'block';
+    g('sreg').style.display = show ? 'block' : 'none';
     g('lerr').textContent = '';
   };
 
@@ -936,6 +998,44 @@
       await renderStudent(found);
       show('v-student');
     } catch (e) { loader(false); g('lerr').textContent = 'خطأ: ' + e.message; }
+  };
+
+  window.doRegisterS = async () => {
+    const name  = g('sr-name').value.trim();
+    const uname = g('sr-uname').value.trim();
+    const pass  = g('sr-pass').value;
+    const err = g('lerr');
+    
+    if (!name || !uname || !pass) { err.textContent = 'أدخل جميع البيانات لإنشاء حسابك'; return; }
+    if (uname.length < 3) { err.textContent = 'اسم المستخدم يجب أن يكون 3 أحرف على الأقل'; return; }
+    if (pass.length < 4) { err.textContent = 'كلمة المرور يجب أن تكون 4 أحرف على الأقل'; return; }
+    
+    loader(true, 'جاري إنشاء الحساب...');
+    try {
+      const snap = await getDocs(collection(db, 'students'));
+      let exists = false;
+      snap.forEach(d => { if (d.data().username === uname) exists = true; });
+      if (exists) { loader(false); err.textContent = 'اسم المستخدم هذا مأخوذ مسبقاً، اختر اسماً آخر'; return; }
+      
+      const newStu = {
+        name,
+        username: uname,
+        passwordHash: await sha(pass),
+        createdAt: new Date().toISOString()
+      };
+      
+      const docRef = await addDoc(collection(db, 'students'), newStu);
+      newStu.id = docRef.id;
+      activeStu = newStu;
+      
+      g('sr-name').value = ''; g('sr-uname').value = ''; g('sr-pass').value = '';
+      toggleReg(false);
+      
+      loader(false);
+      toast('تم تكوين حسابك بنجاح! 🎉');
+      await renderStudent(activeStu);
+      show('v-student');
+    } catch (e) { loader(false); err.textContent = 'خطأ: ' + e.message; }
   };
 
   window.doLogout = () => {
@@ -1040,10 +1140,11 @@
   // ══════════════════════════════════════════════════════
   //  STUDENT MODAL
   // ══════════════════════════════════════════════════════
-  window.openStuModal = id => {
-    const s = id ? students.find(x => x.id === id) : null;
+  window.openStuModal = (id) => {
+    const isEdit = typeof id === 'string' && id.trim() !== '';
+    const s = isEdit ? students.find(x => x.id === id) : null;
     g('ms-title').textContent = s ? 'تعديل بيانات الطالب' : 'إضافة طالب جديد';
-    g('ms-id').value    = id || '';
+    g('ms-id').value    = s ? s.id : '';
     g('ms-name').value  = s?.name     || '';
     g('ms-uname').value = s?.username || '';
     g('ms-pass').value  = '';
@@ -1267,6 +1368,55 @@
   // ══════════════════════════════════════════════════════
   //  EXPOSE to window
   // ══════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════
+  //  SETTINGS MODAL
+  // ══════════════════════════════════════════════════════
+  window.openSettings = () => {
+    g('t-new-pass').value = '';
+    g('m-settings-err').textContent = '';
+    g('m-settings').className = 'mover open';
+  };
+
+  window.saveSettings = async () => {
+    const pass = g('t-new-pass').value;
+    const err = g('m-settings-err');
+    err.textContent = '';
+    
+    // We update settings if something changed
+    if (!pass) {
+      toast('لم تقم بتغيير كلمة المرور! تم تحديث الإعدادات.');
+      closeM('m-settings');
+      return;
+    }
+
+    loader(true, 'جاري حفط الإعدادات...');
+    try {
+      if (pass.length < 4) { loader(false); err.textContent = 'كلمة المرور قصيرة جداً (الأدنى 4)'; return; }
+      const hash = await sha(pass);
+      await updateDoc(doc(db, 'config', 'app'), { teacherPasswordHash: hash });
+      toast('تم تغيير كلمة المرور ✓');
+      closeM('m-settings');
+      loader(false);
+    } catch (e) { loader(false); err.textContent = 'خطأ: ' + e.message; }
+  };
+
+  window.factoryReset = async () => {
+    if (prompt('اكتب "تأكيد" لحذف جميع البيانات نهائياً:') !== 'تأكيد') return;
+    loader(true, 'جاري الحذف يرجى الانتظار (قد يستغرق بعض الوقت)...');
+    try {
+      const ts = await getDocs(collection(db, 'tasks'));
+      const dels = [];
+      ts.forEach(d => dels.push(deleteDoc(doc(db, 'tasks', d.id))));
+      const ss = await getDocs(collection(db, 'students'));
+      ss.forEach(d => dels.push(deleteDoc(doc(db, 'students', d.id))));
+      await Promise.all(dels);
+      toast('تمت إعادة ضبط النظام ✓');
+      closeM('m-settings');
+      await renderTeacher();
+      loader(false);
+    } catch (e) { loader(false); alert('خطأ: ' + e.message); }
+  };
+
   window.closeM = closeM;
 
   // ══════════════════════════════════════════════════════
