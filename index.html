@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -612,6 +611,7 @@
         <input type="text" class="linput" id="su" placeholder="اسم المستخدم..." onkeydown="if(event.key==='Enter')doLoginS()">
         <input type="password" class="linput" id="sp" placeholder="كلمة المرور..." onkeydown="if(event.key==='Enter')doLoginS()">
         <button class="btn-login" onclick="doLoginS()">دخول ←</button>
+        <p style="text-align:center;margin-top:15px;color:#666;font-size:0.9rem;">ليس لديك حساب؟ <a href="javascript:show('v-register')" style="color:#ff8080;cursor:pointer;">إنشاء حساب جديد</a></p>
       </div>
       <div class="lerr" id="lerr"></div>
     </div>
@@ -633,6 +633,7 @@
     </div>
     <span class="spacer"></span>
     <span style="color:#777;font-size:0.82rem;margin-left:14px;">لوحة المعلم</span>
+    <button class="btn-logout" onclick="show('v-settings')" style="background:rgba(100,150,200,0.2);border-color:#6496c8;">⚙️ الإعدادات</button>
     <button class="btn-logout" onclick="doLogout()">خروج</button>
   </div>
   <div class="dash">
@@ -735,8 +736,8 @@
     <input type="hidden" id="mt-id">
     <div class="mfg"><label>اسم المهمة</label><input type="text" id="mt-name" placeholder="Assignment 1..." style="direction:rtl;font-family:inherit;"></div>
     <div class="mfg">
-      <label>الطالب</label>
-      <select id="mt-stu"><option value="">اختر طالباً...</option></select>
+      <label>اختر الطلاب (يمكنك اختيار أكتر من طالب)</label>
+      <div id="mt-stus" style="background:#1a1a1a;border:1px solid #3a3a3a;border-radius:6px;padding:12px;max-height:150px;overflow-y:auto;"></div>
     </div>
     <div class="mfg"><label>الموعد النهائي</label><input type="date" id="mt-dl" dir="ltr"></div>
     <div class="mfg">
@@ -789,6 +790,79 @@
   </div>
 </div>
 
+<!-- ════════════════════ VIEW: SETTINGS ════════════════════ -->
+<div class="view" id="v-settings">
+  <div class="app-header">
+    <div class="logo-area">
+      <svg width="34" height="34" viewBox="0 0 52 52" fill="none">
+        <rect width="52" height="52" rx="10" fill="rgba(255,255,255,0.07)"/>
+        <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818"/>
+        <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+        <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+        <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <h1>Square <span>Training</span> Center</h1>
+    </div>
+    <span class="spacer"></span>
+    <button class="btn-logout" onclick="show('v-teacher')">← العودة</button>
+  </div>
+  <div class="setup-outer" style="padding:20px;">
+    <div class="setup-card" style="max-width:400px;">
+      <h2>⚙️ إعدادات النظام</h2>
+      <div style="margin-top:30px;">
+        <div class="fg">
+          <label>كلمة مرور المعلم الحالية</label>
+          <input type="password" id="old-pass" placeholder="أدخل كلمة المرور الحالية" style="direction:rtl;font-family:inherit;">
+        </div>
+        <div class="fg">
+          <label>كلمة المرور الجديدة</label>
+          <input type="password" id="new-pass" placeholder="أدخل كلمة المرور الجديدة (4 أحرف على الأقل)" style="direction:rtl;font-family:inherit;">
+        </div>
+        <div class="fg">
+          <label>تأكيد كلمة المرور الجديدة</label>
+          <input type="password" id="conf-pass" placeholder="أعد إدخال كلمة المرور الجديدة" style="direction:rtl;font-family:inherit;">
+        </div>
+        <div class="err" id="set-err" style="margin:10px 0;color:#ff6b6b;"></div>
+        <button class="btn-primary" onclick="changeTeacherPassword()" style="width:100%;margin-top:10px;">💾 حفظ كلمة المرور الجديدة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ VIEW: REGISTER ════════════════════ -->
+<div class="view" id="v-register">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg width="58" height="58" viewBox="0 0 52 52" fill="none">
+          <rect width="52" height="52" rx="10" fill="rgba(255,255,255,0.04)"/>
+          <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818"/>
+          <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+          <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+          <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <h2>تسجيل حساب جديد</h2>
+      <p style="color:#888;font-size:0.9rem;margin-bottom:20px;">أنشئ حساب للدخول كطالب</p>
+      <div class="mfg">
+        <input type="text" id="reg-name" placeholder="الاسم الكامل" style="direction:rtl;font-family:inherit;">
+      </div>
+      <div class="mfg">
+        <input type="text" id="reg-uname" placeholder="اسم المستخدم (للدخول)" dir="ltr">
+      </div>
+      <div class="mfg">
+        <input type="password" id="reg-pass" placeholder="كلمة المرور" dir="ltr">
+      </div>
+      <div class="mfg">
+        <input type="password" id="reg-conf" placeholder="تأكيد كلمة المرور" dir="ltr">
+      </div>
+      <div class="err" id="reg-err" style="margin-bottom:10px;"></div>
+      <button class="btn-primary" onclick="doStudentRegister()" style="width:100%;">✓ إنشاء الحساب</button>
+      <p style="text-align:center;margin-top:15px;color:#666;font-size:0.9rem;">عندك حساب بالفعل؟ <a href="javascript:show('v-login')" style="color:#ff8080;cursor:pointer;">دخول</a></p>
+    </div>
+  </div>
+</div>
+
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import {
@@ -798,6 +872,16 @@
 
   // ══════════════════════════════════════════════════════
   //  GLOBALS
+  // ══════════════════════════════════════════════════════
+  // HARDCODED FIREBASE CONFIG - Works on all browsers
+  const hardcodedFirebaseConfig = {
+    apiKey: "AIzaSyC70DTDEMRR4iFYaYCRMqFQeZA91hAEEQI",
+    authDomain: "square-training-center.firebaseapp.com",
+    projectId: "square-training-center",
+    storageBucket: "square-training-center.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+  };
   // ══════════════════════════════════════════════════════
   let db = null;
   let role = 'teacher';
@@ -811,7 +895,7 @@
   const g = id => document.getElementById(id);
 
   function show(v) {
-    ['v-setup','v-login','v-teacher','v-student'].forEach(x => g(x).className = 'view');
+    ['v-setup','v-login','v-teacher','v-student','v-settings','v-register'].forEach(x => g(x).className = 'view');
     g(v).className = 'view active';
   }
 
@@ -876,18 +960,18 @@
   //  BOOT
   // ══════════════════════════════════════════════════════
   async function boot() {
-    const saved = localStorage.getItem('sq_fb');
-    if (!saved) { show('v-setup'); return; }
+    // Use hardcoded config - works on all browsers!
+    const configToUse = hardcodedFirebaseConfig;
     loader(true, 'جاري الاتصال...');
     try {
-      const app = initializeApp(JSON.parse(saved), 'sq');
+      const app = initializeApp(configToUse, 'sq');
       db = getFirestore(app);
       await getDoc(doc(db, 'config', 'app'));  // test connection
       loader(false);
       show('v-login');
     } catch (_) {
       loader(false);
-      localStorage.removeItem('sq_fb');
+      // If hardcoded config fails, show setup page
       show('v-setup');
     }
   }
@@ -943,6 +1027,75 @@
     g('tp').value = ''; g('su').value = ''; g('sp').value = '';
     g('lerr').textContent = '';
     show('v-login');
+  };
+
+  // Change teacher password
+  window.changeTeacherPassword = async () => {
+    const oldPass = g('old-pass').value.trim();
+    const newPass = g('new-pass').value.trim();
+    const confPass = g('conf-pass').value.trim();
+    const err = g('set-err');
+    err.textContent = '';
+
+    if (!oldPass) { err.textContent = 'أدخل كلمة المرور الحالية'; return; }
+    if (!newPass || newPass.length < 4) { err.textContent = 'كلمة المرور الجديدة يجب أن تكون 4 أحرف على الأقل'; return; }
+    if (newPass !== confPass) { err.textContent = 'كلمات المرور لا تتطابق'; return; }
+
+    loader(true, 'جاري التحقق...');
+    try {
+      // Verify old password
+      const snap = await getDoc(doc(db, 'config', 'app'));
+      const oldHash = await sha(oldPass);
+      if (oldHash !== snap.data()?.teacherPasswordHash) {
+        loader(false); err.textContent = 'كلمة المرور الحالية غير صحيحة'; return;
+      }
+
+      // Update to new password
+      const newHash = await sha(newPass);
+      await setDoc(doc(db, 'config', 'app'), { teacherPasswordHash: newHash, initialized: true, updatedAt: new Date().toISOString() });
+
+      loader(false);
+      err.textContent = '';
+      toast('✓ تم تحديث كلمة المرور بنجاح');
+      g('old-pass').value = ''; g('new-pass').value = ''; g('conf-pass').value = '';
+      setTimeout(() => show('v-teacher'), 1500);
+    } catch (e) { loader(false); err.textContent = 'خطأ: ' + e.message; }
+  };
+
+  // Student registration
+  window.doStudentRegister = async () => {
+    const name = g('reg-name').value.trim();
+    const uname = g('reg-uname').value.trim();
+    const pass = g('reg-pass').value;
+    const conf = g('reg-conf').value;
+    const err = g('reg-err');
+    err.textContent = '';
+
+    if (!name) { err.textContent = 'أدخل الاسم الكامل'; return; }
+    if (!uname) { err.textContent = 'أدخل اسم المستخدم'; return; }
+    if (!pass || pass.length < 4) { err.textContent = 'كلمة المرور يجب أن تكون 4 أحرف على الأقل'; return; }
+    if (pass !== conf) { err.textContent = 'كلمات المرور لا تتطابق'; return; }
+
+    loader(true, 'جاري إنشاء الحساب...');
+    try {
+      // Check if username already exists
+      const existing = await getDocs(collection(db, 'students'));
+      let found = false;
+      existing.forEach(d => { if (d.data().username === uname) found = true; });
+      if (found) { loader(false); err.textContent = 'اسم المستخدم موجود بالفعل'; return; }
+
+      // Create new student
+      const hash = await sha(pass);
+      await addDoc(collection(db, 'students'), {
+        name, username: uname, passwordHash: hash,
+        createdAt: new Date().toISOString()
+      });
+
+      loader(false);
+      toast('✓ تم إنشاء الحساب بنجاح! الآن يمكنك الدخول');
+      g('reg-name').value = ''; g('reg-uname').value = ''; g('reg-pass').value = ''; g('reg-conf').value = '';
+      setTimeout(() => show('v-login'), 1500);
+    } catch (e) { loader(false); err.textContent = 'خطأ: ' + e.message; }
   };
 
   // ══════════════════════════════════════════════════════
@@ -1109,36 +1262,50 @@
     g('mt-stat').value  = t?.status   || 'لسه';
     g('mt-grade').value = t?.grade    || '';
     g('mt-notes').value = t?.notes    || '';
-    g('mt-stu').innerHTML = '<option value="">اختر طالباً...</option>' +
-      students.map(s => `<option value="${s.id}"${s.id===t?.studentId?' selected':''}>${s.name}</option>`).join('');
+    // Multi-select students
+    const selectedStus = Array.isArray(t?.studentIds) ? t.studentIds : (t?.studentId ? [t.studentId] : []);
+    g('mt-stus').innerHTML = students.map(s => `
+      <label style="display:flex;align-items:center;gap:8px;padding:8px;cursor:pointer;border-radius:4px;margin-bottom:4px;background:rgba(255,255,255,0.03);">
+        <input type="checkbox" value="${s.id}" class="stu-chk" ${selectedStus.includes(s.id)?'checked':''}> ${s.name}
+      </label>
+    `).join('');
     g('m-task').className = 'mover open';
   };
 
   window.saveTask = async () => {
-    const name = g('mt-name').value.trim(), stuId = g('mt-stu').value,
+    const name = g('mt-name').value.trim(),
           dl   = g('mt-dl').value, stat = g('mt-stat').value,
           gr   = g('mt-grade').value.trim(), nt = g('mt-notes').value.trim(),
           editId = g('mt-id').value;
 
-    if (!name)  { toast('أدخل اسم المهمة'); return; }
-    if (!stuId) { toast('اختر طالباً'); return; }
+    // Get selected students from checkboxes
+    const stuChks = document.querySelectorAll('.stu-chk:checked');
+    const stuIds = Array.from(stuChks).map(c => c.value);
 
-    const stu = students.find(s => s.id === stuId);
+    if (!name)  { toast('أدخل اسم المهمة'); return; }
+    if (stuIds.length === 0) { toast('اختر طالباً أو أكتر'); return; }
+
     loader(true, 'جاري الحفظ...');
     try {
       if (editId) {
+        // For editing: update the task
         const ex = tasks.find(t => t.id === editId);
         const completedAt = (stat==='خلص' && ex?.status!=='خلص') ? new Date().toISOString() : (ex?.completedAt||null);
-        await updateDoc(doc(db,'tasks',editId), { name, studentId: stuId, studentName: stu?.name||'', deadline: dl, status: stat, grade: gr, notes: nt, completedAt, updatedAt: new Date().toISOString() });
+        const stu = students.find(s => s.id === ex?.studentId);
+        await updateDoc(doc(db,'tasks',editId), { name, deadline: dl, status: stat, grade: gr, notes: nt, completedAt, updatedAt: new Date().toISOString() });
         toast('تم تحديث المهمة ✓');
       } else {
-        await addDoc(collection(db,'tasks'), {
-          name, studentId: stuId, studentName: stu?.name||'', deadline: dl,
-          status: stat, grade: gr, notes: nt,
-          completedAt: stat==='خلص' ? new Date().toISOString() : null,
-          reviewed: false, feedback: '', createdAt: new Date().toISOString()
-        });
-        toast('تم إضافة المهمة ✓');
+        // For new tasks: create one for each selected student
+        for (const stuId of stuIds) {
+          const stu = students.find(s => s.id === stuId);
+          await addDoc(collection(db,'tasks'), {
+            name, studentId: stuId, studentName: stu?.name||'', deadline: dl,
+            status: stat, grade: gr, notes: nt,
+            completedAt: stat==='خلص' ? new Date().toISOString() : null,
+            reviewed: false, feedback: '', createdAt: new Date().toISOString()
+          });
+        }
+        toast(`تم إضافة المهمة لـ ${stuIds.length} طالب ✓`);
       }
       closeM('m-task');
       await renderTeacher();
