@@ -1,2 +1,1278 @@
+
 <!DOCTYPE html>
-<html><head><title>Square Training</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="background:#1a1a1a;color:#eee;font-family:Arial;text-align:center;padding:50px"><h1 style="color:#C41818">Square Training Center</h1><p>Deployed successfully!</p><script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script></body></html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Square Training Center - نظام متابعة المهام</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: #1a1a1a;
+      color: #eee;
+      min-height: 100vh;
+      direction: rtl;
+    }
+    .view { display: none; min-height: 100vh; }
+    .view.active { display: block; }
+
+    /* ── HEADER ── */
+    .app-header {
+      background: #1a1a1a;
+      border-bottom: 2px solid #C41818;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .app-header .logo-area { display: flex; align-items: center; gap: 12px; }
+    .app-header h1 { font-size: 1.1rem; color: #fff; font-weight: 700; }
+    .app-header h1 span { color: #C41818; }
+    .spacer { flex: 1; }
+    .btn-logout {
+      background: rgba(196,24,24,0.15);
+      border: 1px solid #C41818;
+      color: #ff6b6b;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { background: #C41818; color: #fff; }
+
+    /* ── SETUP ── */
+    .setup-outer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .setup-card {
+      background: #2d2d2d;
+      border: 1px solid #3d3d3d;
+      border-radius: 14px;
+      padding: 36px;
+      width: 100%;
+      max-width: 580px;
+    }
+    .setup-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .setup-logo .brand { font-size: 1.3rem; font-weight: 800; color: #fff; }
+    .setup-logo .brand span { color: #C41818; }
+    .setup-card h2 { color: #C41818; margin-bottom: 6px; font-size: 1.25rem; }
+    .setup-card .sub { color: #999; font-size: 0.88rem; margin-bottom: 24px; line-height: 1.6; }
+    .steps { list-style: none; counter-reset: step; margin: 0 0 26px; }
+    .steps li {
+      counter-increment: step;
+      padding: 11px 0 11px 44px;
+      position: relative;
+      border-bottom: 1px solid #333;
+      font-size: 0.88rem;
+      color: #ccc;
+      line-height: 1.5;
+    }
+    .steps li:last-child { border-bottom: none; }
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      right: 0;
+      top: 10px;
+      width: 26px; height: 26px;
+      background: #C41818;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .steps li a { color: #ff8080; }
+    .fg { margin-bottom: 16px; }
+    .fg label { display: block; font-size: 0.82rem; color: #999; margin-bottom: 6px; }
+    .fg input, .fg textarea, .fg select {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #eee;
+      font-size: 0.9rem;
+      direction: ltr;
+      font-family: monospace;
+      transition: border-color 0.2s;
+    }
+    .fg input:focus, .fg textarea:focus { outline: none; border-color: #C41818; }
+    .fg textarea { height: 110px; resize: vertical; font-size: 0.82rem; }
+    .btn-primary {
+      background: #C41818;
+      border: none;
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #a51414; }
+    .err { color: #ff6b6b; font-size: 0.82rem; margin-top: 8px; min-height: 18px; }
+
+    /* ── LOGIN ── */
+    .login-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-card {
+      background: #2d2d2d;
+      border: 1px solid #3d3d3d;
+      border-radius: 16px;
+      padding: 42px 38px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-logo { margin-bottom: 18px; }
+    .login-card h2 { font-size: 1.35rem; color: #fff; margin-bottom: 4px; }
+    .login-card .sub { color: #888; font-size: 0.88rem; margin-bottom: 26px; }
+    .role-tabs {
+      display: flex;
+      gap: 6px;
+      background: #1a1a1a;
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+    }
+    .rtab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: transparent;
+      color: #888;
+      transition: all 0.2s;
+    }
+    .rtab.active { background: #C41818; color: #fff; }
+    .linput {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #eee;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      text-align: right;
+      direction: rtl;
+      transition: border-color 0.2s;
+    }
+    .linput:focus { outline: none; border-color: #C41818; }
+    .btn-login {
+      background: #C41818;
+      border: none;
+      color: #fff;
+      padding: 13px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 2px;
+    }
+    .btn-login:hover { background: #a51414; }
+    .lerr { color: #ff6b6b; font-size: 0.84rem; margin-top: 10px; min-height: 18px; }
+
+    /* ── DASHBOARD SHARED ── */
+    .dash { max-width: 1100px; margin: 0 auto; padding: 26px 20px; }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    .scard {
+      background: #2d2d2d;
+      border: 1px solid #3d3d3d;
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .scard .val { font-size: 1.9rem; font-weight: 800; color: #C41818; line-height: 1; }
+    .scard .lbl { font-size: 0.78rem; color: #888; margin-top: 4px; }
+    .section { margin-bottom: 30px; }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .sec-title { font-size: 1rem; font-weight: 700; color: #fff; }
+    .sec-title em { color: #C41818; font-style: normal; }
+    .btn-add {
+      background: #C41818;
+      border: none;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-add:hover { background: #a51414; }
+
+    /* ── STUDENT CARDS (teacher view) ── */
+    .stu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .stucard {
+      background: #2d2d2d;
+      border: 1px solid #3a3a3a;
+      border-radius: 10px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .stucard:hover { border-color: #C41818; }
+    .stucard .sname { font-weight: 700; font-size: 0.94rem; margin-bottom: 2px; }
+    .stucard .suname { font-size: 0.76rem; color: #777; margin-bottom: 10px; }
+    .pbar-bg { background: #1a1a1a; border-radius: 20px; height: 5px; overflow: hidden; margin-bottom: 6px; }
+    .pbar-fill { height: 100%; background: #C41818; border-radius: 20px; transition: width 0.4s; }
+    .stucard .spct { font-size: 0.76rem; color: #777; }
+    .stucard .sacts { display: flex; gap: 8px; margin-top: 10px; }
+    .bsm {
+      flex: 1;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-size: 0.76rem;
+      cursor: pointer;
+      border: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .bsm.edit { background: rgba(196,24,24,0.12); color: #ff6b6b; border: 1px solid #C41818; }
+    .bsm.edit:hover { background: #C41818; color: #fff; }
+    .bsm.del { background: rgba(80,80,80,0.15); color: #888; border: 1px solid #555; }
+    .bsm.del:hover { background: #555; color: #fff; }
+
+    /* ── SUBMISSIONS ── */
+    .sub-list { display: flex; flex-direction: column; gap: 10px; }
+    .sub-row {
+      background: #2d2d2d;
+      border: 1px solid #3a3a3a;
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sub-row.unrev { border-right: 3px solid #C41818; }
+    .sub-row.rev { border-right: 3px solid #22c55e; }
+    .sub-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .sub-info { flex: 1; }
+    .sub-info .stask { font-weight: 600; font-size: 0.88rem; }
+    .sub-info .smeta { font-size: 0.76rem; color: #777; margin-top: 2px; }
+    .btn-rev {
+      background: rgba(196,24,24,0.12);
+      border: 1px solid #C41818;
+      color: #ff6b6b;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-rev:hover { background: #C41818; color: #fff; }
+    .btn-revd {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid #22c55e;
+      color: #22c55e;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    /* ── TASKS TABLE ── */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th {
+      background: #1a1a1a;
+      color: #888;
+      padding: 10px 14px;
+      text-align: right;
+      font-weight: 600;
+      border-bottom: 2px solid #333;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid #282828; vertical-align: middle; }
+    tr:hover td { background: #282828; }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+    .b-لسه { background: rgba(100,100,100,0.25); color: #999; }
+    .b-شغال { background: rgba(234,179,8,0.18); color: #fbbf24; }
+    .b-خلص { background: rgba(34,197,94,0.18); color: #22c55e; }
+    .b-متأخر { background: rgba(196,24,24,0.2); color: #ff6b6b; }
+    .acts { display: flex; gap: 6px; }
+
+    /* ── STUDENT PORTAL ── */
+    .stu-dash { max-width: 780px; margin: 0 auto; padding: 26px 20px; }
+    .welcome-banner {
+      background: linear-gradient(135deg, #C41818 0%, #8b0000 100%);
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .welcome-banner h2 { font-size: 1.25rem; color: #fff; margin-bottom: 4px; }
+    .welcome-banner p { font-size: 0.86rem; color: rgba(255,255,255,0.75); }
+    .stu-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    .ststat {
+      background: #2d2d2d;
+      border: 1px solid #3a3a3a;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .ststat .v { font-size: 1.75rem; font-weight: 800; color: #C41818; }
+    .ststat .l { font-size: 0.76rem; color: #888; margin-top: 3px; }
+    .prog-card {
+      background: #2d2d2d;
+      border: 1px solid #3a3a3a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+    }
+    .prog-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .prog-head span { font-size: 0.84rem; color: #888; }
+    .prog-head strong { color: #C41818; font-size: 1.05rem; }
+    .prog-bg { background: #1a1a1a; border-radius: 20px; height: 8px; overflow: hidden; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, #C41818, #ff6060); border-radius: 20px; transition: width 0.5s ease; }
+    .tcards { display: flex; flex-direction: column; gap: 12px; }
+    .tcard {
+      background: #2d2d2d;
+      border: 1px solid #3a3a3a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      border-right-width: 3px;
+    }
+    .tcard.s-لسه { border-right-color: #555; }
+    .tcard.s-شغال { border-right-color: #fbbf24; }
+    .tcard.s-خلص { border-right-color: #22c55e; }
+    .tcard.s-متأخر { border-right-color: #C41818; }
+    .tcard-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .tcard-head .tname { font-weight: 700; font-size: 0.93rem; }
+    .tcard-head .tdate { font-size: 0.76rem; color: #777; }
+    .tnotes { font-size: 0.8rem; color: #aaa; background: #1a1a1a; padding: 8px 12px; border-radius: 6px; margin-bottom: 10px; }
+    .tfeedback { font-size: 0.8rem; color: #60a5fa; background: rgba(96,165,250,0.08); padding: 8px 12px; border-radius: 6px; margin-bottom: 10px; border-right: 2px solid #60a5fa; }
+    .tgrade { font-size: 0.8rem; color: #C41818; margin-bottom: 10px; font-weight: 600; }
+    .sbts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sbt {
+      padding: 7px 15px;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid;
+      transition: all 0.18s;
+    }
+    .sbt-لسه { border-color: #555; color: #888; background: rgba(80,80,80,0.1); }
+    .sbt-لسه.on { background: #555; color: #fff; }
+    .sbt-شغال { border-color: #fbbf24; color: #fbbf24; background: rgba(234,179,8,0.08); }
+    .sbt-شغال.on { background: #fbbf24; color: #000; }
+    .sbt-خلص { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.08); }
+    .sbt-خلص.on { background: #22c55e; color: #fff; }
+
+    /* ── MODAL ── */
+    .mover {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .mover.open { display: flex; }
+    .modal {
+      background: #2d2d2d;
+      border: 1px solid #3a3a3a;
+      border-radius: 14px;
+      padding: 28px;
+      width: 100%;
+      max-width: 470px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal h3 { font-size: 1.05rem; color: #C41818; margin-bottom: 20px; }
+    .mfg { margin-bottom: 14px; }
+    .mfg label { display: block; font-size: 0.8rem; color: #999; margin-bottom: 5px; }
+    .mfg input, .mfg select {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 7px;
+      padding: 10px 14px;
+      color: #eee;
+      font-size: 0.88rem;
+      transition: border-color 0.2s;
+    }
+    .mfg input:focus, .mfg select:focus { outline: none; border-color: #C41818; }
+    .mfg input[dir="ltr"] { direction: ltr; }
+    .mfoot { display: flex; gap: 10px; margin-top: 20px; }
+    .bcnl {
+      flex: 1;
+      padding: 10px;
+      background: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      color: #888;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+    .bsave {
+      flex: 2;
+      padding: 10px;
+      background: #C41818;
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .bsave:hover { background: #a51414; }
+    .grade-qtns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .gqb {
+      padding: 6px 13px;
+      border-radius: 6px;
+      border: 1px solid #C41818;
+      background: rgba(196,24,24,0.1);
+      color: #ff8080;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.18s;
+    }
+    .gqb:hover, .gqb.on { background: #C41818; color: #fff; }
+
+    /* ── LOADER ── */
+    .loader {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .loader.on { display: flex; }
+    .spin {
+      width: 42px; height: 42px;
+      border: 3px solid #333;
+      border-top-color: #C41818;
+      border-radius: 50%;
+      animation: sp 0.8s linear infinite;
+    }
+    @keyframes sp { to { transform: rotate(360deg); } }
+    .loader p { color: #aaa; font-size: 0.88rem; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(90px);
+      background: #2d2d2d;
+      border: 1px solid #C41818;
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      z-index: 400;
+      transition: transform 0.28s ease;
+      white-space: nowrap;
+    }
+    .toast.on { transform: translateX(-50%) translateY(0); }
+
+    /* ── EMPTY STATES ── */
+    .empty { color: #666; font-size: 0.88rem; padding: 20px; text-align: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .stu-grid { grid-template-columns: 1fr; }
+      .stu-stats { grid-template-columns: repeat(3, 1fr); }
+      .login-card { padding: 30px 22px; }
+      .setup-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOADER ── -->
+<div class="loader" id="ldr"><div class="spin"></div><p id="ldr-msg">جاري التحميل...</p></div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════ VIEW: SETUP ════════════════════ -->
+<div class="view" id="v-setup">
+  <div class="setup-outer">
+    <div class="setup-card">
+      <div class="setup-logo">
+        <svg width="42" height="42" viewBox="0 0 52 52" fill="none">
+          <rect width="52" height="52" rx="10" fill="rgba(255,255,255,0.06)"/>
+          <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818"/>
+          <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+          <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+          <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="brand">Square <span>Training</span> Center</div>
+      </div>
+      <h2>🔧 إعداد قاعدة البيانات</h2>
+      <p class="sub">هذا التطبيق يحتاج Firebase لحفظ البيانات على السحابة حتى يعمل مع الطلاب من أي جهاز. اتبع الخطوات التالية مرة واحدة فقط:</p>
+      <ol class="steps">
+        <li>اذهب إلى <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> وسجل دخول بحساب Google</li>
+        <li>اضغط <strong>Create a project</strong> (اختر اسم أي اسم) وانتظر حتى ينتهي الإنشاء</li>
+        <li>من داخل المشروع اضغط على أيقونة <strong>&lt;/&gt;</strong> (Web app) وسجل التطبيق</li>
+        <li>انسخ كامل كود <strong>firebaseConfig</strong> الذي يظهر لك</li>
+        <li>من القائمة الجانبية: <strong>Build → Firestore Database → Create database → Start in test mode</strong></li>
+        <li>عد هنا، الصق الكود في الحقل أدناه واضغط حفظ</li>
+      </ol>
+      <div class="fg">
+        <label>Firebase Config (الصق كود الـ JSON أو JS كاملاً)</label>
+        <textarea id="fbc" placeholder='{
+  "apiKey": "AIza...",
+  "authDomain": "my-project.firebaseapp.com",
+  "projectId": "my-project",
+  "storageBucket": "my-project.appspot.com",
+  "messagingSenderId": "123456789",
+  "appId": "1:123456789:web:abc123"
+}'></textarea>
+      </div>
+      <div class="fg">
+        <label>كلمة مرور المعلم</label>
+        <input type="password" id="tinit" placeholder="اختر كلمة مرور للمعلم (4 أحرف على الأقل)..." style="direction:rtl; font-family:inherit;">
+      </div>
+      <button class="btn-primary" onclick="doSetup()">💾 حفظ وبدء النظام</button>
+      <div class="err" id="setup-err"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ VIEW: LOGIN ════════════════════ -->
+<div class="view" id="v-login">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg width="58" height="58" viewBox="0 0 52 52" fill="none">
+          <rect width="52" height="52" rx="10" fill="rgba(255,255,255,0.04)"/>
+          <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818"/>
+          <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+          <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+          <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <h2>Square Training Center</h2>
+      <p class="sub">نظام متابعة المهام التدريبية</p>
+      <div class="role-tabs">
+        <button class="rtab active" onclick="setRole('teacher')" id="rt-t">👨‍🏫 معلم</button>
+        <button class="rtab" onclick="setRole('student')" id="rt-s">👨‍🎓 طالب</button>
+      </div>
+      <div id="tf">
+        <input type="password" class="linput" id="tp" placeholder="كلمة مرور المعلم..." onkeydown="if(event.key==='Enter')doLoginT()">
+        <button class="btn-login" onclick="doLoginT()">دخول ←</button>
+      </div>
+      <div id="sf" style="display:none;">
+        <input type="text" class="linput" id="su" placeholder="اسم المستخدم..." onkeydown="if(event.key==='Enter')doLoginS()">
+        <input type="password" class="linput" id="sp" placeholder="كلمة المرور..." onkeydown="if(event.key==='Enter')doLoginS()">
+        <button class="btn-login" onclick="doLoginS()">دخول ←</button>
+      </div>
+      <div class="lerr" id="lerr"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ VIEW: TEACHER ════════════════════ -->
+<div class="view" id="v-teacher">
+  <div class="app-header">
+    <div class="logo-area">
+      <svg width="34" height="34" viewBox="0 0 52 52" fill="none">
+        <rect width="52" height="52" rx="10" fill="rgba(255,255,255,0.07)"/>
+        <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818"/>
+        <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+        <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+        <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <h1>Square <span>Training</span> Center</h1>
+    </div>
+    <span class="spacer"></span>
+    <span style="color:#777;font-size:0.82rem;margin-left:14px;">لوحة المعلم</span>
+    <button class="btn-logout" onclick="doLogout()">خروج</button>
+  </div>
+  <div class="dash">
+    <div class="stats-row" id="t-stats"></div>
+    <div class="section">
+      <div class="sec-head">
+        <div class="sec-title">👨‍🎓 الطلاب <em id="sc-badge"></em></div>
+        <button class="btn-add" onclick="openStuModal()">+ إضافة طالب</button>
+      </div>
+      <div class="stu-grid" id="stu-grid"></div>
+    </div>
+    <div class="section">
+      <div class="sec-head"><div class="sec-title">📬 آخر التسليمات</div></div>
+      <div class="sub-list" id="sub-list"></div>
+    </div>
+    <div class="section">
+      <div class="sec-head">
+        <div class="sec-title">📋 جميع المهام</div>
+        <button class="btn-add" onclick="openTaskModal()">+ إضافة مهمة</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>المهمة</th><th>الطالب</th><th>الموعد</th><th>الحالة</th><th>الدرجة</th><th>ملاحظات</th><th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-tb"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ VIEW: STUDENT ════════════════════ -->
+<div class="view" id="v-student">
+  <div class="app-header">
+    <div class="logo-area">
+      <svg width="34" height="34" viewBox="0 0 52 52" fill="none">
+        <rect width="52" height="52" rx="10" fill="rgba(255,255,255,0.07)"/>
+        <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818"/>
+        <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+        <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+        <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <h1>Square <span>Training</span> Center</h1>
+    </div>
+    <span class="spacer"></span>
+    <span style="color:#888;font-size:0.84rem;margin-left:14px;" id="s-hname"></span>
+    <button class="btn-logout" onclick="doLogout()">خروج</button>
+  </div>
+  <div class="stu-dash">
+    <div class="welcome-banner">
+      <svg width="46" height="46" viewBox="0 0 52 52" fill="none">
+        <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="rgba(255,255,255,0.18)"/>
+        <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white"/>
+        <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white"/>
+        <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div>
+        <h2 id="s-wname">أهلاً!</h2>
+        <p>تابع مهامك وسلّم في الوقت المحدد 🎯</p>
+      </div>
+    </div>
+    <div class="stu-stats" id="s-stats"></div>
+    <div class="prog-card">
+      <div class="prog-head">
+        <span>التقدم العام</span>
+        <strong id="s-pct">0%</strong>
+      </div>
+      <div class="prog-bg"><div class="prog-fill" id="s-pbar" style="width:0%"></div></div>
+    </div>
+    <div class="tcards" id="s-tcards"></div>
+  </div>
+</div>
+
+<!-- ════════ MODAL: STUDENT ════════ -->
+<div class="mover" id="m-stu">
+  <div class="modal">
+    <h3 id="ms-title">إضافة طالب جديد</h3>
+    <input type="hidden" id="ms-id">
+    <div class="mfg"><label>الاسم الكامل</label><input type="text" id="ms-name" placeholder="مثال: أحمد محمد" style="direction:rtl;font-family:inherit;"></div>
+    <div class="mfg"><label>اسم المستخدم (للدخول)</label><input type="text" id="ms-uname" dir="ltr" placeholder="ahmed_m"></div>
+    <div class="mfg">
+      <label>كلمة المرور <small id="ms-ph" style="color:#666;">(اتركها فارغة للإبقاء على القديمة)</small></label>
+      <input type="password" id="ms-pass" dir="ltr" placeholder="...">
+    </div>
+    <div class="err" id="ms-err"></div>
+    <div class="mfoot">
+      <button class="bcnl" onclick="closeM('m-stu')">إلغاء</button>
+      <button class="bsave" onclick="saveStu()">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MODAL: TASK ════════ -->
+<div class="mover" id="m-task">
+  <div class="modal">
+    <h3 id="mt-title">إضافة مهمة جديدة</h3>
+    <input type="hidden" id="mt-id">
+    <div class="mfg"><label>اسم المهمة</label><input type="text" id="mt-name" placeholder="Assignment 1..." style="direction:rtl;font-family:inherit;"></div>
+    <div class="mfg">
+      <label>الطالب</label>
+      <select id="mt-stu"><option value="">اختر طالباً...</option></select>
+    </div>
+    <div class="mfg"><label>الموعد النهائي</label><input type="date" id="mt-dl" dir="ltr"></div>
+    <div class="mfg">
+      <label>الحالة</label>
+      <select id="mt-stat">
+        <option value="لسه">لسه</option>
+        <option value="شغال">شغال</option>
+        <option value="خلص">خلص</option>
+        <option value="متأخر">متأخر</option>
+      </select>
+    </div>
+    <div class="mfg"><label>الدرجة</label><input type="text" id="mt-grade" dir="ltr" placeholder="95/100"></div>
+    <div class="mfg"><label>ملاحظات للطالب</label><input type="text" id="mt-notes" placeholder="ملاحظات..." style="direction:rtl;font-family:inherit;"></div>
+    <div class="mfoot">
+      <button class="bcnl" onclick="closeM('m-task')">إلغاء</button>
+      <button class="bsave" onclick="saveTask()">حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MODAL: REVIEW ════════ -->
+<div class="mover" id="m-rev">
+  <div class="modal">
+    <h3>مراجعة التسليم</h3>
+    <input type="hidden" id="mr-id">
+    <div style="background:#1a1a1a;border-radius:8px;padding:14px;margin-bottom:16px;">
+      <div style="font-weight:700;" id="mr-tname"></div>
+      <div style="color:#888;font-size:0.8rem;margin-top:4px;" id="mr-tmeta"></div>
+    </div>
+    <div class="mfg">
+      <label>الدرجة السريعة</label>
+      <div class="grade-qtns">
+        <button class="gqb" onclick="qGrade('100/100')">100/100 ✨</button>
+        <button class="gqb" onclick="qGrade('95/100')">95/100</button>
+        <button class="gqb" onclick="qGrade('90/100')">90/100</button>
+        <button class="gqb" onclick="qGrade('85/100')">85/100</button>
+        <button class="gqb" onclick="qGrade('80/100')">80/100</button>
+      </div>
+      <input type="text" id="mr-grade" dir="ltr" placeholder="أو أدخل درجة مخصصة...">
+    </div>
+    <div class="mfg"><label>تعليق للطالب</label><input type="text" id="mr-fb" placeholder="شغل كويس! / راجع الجزء الثاني..." style="direction:rtl;font-family:inherit;"></div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#999;font-size:0.86rem;margin-top:10px;">
+      <input type="checkbox" id="mr-done" style="width:16px;height:16px;accent-color:#C41818;">
+      تحديد كمراجَع ✓
+    </label>
+    <div class="mfoot">
+      <button class="bcnl" onclick="closeM('m-rev')">إلغاء</button>
+      <button class="bsave" onclick="saveReview()">حفظ المراجعة</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import {
+    getFirestore, doc, getDoc, setDoc, collection,
+    getDocs, addDoc, updateDoc, deleteDoc
+  } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+  // ══════════════════════════════════════════════════════
+  //  GLOBALS
+  // ══════════════════════════════════════════════════════
+  let db = null;
+  let role = 'teacher';
+  let activeStu = null;   // { id, name, username }
+  let students  = [];
+  let tasks     = [];
+
+  // ══════════════════════════════════════════════════════
+  //  HELPERS
+  // ══════════════════════════════════════════════════════
+  const g = id => document.getElementById(id);
+
+  function show(v) {
+    ['v-setup','v-login','v-teacher','v-student'].forEach(x => g(x).className = 'view');
+    g(v).className = 'view active';
+  }
+
+  function loader(on, msg = 'جاري التحميل...') {
+    g('ldr').className = 'loader' + (on ? ' on' : '');
+    g('ldr-msg').textContent = msg;
+  }
+
+  function toast(msg, ms = 3200) {
+    const t = g('toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    setTimeout(() => t.classList.remove('on'), ms);
+  }
+
+  async function sha(txt) {
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
+  }
+
+  function parseFB(raw) {
+    try { return JSON.parse(raw.trim()); } catch (_) {}
+    const m = raw.match(/\{[\s\S]*\}/);
+    if (m) { try { return Function('return ' + m[0].replace(/,(\s*[}\]])/g,'$1'))(); } catch(_){} }
+    return null;
+  }
+
+  function closeM(id) { g(id).className = 'mover'; }
+
+  // ══════════════════════════════════════════════════════
+  //  SETUP
+  // ══════════════════════════════════════════════════════
+  window.doSetup = async () => {
+    const raw  = g('fbc').value.trim();
+    const pass = g('tinit').value.trim();
+    const err  = g('setup-err');
+    err.textContent = '';
+
+    if (!raw) { err.textContent = 'يرجى إدخال Firebase Config'; return; }
+    if (!pass || pass.length < 4) { err.textContent = 'كلمة المرور يجب أن تكون 4 أحرف على الأقل'; return; }
+
+    const cfg = parseFB(raw);
+    if (!cfg?.apiKey || !cfg?.projectId) { err.textContent = 'البيانات غير صحيحة — تأكد من النسخ الكامل'; return; }
+
+    loader(true, 'جاري الاتصال بـ Firebase...');
+    try {
+      const app = initializeApp(cfg, 'sq');
+      db = getFirestore(app);
+      const hash = await sha(pass);
+      await setDoc(doc(db, 'config', 'app'), { teacherPasswordHash: hash, initialized: true, createdAt: new Date().toISOString() });
+      localStorage.setItem('sq_fb', JSON.stringify(cfg));
+      loader(false);
+      toast('تم الإعداد بنجاح! 🎉');
+      show('v-login');
+    } catch (e) {
+      loader(false);
+      err.textContent = 'فشل الاتصال: ' + (e.message || e);
+    }
+  };
+
+  // ══════════════════════════════════════════════════════
+  //  BOOT
+  // ══════════════════════════════════════════════════════
+  async function boot() {
+    const saved = localStorage.getItem('sq_fb');
+    if (!saved) { show('v-setup'); return; }
+    loader(true, 'جاري الاتصال...');
+    try {
+      const app = initializeApp(JSON.parse(saved), 'sq');
+      db = getFirestore(app);
+      await getDoc(doc(db, 'config', 'app'));  // test connection
+      loader(false);
+      show('v-login');
+    } catch (_) {
+      loader(false);
+      localStorage.removeItem('sq_fb');
+      show('v-setup');
+    }
+  }
+
+  // ══════════════════════════════════════════════════════
+  //  AUTH
+  // ══════════════════════════════════════════════════════
+  window.setRole = r => {
+    role = r;
+    g('rt-t').className = 'rtab' + (r === 'teacher' ? ' active' : '');
+    g('rt-s').className = 'rtab' + (r === 'student' ? ' active' : '');
+    g('tf').style.display = r === 'teacher' ? 'block' : 'none';
+    g('sf').style.display = r === 'student'  ? 'block' : 'none';
+    g('lerr').textContent = '';
+  };
+
+  window.doLoginT = async () => {
+    const pass = g('tp').value;
+    if (!pass) { g('lerr').textContent = 'أدخل كلمة المرور'; return; }
+    loader(true, 'جاري التحقق...');
+    try {
+      const snap = await getDoc(doc(db, 'config', 'app'));
+      const hash = await sha(pass);
+      if (hash !== snap.data()?.teacherPasswordHash) {
+        loader(false); g('lerr').textContent = 'كلمة مرور خاطئة'; return;
+      }
+      loader(false);
+      await renderTeacher();
+      show('v-teacher');
+    } catch (e) { loader(false); g('lerr').textContent = 'خطأ: ' + e.message; }
+  };
+
+  window.doLoginS = async () => {
+    const uname = g('su').value.trim();
+    const pass  = g('sp').value;
+    if (!uname || !pass) { g('lerr').textContent = 'أدخل اسم المستخدم وكلمة المرور'; return; }
+    loader(true, 'جاري التحقق...');
+    try {
+      const snap = await getDocs(collection(db, 'students'));
+      const hash = await sha(pass);
+      let found = null;
+      snap.forEach(d => { const s = d.data(); if (s.username === uname && s.passwordHash === hash) found = { id: d.id, ...s }; });
+      if (!found) { loader(false); g('lerr').textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة'; return; }
+      activeStu = found;
+      loader(false);
+      await renderStudent(found);
+      show('v-student');
+    } catch (e) { loader(false); g('lerr').textContent = 'خطأ: ' + e.message; }
+  };
+
+  window.doLogout = () => {
+    activeStu = null;
+    g('tp').value = ''; g('su').value = ''; g('sp').value = '';
+    g('lerr').textContent = '';
+    show('v-login');
+  };
+
+  // ══════════════════════════════════════════════════════
+  //  LOAD DATA
+  // ══════════════════════════════════════════════════════
+  async function loadAll() {
+    const [ss, ts] = await Promise.all([getDocs(collection(db,'students')), getDocs(collection(db,'tasks'))]);
+    students = []; ss.forEach(d => students.push({ id: d.id, ...d.data() }));
+    students.sort((a,b) => a.name.localeCompare(b.name,'ar'));
+    tasks = []; ts.forEach(d => tasks.push({ id: d.id, ...d.data() }));
+    tasks.sort((a,b) => new Date(b.createdAt||0) - new Date(a.createdAt||0));
+  }
+
+  // ══════════════════════════════════════════════════════
+  //  TEACHER DASHBOARD
+  // ══════════════════════════════════════════════════════
+  async function renderTeacher() {
+    loader(true, 'جاري تحميل البيانات...');
+    await loadAll();
+    loader(false);
+
+    // ── Stats
+    const total = tasks.length, done = tasks.filter(t=>t.status==='خلص').length,
+          late  = tasks.filter(t=>t.status==='متأخر').length,
+          wip   = tasks.filter(t=>t.status==='شغال').length,
+          pend  = tasks.filter(t=>t.status==='لسه').length;
+
+    g('t-stats').innerHTML = `
+      <div class="scard"><div class="val">${students.length}</div><div class="lbl">الطلاب</div></div>
+      <div class="scard"><div class="val">${total}</div><div class="lbl">إجمالي المهام</div></div>
+      <div class="scard"><div class="val" style="color:#22c55e">${done}</div><div class="lbl">مكتملة</div></div>
+      <div class="scard"><div class="val" style="color:#fbbf24">${wip}</div><div class="lbl">جارية</div></div>
+      <div class="scard"><div class="val">${pend}</div><div class="lbl">لم تبدأ</div></div>
+      <div class="scard"><div class="val" style="color:#ff6b6b">${late}</div><div class="lbl">متأخرة</div></div>`;
+
+    // ── Students grid
+    g('sc-badge').textContent = `(${students.length})`;
+    g('stu-grid').innerHTML = students.length ? students.map(s => {
+      const st = tasks.filter(t => t.studentId === s.id);
+      const dn = st.filter(t => t.status === 'خلص').length;
+      const pct = st.length ? Math.round(dn/st.length*100) : 0;
+      return `
+        <div class="stucard">
+          <div class="sname">${s.name}</div>
+          <div class="suname">@${s.username}</div>
+          <div class="pbar-bg"><div class="pbar-fill" style="width:${pct}%"></div></div>
+          <div class="spct">${dn}/${st.length} مكتملة (${pct}%)</div>
+          <div class="sacts">
+            <button class="bsm edit" onclick="openStuModal('${s.id}')">تعديل</button>
+            <button class="bsm del" onclick="delStu('${s.id}')">حذف</button>
+          </div>
+        </div>`;
+    }).join('') : '<p class="empty">لا يوجد طلاب بعد. أضف أول طالب للبدء.</p>';
+
+    // ── Submissions
+    const subs = tasks.filter(t => t.status==='خلص' && t.completedAt)
+      .sort((a,b) => new Date(b.completedAt)-new Date(a.completedAt)).slice(0,12);
+    g('sub-list').innerHTML = subs.length ? subs.map(t => {
+      const s = students.find(s => s.id === t.studentId);
+      const nm = s ? s.name : t.studentName || '—';
+      const dt = t.completedAt ? new Date(t.completedAt).toLocaleDateString('ar-EG') : '';
+      return `
+        <div class="sub-row ${t.reviewed?'rev':'unrev'}">
+          <div class="sub-dot" style="background:${t.reviewed?'#22c55e':'#C41818'}"></div>
+          <div class="sub-info">
+            <div class="stask">${t.name}</div>
+            <div class="smeta">${nm} • سُلِّمت ${dt}${t.grade?' • '+t.grade:''}</div>
+          </div>
+          ${t.reviewed
+            ? `<button class="btn-revd" onclick="openRev('${t.id}')">✓ مراجَع</button>`
+            : `<button class="btn-rev"  onclick="openRev('${t.id}')">مراجعة</button>`}
+        </div>`;
+    }).join('') : '<p class="empty">لا توجد تسليمات بعد.</p>';
+
+    // ── Tasks table
+    g('tasks-tb').innerHTML = tasks.length ? tasks.map(t => {
+      const s = students.find(s => s.id === t.studentId);
+      const nm = s ? s.name : t.studentName || '—';
+      return `
+        <tr>
+          <td>${t.name}</td>
+          <td>${nm}</td>
+          <td style="direction:ltr;text-align:right;">${t.deadline||'—'}</td>
+          <td><span class="badge b-${t.status}">${t.status}</span></td>
+          <td>${t.grade||'—'}</td>
+          <td>${t.notes||'—'}</td>
+          <td><div class="acts">
+            <button class="bsm edit" onclick="openTaskModal('${t.id}')">تعديل</button>
+            <button class="bsm del"  onclick="delTask('${t.id}')">حذف</button>
+          </div></td>
+        </tr>`;
+    }).join('') : '<tr><td colspan="7" class="empty">لا توجد مهام بعد.</td></tr>';
+  }
+
+  // ══════════════════════════════════════════════════════
+  //  STUDENT MODAL
+  // ══════════════════════════════════════════════════════
+  window.openStuModal = id => {
+    const s = id ? students.find(x => x.id === id) : null;
+    g('ms-title').textContent = s ? 'تعديل بيانات الطالب' : 'إضافة طالب جديد';
+    g('ms-id').value    = id || '';
+    g('ms-name').value  = s?.name     || '';
+    g('ms-uname').value = s?.username || '';
+    g('ms-pass').value  = '';
+    g('ms-ph').style.display = s ? 'inline' : 'none';
+    g('ms-err').textContent  = '';
+    g('m-stu').className = 'mover open';
+  };
+
+  window.saveStu = async () => {
+    const name  = g('ms-name').value.trim();
+    const uname = g('ms-uname').value.trim();
+    const pass  = g('ms-pass').value;
+    const editId = g('ms-id').value;
+    const err   = g('ms-err');
+
+    if (!name)  { err.textContent = 'أدخل الاسم الكامل'; return; }
+    if (!uname) { err.textContent = 'أدخل اسم المستخدم'; return; }
+    if (!editId && !pass) { err.textContent = 'أدخل كلمة المرور للطالب الجديد'; return; }
+    if (students.find(s => s.username === uname && s.id !== editId)) {
+      err.textContent = 'اسم المستخدم مأخوذ بالفعل'; return;
+    }
+
+    loader(true, 'جاري الحفظ...');
+    try {
+      if (editId) {
+        const upd = { name, username: uname, updatedAt: new Date().toISOString() };
+        if (pass) upd.passwordHash = await sha(pass);
+        await updateDoc(doc(db, 'students', editId), upd);
+        toast('تم تحديث بيانات الطالب ✓');
+      } else {
+        await addDoc(collection(db, 'students'), {
+          name, username: uname, passwordHash: await sha(pass), createdAt: new Date().toISOString()
+        });
+        toast('تم إضافة الطالب ✓');
+      }
+      closeM('m-stu');
+      await renderTeacher();
+      loader(false);
+    } catch (e) { loader(false); err.textContent = 'خطأ: ' + e.message; }
+  };
+
+  window.delStu = async id => {
+    if (!confirm('هل تريد حذف هذا الطالب وجميع مهامه؟')) return;
+    loader(true, 'جاري الحذف...');
+    try {
+      await Promise.all(tasks.filter(t=>t.studentId===id).map(t => deleteDoc(doc(db,'tasks',t.id))));
+      await deleteDoc(doc(db, 'students', id));
+      toast('تم الحذف ✓');
+      await renderTeacher();
+      loader(false);
+    } catch (e) { loader(false); toast('خطأ: '+e.message); }
+  };
+
+  // ══════════════════════════════════════════════════════
+  //  TASK MODAL
+  // ══════════════════════════════════════════════════════
+  window.openTaskModal = id => {
+    const t = id ? tasks.find(x => x.id === id) : null;
+    g('mt-title').textContent = t ? 'تعديل المهمة' : 'إضافة مهمة جديدة';
+    g('mt-id').value    = id || '';
+    g('mt-name').value  = t?.name     || '';
+    g('mt-dl').value    = t?.deadline || '';
+    g('mt-stat').value  = t?.status   || 'لسه';
+    g('mt-grade').value = t?.grade    || '';
+    g('mt-notes').value = t?.notes    || '';
+    g('mt-stu').innerHTML = '<option value="">اختر طالباً...</option>' +
+      students.map(s => `<option value="${s.id}"${s.id===t?.studentId?' selected':''}>${s.name}</option>`).join('');
+    g('m-task').className = 'mover open';
+  };
+
+  window.saveTask = async () => {
+    const name = g('mt-name').value.trim(), stuId = g('mt-stu').value,
+          dl   = g('mt-dl').value, stat = g('mt-stat').value,
+          gr   = g('mt-grade').value.trim(), nt = g('mt-notes').value.trim(),
+          editId = g('mt-id').value;
+
+    if (!name)  { toast('أدخل اسم المهمة'); return; }
+    if (!stuId) { toast('اختر طالباً'); return; }
+
+    const stu = students.find(s => s.id === stuId);
+    loader(true, 'جاري الحفظ...');
+    try {
+      if (editId) {
+        const ex = tasks.find(t => t.id === editId);
+        const completedAt = (stat==='خلص' && ex?.status!=='خلص') ? new Date().toISOString() : (ex?.completedAt||null);
+        await updateDoc(doc(db,'tasks',editId), { name, studentId: stuId, studentName: stu?.name||'', deadline: dl, status: stat, grade: gr, notes: nt, completedAt, updatedAt: new Date().toISOString() });
+        toast('تم تحديث المهمة ✓');
+      } else {
+        await addDoc(collection(db,'tasks'), {
+          name, studentId: stuId, studentName: stu?.name||'', deadline: dl,
+          status: stat, grade: gr, notes: nt,
+          completedAt: stat==='خلص' ? new Date().toISOString() : null,
+          reviewed: false, feedback: '', createdAt: new Date().toISOString()
+        });
+        toast('تم إضافة المهمة ✓');
+      }
+      closeM('m-task');
+      await renderTeacher();
+      loader(false);
+    } catch (e) { loader(false); toast('خطأ: '+e.message); }
+  };
+
+  window.delTask = async id => {
+    if (!confirm('هل تريد حذف هذه المهمة؟')) return;
+    loader(true);
+    try {
+      await deleteDoc(doc(db,'tasks',id));
+      toast('تم الحذف ✓');
+      await renderTeacher();
+      loader(false);
+    } catch (e) { loader(false); toast('خطأ: '+e.message); }
+  };
+
+  // ══════════════════════════════════════════════════════
+  //  REVIEW MODAL
+  // ══════════════════════════════════════════════════════
+  window.openRev = id => {
+    const t = tasks.find(x => x.id === id); if (!t) return;
+    const s = students.find(x => x.id === t.studentId);
+    g('mr-id').value = id;
+    g('mr-tname').textContent = t.name;
+    g('mr-tmeta').textContent = (s?.name||'') + (t.completedAt ? ' • سُلِّمت '+new Date(t.completedAt).toLocaleDateString('ar-EG') : '');
+    g('mr-grade').value = t.grade   || '';
+    g('mr-fb').value    = t.feedback|| '';
+    g('mr-done').checked = !!t.reviewed;
+    document.querySelectorAll('.gqb').forEach(b => b.classList.toggle('on', b.textContent.startsWith(t.grade||'__')));
+    g('m-rev').className = 'mover open';
+  };
+
+  window.qGrade = gr => {
+    g('mr-grade').value = gr;
+    document.querySelectorAll('.gqb').forEach(b => b.classList.toggle('on', b.textContent.startsWith(gr)));
+  };
+
+  window.saveReview = async () => {
+    const id = g('mr-id').value, gr = g('mr-grade').value.trim(),
+          fb = g('mr-fb').value.trim(), done = g('mr-done').checked;
+    loader(true, 'جاري الحفظ...');
+    try {
+      await updateDoc(doc(db,'tasks',id), { grade: gr, feedback: fb, reviewed: done });
+      toast('تم حفظ المراجعة ✓');
+      closeM('m-rev');
+      await renderTeacher();
+      loader(false);
+    } catch (e) { loader(false); toast('خطأ: '+e.message); }
+  };
+
+  // close modals on overlay click
+  document.querySelectorAll('.mover').forEach(m => m.addEventListener('click', e => { if (e.target===m) m.className='mover'; }));
+  document.addEventListener('keydown', e => { if (e.key==='Escape') document.querySelectorAll('.mover.open').forEach(m => m.className='mover'); });
+
+  // ══════════════════════════════════════════════════════
+  //  STUDENT DASHBOARD
+  // ══════════════════════════════════════════════════════
+  async function renderStudent(stu) {
+    loader(true, 'جاري تحميل مهامك...');
+    const snap = await getDocs(collection(db,'tasks'));
+    const myTasks = [];
+    snap.forEach(d => { const t={id:d.id,...d.data()}; if(t.studentId===stu.id) myTasks.push(t); });
+    loader(false);
+
+    window._sTasks = myTasks;
+    window._sStu   = stu;
+
+    g('s-hname').textContent = stu.name;
+    g('s-wname').textContent = `أهلاً، ${stu.name}! 👋`;
+
+    const tot = myTasks.length, dn = myTasks.filter(t=>t.status==='خلص').length, rm = tot - dn;
+    const pct = tot ? Math.round(dn/tot*100) : 0;
+
+    g('s-stats').innerHTML = `
+      <div class="ststat"><div class="v">${tot}</div><div class="l">إجمالي</div></div>
+      <div class="ststat"><div class="v" style="color:#22c55e">${dn}</div><div class="l">مكتملة</div></div>
+      <div class="ststat"><div class="v">${rm}</div><div class="l">متبقية</div></div>`;
+
+    g('s-pct').textContent = pct + '%';
+    g('s-pbar').style.width = pct + '%';
+
+    const ord = { 'متأخر':0,'لسه':1,'شغال':2,'خلص':3 };
+    myTasks.sort((a,b) => (ord[a.status]??1)-(ord[b.status]??1));
+
+    g('s-tcards').innerHTML = myTasks.length ? myTasks.map(t => {
+      const late = t.status!=='خلص' && t.deadline && new Date(t.deadline)<new Date();
+      const ds   = late ? 'متأخر' : t.status;
+      return `
+        <div class="tcard s-${ds}" id="tc-${t.id}">
+          <div class="tcard-head">
+            <div class="tname">${t.name}</div>
+            <div class="tdate">${t.deadline?'📅 '+t.deadline:''}</div>
+          </div>
+          ${t.notes    ? `<div class="tnotes">📝 ${t.notes}</div>`      : ''}
+          ${t.feedback ? `<div class="tfeedback">💬 ${t.feedback}</div>`: ''}
+          ${t.grade    ? `<div class="tgrade">⭐ الدرجة: <strong>${t.grade}</strong></div>` : ''}
+          <div class="sbts">
+            ${['لسه','شغال','خلص'].map(s=>`
+              <button class="sbt sbt-${s}${t.status===s?' on':''}" onclick="updStatus('${t.id}','${s}')">
+                ${s==='لسه'?'⏳ لسه':s==='شغال'?'🔨 شغال':'✅ خلص'}
+              </button>`).join('')}
+          </div>
+        </div>`;
+    }).join('') : '<p class="empty" style="padding:30px 0;">لا توجد مهام مضافة لك بعد.</p>';
+  }
+
+  window.updStatus = async (taskId, ns) => {
+    const t = (window._sTasks||[]).find(x=>x.id===taskId); if(!t) return;
+    // optimistic UI
+    const card = g('tc-'+taskId);
+    if (card) {
+      card.className = `tcard s-${ns}`;
+      card.querySelectorAll('.sbt').forEach(b => { const s=b.className.match(/sbt-(\S+)/)?.[1]; b.classList.toggle('on',s===ns); });
+    }
+    try {
+      const completedAt = (ns==='خلص'&&t.status!=='خلص') ? new Date().toISOString() : (t.completedAt||null);
+      await updateDoc(doc(db,'tasks',taskId), { status:ns, completedAt, updatedAt:new Date().toISOString() });
+      t.status = ns; t.completedAt = completedAt;
+      toast(ns==='خلص'?'🎉 أحسنت! تم تسليم المهمة!':'تم تحديث الحالة ✓');
+      await renderStudent(window._sStu);
+    } catch (e) { toast('خطأ: '+e.message); }
+  };
+
+  // ══════════════════════════════════════════════════════
+  //  EXPOSE to window
+  // ══════════════════════════════════════════════════════
+  window.closeM = closeM;
+
+  // ══════════════════════════════════════════════════════
+  //  START
+  // ══════════════════════════════════════════════════════
+  boot();
+</script>
+</body>
+</html>
