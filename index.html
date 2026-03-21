@@ -1968,8 +1968,8 @@
             <div style="margin-bottom:12px;">
               <div class="sbts">
                 ${['لسه','شغال','خلص'].map(s=>`
-                  <button class="sbt sbt-${s}${t.status===s?' on':''}" onclick="updStatus('${t.id}','${s}')">
-                    ${s==='لسه'?'⏳ لسه':s==='شغال'?'🔨 شغال':'✅ خلص'}
+                  <button class="sbt sbt-${s}${t.status===s?' on':''}" onclick="updStatus('${t.id}','${s}')" ${t.status==='خلص' && t.reviewed && s!=='خلص' ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>
+                    ${s==='خلص' ? (t.status==='خلص' ? (t.reviewed ? '✅ تمت المراجعة' : '⏳ بانتظار التقييم') : '✅ خلص/أنهيت') : (s==='لسه'?'⏳ لسه':'🔨 شغال')}
                   </button>`).join('')}
               </div>
             </div>
