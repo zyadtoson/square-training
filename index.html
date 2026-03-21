@@ -16,7 +16,89 @@
     }
     .view { display: none; min-height: 100vh; }
     .view.active { display: block; }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fade 0.3s; }
+    @keyframes fade { from {opacity:0} to {opacity:1} }
 
+    /* ── LAYOUT ── */
+    .app-layout {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 250px;
+      background: #1a1a1a;
+      border-left: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .sidebar-brand {
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid #333;
+      margin-bottom: 10px;
+    }
+    .sidebar-brand h1 { font-size: 1.1rem; color: #fff; font-weight: 700; margin:0; }
+    .sidebar-brand h1 span { color: #C41818; }
+    .sidebar-nav {
+      padding: 16px 10px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #aaa;
+      transition: 0.2s;
+      gap: 12px;
+      font-size: 1rem;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: #2d2d2d;
+      color: #fff;
+    }
+    .nav-item.active {
+      border-right: 4px solid #C41818;
+      background: rgba(196,24,24,0.1);
+    }
+    .n-icon { font-size: 1.2rem; }
+    .n-text { flex: 1; }
+    .badge {
+       background: #C41818;
+       color: #fff;
+       border-radius: 20px;
+       padding: 2px 8px;
+       font-size: 0.8rem;
+       font-weight: bold;
+    }
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: #121212;
+    }
+    .topbar {
+      height: 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      background: #141414;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
     /* ── HEADER ── */
     .app-header {
       background: #1a1a1a;
@@ -530,6 +612,11 @@
       .login-card { padding: 30px 22px; }
       .setup-card { padding: 24px 18px; }
     }
+    .s-lb { background: transparent; padding: 0; }
+    .lb-itm { display: flex; align-items: center; gap: 14px; padding: 16px; border-bottom: 1px solid #2d2d2d; background:#1a1a1a; margin-bottom:8px; border-radius:12px; }
+    .lb-idx { font-size: 1.4rem; font-weight: bold; color: #666; width: 40px; text-align: center; }
+    .lb-name { flex: 1; font-weight: bold; font-size: 1.15rem; color:#fff; }
+    .lb-pts { font-weight: bold; color: #fbbf24; font-size: 1.15rem; }
   </style>
 </head>
 <body>
