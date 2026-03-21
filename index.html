@@ -780,7 +780,7 @@
           <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom:30px; align-items:start;">
             
             <!-- REVIEWS (MOST IMPORTANT) -->
-            <div id="reviews-section" class="section" style="flex:1.5; min-width:320px; background:#141414; padding:24px; border-radius:14px; border:1px solid #333; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+            <div id="reviews-section" class="section" style="flex:1.5; min-width:400px; background:#141414; padding:24px; border-radius:14px; border:1px solid #333; margin-bottom:0; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
               <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
                 <div class="sec-title" style="font-size:1.25rem; font-weight:800; display:flex; align-items:center; gap:8px;">
                   📬 تسليمات بانتظار المراجعة
@@ -795,29 +795,25 @@
                     <option value="all">الكل</option>
                  </select>
               </div>
-              <div class="sub-list" id="sub-list" style="display:flex; flex-direction:column; gap:12px; max-height: 600px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
+              <div class="sub-list" id="sub-list" style="display:flex; flex-direction:column; gap:12px; max-height: 480px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
             </div>
 
-            <!-- SECONDARY COLUMN -->
-            <div style="flex:1; min-width:300px; display:flex; flex-direction:column; gap:24px;">
-              
-              <!-- LATEST TASKS -->
-              <div class="section" style="background:#141414; padding:24px; border-radius:14px; border:1px solid #333; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
-                <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
-                  <div class="sec-title" style="font-size:1.15rem; font-weight:800;">📋 أحدث المهام المُضافة</div>
-                </div>
-                <div class="sub-list" id="dash-tasks-list" style="display:flex; flex-direction:column; gap:12px; max-height: 380px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
+            <!-- LATEST TASKS -->
+            <div class="section" style="flex:1; min-width:320px; margin-bottom:0; background:#141414; padding:24px; border-radius:14px; border:1px solid #333; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+              <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
+                <div class="sec-title" style="font-size:1.15rem; font-weight:800;">📋 أحدث المهام المُضافة</div>
               </div>
-
-              <!-- ACTIVITY FEED -->
-              <div class="section" style="background:#141414; padding:24px; border-radius:14px; border:1px solid #333; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
-                <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
-                  <div class="sec-title" style="font-size:1.15rem; font-weight:800;">⚡ أحدث التفاعلات</div>
-                </div>
-                <div id="activity-feed" style="display:flex; flex-direction:column; gap:12px; max-height: 380px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
-              </div>
-
+              <div class="sub-list" id="dash-tasks-list" style="display:flex; flex-direction:column; gap:12px; max-height: 480px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
             </div>
+
+            <!-- ACTIVITY FEED -->
+            <div class="section" style="flex:1; min-width:320px; margin-bottom:0; background:#141414; padding:24px; border-radius:14px; border:1px solid #333; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+              <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
+                <div class="sec-title" style="font-size:1.15rem; font-weight:800;">⚡ أحدث التفاعلات</div>
+              </div>
+              <div id="activity-feed" style="display:flex; flex-direction:column; gap:12px; max-height: 480px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
+            </div>
+
           </div>
         </div>
         <!-- ── TAB: STUDENTS ── -->
