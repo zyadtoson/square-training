@@ -806,7 +806,7 @@
                 <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
                   <div class="sec-title" style="font-size:1.15rem; font-weight:800;">📋 أحدث المهام المُضافة</div>
                 </div>
-                <div class="sub-list" id="dash-tasks-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+                <div class="sub-list" id="dash-tasks-list" style="display:flex; flex-direction:column; gap:12px; max-height: 380px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
               </div>
 
               <!-- ACTIVITY FEED -->
@@ -814,7 +814,7 @@
                 <div class="sec-head" style="margin-bottom:20px; border-bottom:1px solid #222; padding-bottom:12px;">
                   <div class="sec-title" style="font-size:1.15rem; font-weight:800;">⚡ أحدث التفاعلات</div>
                 </div>
-                <div id="activity-feed" style="display:flex; flex-direction:column; gap:12px;"></div>
+                <div id="activity-feed" style="display:flex; flex-direction:column; gap:12px; max-height: 380px; overflow-y: auto; padding-left:8px; scrollbar-width:thin; scrollbar-color:#333 transparent;"></div>
               </div>
 
             </div>
@@ -1337,12 +1337,12 @@
     g('dash-tasks-list').innerHTML = recentTasksMerged.length ? recentTasksMerged.map(t => {
       const dt = t.createdAt ? new Date(t.createdAt).toLocaleDateString('ar-EG') : (t.deadline||'—') ;
       return `
-        <div style="background:#1a1a1a; border:1px solid #2d2d2d; border-radius:10px; padding:14px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:#1a1a1a; border:1px solid #2d2d2d; border-radius:10px; padding:14px; display:flex; gap:12px; justify-content:space-between; align-items:center;">
           <div style="display:flex; flex-direction:column; gap:6px;">
             <div style="font-size:0.95rem; font-weight:700; color:#fff;">${t.name}</div>
             <div style="font-size:0.8rem; color:#888;">المجموعة: <span style="background:#2d2d2d; padding:2px 6px; border-radius:4px; color:#ddd; font-weight:bold;">${t.groupName||'عامة'}</span> • اُضيفت: ${dt}</div>
           </div>
-          <div>
+          <div style="flex-shrink: 0;">
              <button class="bsm" style="background:#2d2d2d; color:#eee; border:1px solid #444; padding:8px 12px; border-radius:6px; font-size:0.85rem;" onclick="openTaskPage('${btoa(unescape(encodeURIComponent((t.groupName||'عامة')+'|||'+t.name)))}')">عرض وإدارة</button>
           </div>
         </div>`;
