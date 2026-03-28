@@ -6002,6 +6002,7 @@
         const allStudents = [];
         const ssSnap = await getDocs(collection(db, "students"));
         ssSnap.forEach((d) => allStudents.push({ id: d.id, ...d.data() }));
+        students = allStudents;
 
         // We already have all tasks from db from Teacher side if needed, but wait: student fetch only gets ALL tasks in snapshot
         const tsSnap = snap;
