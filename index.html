@@ -142,54 +142,11 @@
         position: relative;
       }
 
-      /* Navigation Toggle Styles */
-      .hamburger {
+      /* ── MOBILE BOTTOM NAV ── */
+      .mob-bottom-nav {
         display: none;
-        background: transparent;
-        border: none;
-        color: #fff;
-        font-size: 1.6rem;
-        cursor: pointer;
-        padding: 4px;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        line-height:1;
-        margin-left: 8px;
-      }
-      .sidebar-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.6);
-        backdrop-filter: blur(6px);
-        z-index: 98;
-        display: none;
-      }
-      .sidebar-overlay.active {
-        display: block;
       }
 
-      @media (max-width: 768px) {
-        .hamburger { display: flex; }
-        .sidebar {
-          position: fixed !important;
-          top: 0;
-          right: -280px !important; /* RIGHT for RTL */
-          width: 280px !important;
-          height: 100vh !important;
-          z-index: 99;
-          transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: -10px 0 30px rgba(0,0,0,0.6);
-          border-left: 1px solid #333 !important;
-          background: #1a1a1a !important;
-          padding: 0 !important;
-          display: flex !important;
-          flex-direction: column !important;
-        }
-        .sidebar.active {
-          right: 0 !important;
-        }
-      }
       @keyframes badgePulse {
         0%, 100% {
           transform: scale(1);
@@ -1232,61 +1189,130 @@
         text-align: center;
       }
 
-      /* ── RESPONSIVE ── MOBILE FIRST ── */
+      /* ── RESPONSIVE ── MOBILE BOTTOM NAV ── */
       @media (max-width: 768px) {
-        /* LAYOUT (RE-FIXED FOR DRAWER) */
+        /* Hide sidebar completely on mobile */
+        .sidebar {
+          display: none !important;
+        }
+        .sidebar-overlay {
+          display: none !important;
+        }
+        .hamburger {
+          display: none !important;
+        }
+
+        /* Layout resets */
         .app-layout {
+          flex-direction: column;
           position: relative;
         }
-        .sidebar-brand {
-          display: flex;
-        }
-        .sidebar-nav {
-          display: block;
-          padding: 16px 12px;
-          flex-direction: column;
-          overflow-x: hidden;
-          overflow-y: auto;
-        }
-        .nav-item {
+        .main-area {
+          flex: 1;
           width: 100%;
-          margin-bottom: 8px;
-          border-bottom: none;
-          margin-right: 0;
-          padding: 14px 18px;
-          display: flex;
+          overflow-y: auto;
+          /* Space for fixed topbar + bottom nav */
+          padding-top: 56px !important;
+          padding-bottom: 70px !important;
         }
-        .nav-item.active {
-          border-right: 4px solid #c41818;
-          border-bottom: none;
-          background: rgba(196, 24, 24, 0.1);
+        .dash {
+          padding: 16px 12px !important;
         }
-        .n-text {
-          font-size: 0.85rem;
-        }
-        /* TOPBAR (FIXED FOR STABILITY) */
+
+        /* Topbar: fixed at top */
         .topbar {
           position: fixed !important;
           top: 0 !important;
           right: 0 !important;
           left: 0 !important;
-          height: 55px !important;
-          z-index: 1000 !important;
-          background: #1a1a1a !important;
-          border-bottom: 2px solid #c41818 !important;
+          height: 56px !important;
+          z-index: 100 !important;
+          background: #141414 !important;
+          border-bottom: 1px solid #333 !important;
           padding: 0 16px !important;
           display: flex !important;
           align-items: center !important;
-          gap: 12px !important;
+          justify-content: space-between !important;
         }
-        .main-area {
+
+        /* Bottom nav */
+        .mob-bottom-nav {
+          display: flex !important;
+          position: fixed !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          height: 64px !important;
+          background: #141414 !important;
+          border-top: 1px solid #333 !important;
+          z-index: 100 !important;
+          align-items: stretch !important;
+          justify-content: space-around !important;
+          padding: 0 !important;
+          padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        }
+        .mob-nav-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
           flex: 1;
-          width: 100%;
-          padding-top: 55px !important; /* Space for the fixed topbar */
+          gap: 2px;
+          cursor: pointer;
+          color: #666;
+          font-size: 0.65rem;
+          font-weight: 600;
+          padding: 6px 2px;
+          transition: color 0.2s, background 0.2s;
+          border: none;
+          background: transparent;
+          font-family: inherit;
+          position: relative;
         }
-        .dash {
-          padding: 24px 16px !important;
+        .mob-nav-item.active {
+          color: #c41818;
         }
+        .mob-nav-item.active::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 20%;
+          right: 20%;
+          height: 2px;
+          background: #c41818;
+          border-radius: 0 0 4px 4px;
+        }
+        .mob-nav-icon {
+          font-size: 1.3rem;
+          line-height: 1;
+        }
+        .mob-nav-label {
+          font-size: 0.65rem;
+          font-weight: 600;
+          line-height: 1;
+          white-space: nowrap;
+        }
+        .mob-nav-badge {
+          position: absolute;
+          top: 4px;
+          right: 22%;
+          background: #c41818;
+          color: #fff;
+          border-radius: 50%;
+          width: 14px;
+          height: 14px;
+          font-size: 0.6rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+        .mob-nav-badge[data-count="0"],
+        .mob-nav-badge:empty {
+          display: none;
+        }
+
+        /* Content adjustments */
         .app-header {
           padding: 12px 16px;
         }
@@ -2082,11 +2108,36 @@
             </button>
           </div>
         </aside>
+
+        <!-- Mobile Bottom Navigation: TEACHER -->
+        <nav class="mob-bottom-nav" id="mob-nav-teacher">
+          <button class="mob-nav-item active" data-tab="t-dash" onclick="switchTab('t-dash', this)">
+            <span class="mob-nav-icon">📊</span>
+            <span class="mob-nav-label">الرئيسية</span>
+          </button>
+          <button class="mob-nav-item" data-tab="t-students" onclick="switchTab('t-students', this)">
+            <span class="mob-nav-icon">👨‍🎓</span>
+            <span class="mob-nav-label">الطلاب</span>
+            <span class="mob-nav-badge" id="mob-sc-badge"></span>
+          </button>
+          <button class="mob-nav-item" data-tab="t-tasks" onclick="switchTab('t-tasks', this)">
+            <span class="mob-nav-icon">📋</span>
+            <span class="mob-nav-label">المهام</span>
+          </button>
+          <button class="mob-nav-item" data-tab="t-analytics" onclick="switchTab('t-analytics', this)">
+            <span class="mob-nav-icon">📈</span>
+            <span class="mob-nav-label">تحليل</span>
+          </button>
+          <button class="mob-nav-item" data-tab="t-project" onclick="switchTab('t-project', this)">
+            <span class="mob-nav-icon">🚀</span>
+            <span class="mob-nav-label">مشاريع</span>
+          </button>
+        </nav>
+
         <main class="main-area">
           <div class="topbar">
-            <button class="hamburger" onclick="toggleSidebar()">☰</button>
             <div
-              style="font-weight: 700; font-size: 1.1rem; color: #fff"
+              style="font-weight: 700; font-size: 1.05rem; color: #fff"
               id="t-top-title"
             >
               لوحة المعلومات
@@ -2681,6 +2732,31 @@
             </button>
           </div>
         </aside>
+
+        <!-- Mobile Bottom Navigation: STUDENT -->
+        <nav class="mob-bottom-nav" id="mob-nav-student">
+          <button class="mob-nav-item active" data-tab="s-dash" onclick="switchTab('s-dash', this)">
+            <span class="mob-nav-icon">🏠</span>
+            <span class="mob-nav-label">الرئيسية</span>
+          </button>
+          <button class="mob-nav-item" data-tab="s-tasks" onclick="switchTab('s-tasks', this)">
+            <span class="mob-nav-icon">📋</span>
+            <span class="mob-nav-label">مهامي</span>
+            <span class="mob-nav-badge" id="mob-s-tasks-badge"></span>
+          </button>
+          <button class="mob-nav-item" data-tab="s-leaderboard" onclick="switchTab('s-leaderboard', this)">
+            <span class="mob-nav-icon">🏆</span>
+            <span class="mob-nav-label">الشرف</span>
+          </button>
+          <button class="mob-nav-item" data-tab="s-portfolio" onclick="switchTab('s-portfolio', this)">
+            <span class="mob-nav-icon">🎨</span>
+            <span class="mob-nav-label">أعمالي</span>
+          </button>
+          <button class="mob-nav-item" data-tab="s-profile" onclick="switchTab('s-profile', this)">
+            <span class="mob-nav-icon">👤</span>
+            <span class="mob-nav-label">حسابي</span>
+          </button>
+        </nav>
 
         <main class="main-area">
           <div class="topbar">
@@ -5822,42 +5898,46 @@
       };
 
       window.switchTab = (tabId, element) => {
-        // Auto-close sidebar on mobile after clicking
-        window.toggleSidebar(true);
+        // Update sidebar nav active (desktop)
+        document.querySelectorAll(".nav-item").forEach((el) => el.classList.remove("active"));
+        // Update bottom nav active (mobile)
+        document.querySelectorAll(".mob-nav-item").forEach((el) => el.classList.remove("active"));
 
-        // update nav active
+        // Mark clicked element as active (could be either nav type)
         if (element) {
-          document
-            .querySelectorAll(".nav-item")
-            .forEach((el) => el.classList.remove("active"));
           element.classList.add("active");
+          // If it's a sidebar nav-item, also sync bottom nav
+          const matchMob = document.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
+          if (matchMob) matchMob.classList.add("active");
+          // If it's a bottom nav item, also sync sidebar nav-item
+          const matchSide = document.querySelector(`.nav-item[onclick*="${tabId}"]`);
+          if (matchSide) matchSide.classList.add("active");
         }
-        // title
+
+        // Get readable label for topbar
+        const mobItem = document.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
+        const labelEl = mobItem ? mobItem.querySelector(".mob-nav-label") : null;
+        const label = labelEl ? labelEl.textContent.trim() : "";
+
         if (tabId.startsWith("t-")) {
-          document.getElementById("t-top-title").textContent = element
-            ? element.textContent
-                .split(" ")
-                .slice(1)
-                .join(" ")
-                .replace(/[0-9]/g, "")
-                .trim()
-            : "لوحة المعلومات";
+          if (g("t-top-title")) g("t-top-title").textContent = label || "لوحة المعلومات";
           document.querySelectorAll("#v-teacher .tab-content").forEach((el) => {
             el.classList.remove("active");
             el.style.display = "";
           });
-          document.getElementById("tab-" + tabId).classList.add("active");
+          const tab = document.getElementById("tab-" + tabId);
+          if (tab) tab.classList.add("active");
         } else {
-          document.getElementById("s-top-title").textContent = element
-            ? element.textContent.split(" ").slice(1).join(" ").trim()
-            : "الرئيسية";
+          if (g("s-top-title")) g("s-top-title").textContent = label || "الرئيسية";
           document.querySelectorAll("#v-student .tab-content").forEach((el) => {
             el.classList.remove("active");
             el.style.display = "";
           });
-          document.getElementById("tab-" + tabId).classList.add("active");
+          const tab = document.getElementById("tab-" + tabId);
+          if (tab) tab.classList.add("active");
         }
       };
+
 
       // close modals on overlay click
       document.querySelectorAll(".mover").forEach((m) =>
