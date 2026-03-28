@@ -4624,9 +4624,9 @@
           <div class="pbar-bg"><div class="pbar-fill" style="width:${pct}%"></div></div>
           <div class="spct">${dn}/${st.length} مكتملة (${pct}%)</div>
           <div class="sacts" onclick="event.stopPropagation()">
-            <button class="bsm" style="background:#3b82f6; border-color:#2563eb; color:#fff;" onclick="viewStudentProfile('${s.id}')">👤 البروفايل</button>
-            <button class="bsm edit" onclick="openStuModal('${s.id}')">تعديل</button>
-            <button class="bsm del" onclick="delStu('${s.id}')">حذف</button>
+            <button class="bsm" style="background:#3b82f6; border-color:#2563eb; color:#fff;" onclick="window.viewStudentProfile('${s.id}')">👤 البروفايل</button>
+            <button class="bsm edit" onclick="window.openStuModal('${s.id}')">تعديل</button>
+            <button class="bsm del" onclick="event.stopPropagation(); window.delStu('${s.id}')">حذف</button>
           </div>
         </div>`;
               })
@@ -5174,33 +5174,37 @@
       };
 
       window.delStu = async (id) => {
-        if (!confirm("هل أنت متأكد من حذف هذا الطالب نهائياً من النظام؟")) return;
+        const sId = String(id);
+        const sObj = students.find(s => s.id === sId);
+        const sName = sObj ? sObj.name : "هذا الطالب";
         
-        loader(true, "جاري حذف الطالب...");
+        if (!confirm(`هل أنت متأكد من حذف الطالب "${sName}" وجميع بياناته نهائياً من النظام؟`)) return;
+        
+        loader(true, "جاري الحذف...");
         try {
-          const sId = String(id);
-          
-          // Delete related tasks in background
+          // Delete related tasks
           const toDel = tasks.filter((t) => t.studentId === sId);
-          await Promise.all(toDel.map((t) => deleteDoc(doc(db, "tasks", t.id))));
+          for (const t of toDel) {
+            await deleteDoc(doc(db, "tasks", t.id));
+          }
           
           // Delete student doc
           await deleteDoc(doc(db, "students", sId));
           
-          // Update local state immediately
+          // Update local state
           students = students.filter(s => s.id !== sId);
           tasks = tasks.filter(t => t.studentId !== sId);
           
-          toast("تم حذف الطالب وجميع بياناته بنجاح ✓");
+          toast("تم الحذف بنجاح ✓");
           
-          // Re-render
+          // Force refresh
           await renderTeacher();
           loader(false);
           
         } catch (e) {
           loader(false);
-          console.error("Delete Error:", e);
-          toast("خطأ في الحذف: " + e.message);
+          console.error("Critical Delete Error:", e);
+          alert("خطأ تقني أثناء الحذف: " + e.message);
         }
       };
 
