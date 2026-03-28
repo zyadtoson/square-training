@@ -1264,15 +1264,28 @@
         .n-text {
           font-size: 0.85rem;
         }
+        /* TOPBAR (FIXED FOR STABILITY) */
+        .topbar {
+          position: fixed !important;
+          top: 0 !important;
+          right: 0 !important;
+          left: 0 !important;
+          height: 55px !important;
+          z-index: 1000 !important;
+          background: #1a1a1a !important;
+          border-bottom: 2px solid #c41818 !important;
+          padding: 0 16px !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 12px !important;
+        }
         .main-area {
           flex: 1;
           width: 100%;
+          padding-top: 55px !important; /* Space for the fixed topbar */
         }
-
-        /* TOPBAR */
-        .topbar {
-          padding: 0 16px;
-          height: 55px;
+        .dash {
+          padding: 24px 16px !important;
         }
         .app-header {
           padding: 12px 16px;
