@@ -4432,6 +4432,8 @@
           }
         }
         return "";
+      }
+
       window.assignToTeam = async function(studentId, teamName) {
         if(teamName === "none" && !confirm("تأكيد إزالة الطالب من الفريق؟")) return;
         try {
@@ -4497,7 +4499,7 @@
           }
           
           if (!isStudentView) {
-            let availableStudents = students.filter(stu => getStudentTeam(stu) !== t);
+            let availableStudents = students.filter(stu => !getStudentTeam(stu));
             let selId = `sel-${t.replace(' ', '')}`;
             assignHtml = `
               <div style="margin-top: 15px; border-top: 1px solid #333; padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
