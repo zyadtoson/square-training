@@ -136,11 +136,59 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 22px;
         min-height: 22px;
         animation: badgePulse 2s ease-in-out infinite;
         box-shadow: 0 0 10px rgba(196, 24, 24, 0.8);
         position: relative;
+      }
+
+      /* Navigation Toggle Styles */
+      .hamburger {
+        display: none;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 1.6rem;
+        cursor: pointer;
+        padding: 4px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        line-height:1;
+        margin-left: 8px;
+      }
+      .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(6px);
+        z-index: 98;
+        display: none;
+      }
+      .sidebar-overlay.active {
+        display: block;
+      }
+
+      @media (max-width: 768px) {
+        .hamburger { display: flex; }
+        .sidebar {
+          position: fixed !important;
+          top: 0;
+          right: -280px !important; /* RIGHT for RTL */
+          width: 280px !important;
+          height: 100vh !important;
+          z-index: 99;
+          transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+          border-left: 1px solid #333 !important;
+          background: #1a1a1a !important;
+          padding: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+        }
+        .sidebar.active {
+          right: 0 !important;
+        }
       }
       @keyframes badgePulse {
         0%, 100% {
@@ -1186,51 +1234,39 @@
 
       /* ── RESPONSIVE ── MOBILE FIRST ── */
       @media (max-width: 768px) {
-        /* LAYOUT */
+        /* LAYOUT (RE-FIXED FOR DRAWER) */
         .app-layout {
-          flex-direction: column;
-        }
-        .sidebar {
-          width: 100%;
-          height: auto;
-          border-left: none;
-          border-bottom: 1px solid #333;
-          flex-direction: row;
-          padding: 0;
-          order: 2;
+          position: relative;
         }
         .sidebar-brand {
-          display: none;
+          display: flex;
         }
         .sidebar-nav {
-          display: flex;
-          flex-direction: row;
-          overflow-x: auto;
-          overflow-y: hidden;
-          padding: 8px;
-          flex: 1;
-          gap: 0;
+          display: block;
+          padding: 16px 12px;
+          flex-direction: column;
+          overflow-x: hidden;
+          overflow-y: auto;
         }
         .nav-item {
-          flex-shrink: 0;
-          padding: 10px 14px;
-          font-size: 0.85rem;
-          margin-bottom: 0;
-          margin-right: 4px;
-          border-right: 0;
-          border-bottom: 3px solid transparent;
+          width: 100%;
+          margin-bottom: 8px;
+          border-bottom: none;
+          margin-right: 0;
+          padding: 14px 18px;
+          display: flex;
         }
         .nav-item.active {
-          border-right: none;
-          border-bottom: 3px solid #c41818;
+          border-right: 4px solid #c41818;
+          border-bottom: none;
           background: rgba(196, 24, 24, 0.1);
         }
         .n-text {
-          font-size: 0.75rem;
+          font-size: 0.85rem;
         }
         .main-area {
           flex: 1;
-          order: 1;
+          width: 100%;
         }
 
         /* TOPBAR */
@@ -1714,8 +1750,10 @@
       <p id="ldr-msg">جاري التحميل...</p>
     </div>
 
-    <!-- ── TOAST ── -->
     <div class="toast" id="toast"></div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
     <!-- ════════════════════ VIEW: SETUP ════════════════════ -->
     <div class="view" id="v-setup">
@@ -2033,6 +2071,7 @@
         </aside>
         <main class="main-area">
           <div class="topbar">
+            <button class="hamburger" onclick="toggleSidebar()">☰</button>
             <div
               style="font-weight: 700; font-size: 1.1rem; color: #fff"
               id="t-top-title"
@@ -2632,6 +2671,7 @@
 
         <main class="main-area">
           <div class="topbar">
+            <button class="hamburger" onclick="toggleSidebar()">☰</button>
             <div
               style="font-weight: 700; font-size: 1.1rem; color: #fff"
               id="s-top-title"
@@ -5714,7 +5754,28 @@
         }
       };
 
+      window.toggleSidebar = (forceCollapse = null) => {
+        const views = ['v-teacher', 'v-student'];
+        // Find whichever view is currently active
+        const activeViewId = views.find(v => document.getElementById(v).classList.contains('active'));
+        if (!activeViewId) return;
+
+        const sidebar = document.querySelector(`#${activeViewId} .sidebar`);
+        const overlay = document.querySelector('.sidebar-overlay');
+        
+        if (forceCollapse === true) {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        } else {
+          sidebar.classList.toggle('active');
+          overlay.classList.toggle('active');
+        }
+      };
+
       window.switchTab = (tabId, element) => {
+        // Auto-close sidebar on mobile after clicking
+        window.toggleSidebar(true);
+
         // update nav active
         if (element) {
           document
