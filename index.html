@@ -561,6 +561,17 @@
         min-height: 18px;
       }
 
+      
+      /* ── TEAMS ── */
+      .teams-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+      .team-card { background: #2d2d2d; border: 1px solid #3d3d3d; border-radius: 12px; padding: 20px; }
+      .team-title { font-size: 1.2rem; color: #c41818; margin-bottom: 12px; font-weight: bold; border-bottom: 1px solid #3d3d3d; padding-bottom: 8px;}
+      .team-members { list-style: none; margin-bottom: 16px; }
+      .team-members li { padding: 8px 0; border-bottom: 1px dashed #444; color: #ddd; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+      .team-members li::before { content: "👤"; }
+      .team-cta { background: #25D366; color: #fff; text-decoration: none; padding: 10px; border-radius: 8px; display: block; text-align: center; font-weight: bold; transition: 0.2s; }
+      .team-cta:hover { background: #1ebe57; color: #fff; }
+
       /* ── DASHBOARD SHARED ── */
       .dash {
         max-width: 1600px;
@@ -1996,6 +2007,10 @@
               <span class="n-text" style="flex: 1">تحليل الطلاب</span>
               <span class="badge" id="t-analytics-badge" style="display:none;">0</span>
             </div>
+            <div class="nav-item" onclick="switchTab('t-project', this)">
+              <span class="n-icon">🚀</span>
+              <span class="n-text" style="flex: 1">المشاريع</span>
+            </div>
           </div>
           <div style="padding: 20px">
             <button
@@ -2434,6 +2449,103 @@
             </div>
 
           </div>
+<div id="tab-t-project" class="tab-content" style="padding-bottom: 40px;">
+        <div class="dash">
+          <div class="sec-head">
+            <h2 class="sec-title">🎯 تفاصيل <em>المشروع النهائي</em></h2>
+          </div>
+          <div class="team-card" style="margin-bottom: 24px;">
+            <div id="t-project-desc" style="color: #ddd; line-height: 1.8; font-size: 0.95rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 1.05rem;"><strong style="color: #fff;">المشروع:</strong> تصميم UI لتطبيق توصيل Dual-Mode داخل مصر — Customer + Delivery Agent<br>
+                <strong style="color: #fff;">المدة:</strong> أسبوعان | 4 تيمات، كل تيم بـ Visual Style مختلف</p>
+                <a href="./WeDeliver_Brief.pdf" download="WeDeliver_Brief.pdf" style="background: rgba(196, 24, 24, 0.2); color: #ff6b6b; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 1px solid rgba(196, 24, 24, 0.5); display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; white-space: nowrap; transition: 0.3s;" onmouseover="this.style.background='rgba(196, 24, 24, 0.4)'" onmouseout="this.style.background='rgba(196, 24, 24, 0.2)'">
+                  ⬇️ تحميل ملف (PDF)
+                </a>
+              </div>
+  
+              <h3 style="color: #c41818; margin-bottom: 10px; font-size: 1.1rem;">💡 فكرة التطبيق - WeDeliver</h3>
+              <p style="margin-bottom: 16px;">WeDeliver بيخلي المستخدم يطلب أكل، دواء، أو مشتريات من أي متجر قريب منه. التطبيق فيه مودين:</p>
+              <ul style="margin-bottom: 24px; padding-right: 20px; list-style-type: disc;">
+                <li><strong style="color: #60a5fa;">Customer:</strong> يتصفح، يطلب، يدفع، يتابع الأوردر</li>
+                <li><strong style="color: #fbbf24;">Delivery Agent:</strong> يشوف الأوردرات، يقبل، يتوجه، يوصّل، يتابع أرباحه</li>
+              </ul>
+              <p style="margin-bottom: 24px;">كل تيم بيصمم الموداتين بنفس الـ Visual Style.</p>
+  
+              <h3 style="color: #c41818; margin-bottom: 12px; font-size: 1.1rem;">🛠️ مراحل العمل</h3>
+              <div style="display: grid; gap: 12px; margin-bottom: 24px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #c41818;">
+                  <strong style="color:#fff;">01 — Structure:</strong> اكتب هيكل التطبيق — اسم كل شاشة والـ Flow بينهم. حدد إيه المحتوى في كل شاشة. المخرج: فريم في Figma — مش تصميم، بس هيكل نصي واضح.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #fbbf24;">
+                  <strong style="color:#fff;">02 — Mini Design System:</strong> اختار الألوان، الخطوط، والـ Grid. سمّي كل لون واستخدامه. حدد أحجام الخطوط والـ Spacing المتكرر.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #60a5fa;">
+                  <strong style="color:#fff;">03 — Components:</strong> ابنِ الـ Components الأساسية بـ Auto Layout — Buttons, Input Fields, Cards, Nav Bar, Icons. كل Component يكون reusable ومبني على الـ Design System.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #10b981;">
+                  <strong style="color:#fff;">04 — Screens Design:</strong> صمم كل الشاشات بالـ Components اللي بنيتها. ابدأ بـ Customer App ثم Delivery Agent App.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #8b5cf6;">
+                  <strong style="color:#fff;">05 — Prototype & Delivery:</strong> اربط الشاشات في Figma Prototype (Customer: Home → Cart → Checkout → Tracking | Agent: Dashboard → قبول أوردر → تأكيد التوصيل).
+                </div>
+              </div>
+  
+              <h3 style="color: #c41818; margin-bottom: 12px; font-size: 1.1rem;">📅 متطلبات التسليم ومعايير التقييم</h3>
+              <div style="overflow-x: auto; margin-bottom: 8px;">
+                <table style="width: 100%; border-collapse: collapse; min-width: 600px; text-align: right; font-size: 0.9rem;">
+                  <thead>
+                    <tr style="background: #1a1a1a; border-bottom: 2px solid #333;">
+                      <th style="padding: 10px;">المرحلة / الأيام</th>
+                      <th style="padding: 10px;">المطلوب تسليمه</th>
+                      <th style="padding: 10px;">معيار التقييم والوزن</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 1-2:</strong> Structure</td>
+                      <td style="padding: 10px;">هيكل التطبيق + الشاشات والـ Flow</td>
+                      <td style="padding: 10px; color: #fbbf24;">تنظيم الملف (5%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 3:</strong> Design System</td>
+                      <td style="padding: 10px;">الألوان، الخطوط، الـ Grid (Page 1)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Mini Design System (20%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 4-5:</strong> Components</td>
+                      <td style="padding: 10px;">بناء الـ Components (Page 2)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Components + Auto Layout (20%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 6-8:</strong> Screens</td>
+                      <td style="padding: 10px;">Customer App (Page 3) + Agent App (Page 4)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Visual Design (25%) + اكتمال الشاشات (20%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 9:</strong> Prototype</td>
+                      <td style="padding: 10px;">مراجعة + ربط الشاشات (Page 5)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Prototype (10%)</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 10px;"><strong>يوم 10:</strong> التسليم</td>
+                      <td style="padding: 10px; color: #4ade80;">تسليم ملف Figma + عرض 7 دقايق</td>
+                      <td style="padding: 10px;">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sec-head">
+            <h2 class="sec-title">👥 الفرق <em>المشاركة</em></h2>
+          </div>
+          <div class="teams-grid" id="t-teams-container">
+            <!-- Teams Rendered Here -->
+          </div>
+        </div>
+      </div>
         </main>
       </div>
     </div>
@@ -2494,6 +2606,10 @@
             <div class="nav-item" onclick="switchTab('s-profile', this)">
               <span class="n-icon">👤</span>
               <span class="n-text">الملف الشخصي</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('s-project', this)">
+              <span class="n-icon">🚀</span>
+              <span class="n-text" style="flex: 1">المشاريع</span>
             </div>
           </div>
 
@@ -3516,6 +3632,103 @@
               </div>
             </div>
           </div>
+<div id="tab-s-project" class="tab-content" style="padding-bottom: 40px;">
+        <div class="stu-dash">
+          <div class="sec-head">
+            <h2 class="sec-title">🎯 تفاصيل <em>المشروع النهائي</em></h2>
+          </div>
+          <div class="team-card" style="margin-bottom: 24px;">
+            <div id="s-project-desc" style="color: #ddd; line-height: 1.8; font-size: 0.95rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 1.05rem;"><strong style="color: #fff;">المشروع:</strong> تصميم UI لتطبيق توصيل Dual-Mode داخل مصر — Customer + Delivery Agent<br>
+                <strong style="color: #fff;">المدة:</strong> أسبوعان | 4 تيمات، كل تيم بـ Visual Style مختلف</p>
+                <a href="./WeDeliver_Brief.pdf" download="WeDeliver_Brief.pdf" style="background: rgba(196, 24, 24, 0.2); color: #ff6b6b; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 1px solid rgba(196, 24, 24, 0.5); display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; white-space: nowrap; transition: 0.3s;" onmouseover="this.style.background='rgba(196, 24, 24, 0.4)'" onmouseout="this.style.background='rgba(196, 24, 24, 0.2)'">
+                  ⬇️ تحميل ملف (PDF)
+                </a>
+              </div>
+  
+              <h3 style="color: #c41818; margin-bottom: 10px; font-size: 1.1rem;">💡 فكرة التطبيق - WeDeliver</h3>
+              <p style="margin-bottom: 16px;">WeDeliver بيخلي المستخدم يطلب أكل، دواء، أو مشتريات من أي متجر قريب منه. التطبيق فيه مودين:</p>
+              <ul style="margin-bottom: 24px; padding-right: 20px; list-style-type: disc;">
+                <li><strong style="color: #60a5fa;">Customer:</strong> يتصفح، يطلب، يدفع، يتابع الأوردر</li>
+                <li><strong style="color: #fbbf24;">Delivery Agent:</strong> يشوف الأوردرات، يقبل، يتوجه، يوصّل، يتابع أرباحه</li>
+              </ul>
+              <p style="margin-bottom: 24px;">كل تيم بيصمم الموداتين بنفس الـ Visual Style.</p>
+  
+              <h3 style="color: #c41818; margin-bottom: 12px; font-size: 1.1rem;">🛠️ مراحل العمل</h3>
+              <div style="display: grid; gap: 12px; margin-bottom: 24px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #c41818;">
+                  <strong style="color:#fff;">01 — Structure:</strong> اكتب هيكل التطبيق — اسم كل شاشة والـ Flow بينهم. حدد إيه المحتوى في كل شاشة. المخرج: فريم في Figma — مش تصميم، بس هيكل نصي واضح.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #fbbf24;">
+                  <strong style="color:#fff;">02 — Mini Design System:</strong> اختار الألوان، الخطوط، والـ Grid. سمّي كل لون واستخدامه. حدد أحجام الخطوط والـ Spacing المتكرر.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #60a5fa;">
+                  <strong style="color:#fff;">03 — Components:</strong> ابنِ الـ Components الأساسية بـ Auto Layout — Buttons, Input Fields, Cards, Nav Bar, Icons. كل Component يكون reusable ومبني على الـ Design System.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #10b981;">
+                  <strong style="color:#fff;">04 — Screens Design:</strong> صمم كل الشاشات بالـ Components اللي بنيتها. ابدأ بـ Customer App ثم Delivery Agent App.
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #8b5cf6;">
+                  <strong style="color:#fff;">05 — Prototype & Delivery:</strong> اربط الشاشات في Figma Prototype (Customer: Home → Cart → Checkout → Tracking | Agent: Dashboard → قبول أوردر → تأكيد التوصيل).
+                </div>
+              </div>
+  
+              <h3 style="color: #c41818; margin-bottom: 12px; font-size: 1.1rem;">📅 متطلبات التسليم ومعايير التقييم</h3>
+              <div style="overflow-x: auto; margin-bottom: 8px;">
+                <table style="width: 100%; border-collapse: collapse; min-width: 600px; text-align: right; font-size: 0.9rem;">
+                  <thead>
+                    <tr style="background: #1a1a1a; border-bottom: 2px solid #333;">
+                      <th style="padding: 10px;">المرحلة / الأيام</th>
+                      <th style="padding: 10px;">المطلوب تسليمه</th>
+                      <th style="padding: 10px;">معيار التقييم والوزن</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 1-2:</strong> Structure</td>
+                      <td style="padding: 10px;">هيكل التطبيق + الشاشات والـ Flow</td>
+                      <td style="padding: 10px; color: #fbbf24;">تنظيم الملف (5%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 3:</strong> Design System</td>
+                      <td style="padding: 10px;">الألوان، الخطوط، الـ Grid (Page 1)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Mini Design System (20%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 4-5:</strong> Components</td>
+                      <td style="padding: 10px;">بناء الـ Components (Page 2)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Components + Auto Layout (20%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 6-8:</strong> Screens</td>
+                      <td style="padding: 10px;">Customer App (Page 3) + Agent App (Page 4)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Visual Design (25%) + اكتمال الشاشات (20%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #282828;">
+                      <td style="padding: 10px;"><strong>يوم 9:</strong> Prototype</td>
+                      <td style="padding: 10px;">مراجعة + ربط الشاشات (Page 5)</td>
+                      <td style="padding: 10px; color: #fbbf24;">Prototype (10%)</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 10px;"><strong>يوم 10:</strong> التسليم</td>
+                      <td style="padding: 10px; color: #4ade80;">تسليم ملف Figma + عرض 7 دقايق</td>
+                      <td style="padding: 10px;">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sec-head">
+            <h2 class="sec-title">👥 الفرق <em>المشاركة</em></h2>
+          </div>
+          <div class="teams-grid" id="s-teams-container">
+            <!-- Teams Rendered Here -->
+          </div>
+        </div>
+      </div>
         </main>
       </div>
     </div>
@@ -3546,6 +3759,16 @@
             ></label
           >
           <input type="password" id="ms-pass" dir="ltr" placeholder="..." />
+        </div>
+        <div class="mfg">
+          <label>الفريق (اختياري)</label>
+          <select id="ms-team" style="width: 100%; background: #1a1a1a; border: 1px solid #3a3a3a; border-radius: 8px; padding: 10px 14px; color: #eee; font-size: 0.9rem; direction: rtl; transition: border-color 0.2s;">
+            <option value="">بدون فريق</option>
+            <option value="Team 1">الفريق 1</option>
+            <option value="Team 2">الفريق 2</option>
+            <option value="Team 3">الفريق 3</option>
+            <option value="Team 4">الفريق 4</option>
+          </select>
         </div>
         <div class="err" id="ms-err"></div>
         <div class="mfoot">
@@ -4112,6 +4335,7 @@
           const newStu = {
             name,
             username: uname,
+              team: team,
             passwordHash: await sha(pass),
             createdAt: new Date().toISOString(),
           };
@@ -4165,6 +4389,134 @@
       // ══════════════════════════════════════════════════════
       //  TEACHER DASHBOARD
       // ══════════════════════════════════════════════════════
+
+      // ====== TEAMS LOGIC ======
+      const defaultTeamsMapping = {
+        "احمد السيد": "Team 1", "ايه": "Team 1", "مجدي": "Team 1", "قمر": "Team 1",
+        "مريم": "Team 2", "محمد": "Team 2", "كنزي": "Team 2", "نور": "Team 2", "نورين": "Team 2",
+        "زينا": "Team 3", "لينا": "Team 3", "نورين باشا": "Team 3", "خالد": "Team 3",
+        "أشرفت": "Team 4", "فدوى": "Team 4", "مني": "Team 4", "ليندا": "Team 4", "نادين": "Team 4"
+      };
+
+      const whatsappLinks = {
+        "Team 1": "https://chat.whatsapp.com/Emf5rg1Dqgx3z4c7UHofaj?mode=gi_t",
+        "Team 2": "https://chat.whatsapp.com/CYUOGCQ35JYBuzNkf2a49O?mode=gi_t",
+        "Team 3": "https://chat.whatsapp.com/LSA9VnUh8wI8rtproj96DK?mode=gi_t",
+        "Team 4": "https://chat.whatsapp.com/JGOjSDaFqcHEnnp15xyREQ?mode=gi_t"
+      };
+
+      const teamNames = {
+        "Team 1": "الفريق 1",
+        "Team 2": "الفريق 2",
+        "Team 3": "الفريق 3",
+        "Team 4": "الفريق 4"
+      };
+
+      function getStudentTeam(student) {
+        if (!student) return "";
+        if (student.team === "none") return "";
+        if (student.team) return student.team;
+        
+        let sNameOriginal = student.name || "";
+        let sName = sNameOriginal.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+        
+        const keys = Object.keys(defaultTeamsMapping).sort((a,b) => b.length - a.length);
+        
+        for (let key of keys) {
+          let kName = key.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+          const kParts = kName.split(" ").filter(p => p.trim() !== "");
+          const allPartsMatch = kParts.every(part => sName.includes(part));
+          
+          if (allPartsMatch) {
+            return defaultTeamsMapping[key];
+          }
+        }
+        return "";
+      }
+
+      window.assignToTeam = async function(studentId, teamName) {
+        if(!confirm((teamName && teamName !== "none") ? "تأكيد إضافة الطالب للفريق؟" : "تأكيد إزالة الطالب من الفريق؟")) return;
+        try {
+          loader(true, "جاري التحديث...");
+          await updateDoc(doc(db, "students", studentId), { team: teamName });
+          const idx = students.findIndex(s => s.id === studentId);
+          if(idx > -1) students[idx].team = teamName;
+          loader(false);
+          toast("تم تحديث الفريق بنجاح!");
+          renderTeamsView("t-teams-container", false);
+        } catch(e) {
+          loader(false);
+          toast("خطأ: " + e.message);
+        }
+      };
+
+      window.renderTeamsView = function(containerId, isStudentView = false) {
+        const container = g(containerId);
+        if (!container) return;
+        
+        let teamsData = {
+          "Team 1": [],
+          "Team 2": [],
+          "Team 3": [],
+          "Team 4": []
+        };
+        
+        students.forEach(s => {
+          let t = getStudentTeam(s);
+          if (t && teamsData[t]) {
+            teamsData[t].push(s);
+          }
+        });
+
+        let html = "";
+        for (let t in teamsData) {
+          let membersHtml = teamsData[t].map(s => {
+            if (isStudentView) return `<li>${s.name}</li>`;
+            return `<li style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+              ${s.name}
+              <button onclick="window.assignToTeam('${s.id}', 'none')" style="background:transparent; border:none; color:#ff6b6b; cursor:pointer; font-size:1.2rem; padding: 0 4px;" title="إزالة من الفريق">&times;</button>
+            </li>`;
+          }).join("");
+          if (!membersHtml) membersHtml = "<li style='color:#777;'>لا يوجد أعضاء بعد</li>";
+          
+          let ctaHtml = "";
+          let assignHtml = "";
+          
+          if (isStudentView && currentUser) {
+            let myTeam = getStudentTeam(currentUser);
+            if (myTeam === t) {
+              ctaHtml = `<a href="${whatsappLinks[t]}" target="_blank" class="team-cta">💬 انضم لتيمك على الواتساب</a>`;
+            }
+          }
+          
+          if (!isStudentView) {
+            let availableStudents = students.filter(stu => getStudentTeam(stu) !== t);
+            let selId = `sel-${t.replace(' ', '')}`;
+            assignHtml = `
+              <div style="margin-top: 15px; border-top: 1px solid #333; padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <select id="${selId}" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #444; background: #222; color: #fff; font-family: inherit; font-size: 0.9rem;">
+                  <option value="">+ اختر طالب للإضافة...</option>
+                  ${availableStudents.map(stu => `<option value="${stu.id}">${stu.name}</option>`).join("")}
+                </select>
+                <button onclick="let v = document.getElementById('${selId}').value; if(v) window.assignToTeam(v, '${t}')" style="width: 100%; padding: 8px; background: rgba(196, 24, 24, 0.2); color: #ff6b6b; border: 1px solid rgba(196, 24, 24, 0.5); border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: bold; font-size: 0.9rem; transition: 0.2s;" onmouseover="this.style.background='rgba(196, 24, 24, 0.4)'" onmouseout="this.style.background='rgba(196, 24, 24, 0.2)'">إضافة للفريق</button>
+              </div>
+            `;
+          }
+          
+          html += `
+            <div class="team-card">
+              <div class="team-title">${teamNames[t]}</div>
+              <ul class="team-members">
+                ${membersHtml}
+              </ul>
+              ${ctaHtml}
+              ${assignHtml}
+            </div>
+          `;
+        }
+        container.innerHTML = html;
+      }
+
       async function renderTeacher() {
         loader(true, "جاري تحميل البيانات...");
         await loadAll();
@@ -4621,6 +4973,7 @@
             `;
         }).join("");
 
+        renderTeamsView('t-teams-container');
         g('t-analytics-container').innerHTML = analyticsHtml || '<div style="padding:40px;text-align:center;color:#666; grid-column:1/-1;">لا يوجد طلاب للتحليل بعد.</div>';
 
         // Render Insights Table
@@ -4701,6 +5054,7 @@
         g("ms-name").value = s?.name || "";
         g("ms-uname").value = s?.username || "";
         g("ms-pass").value = "";
+        g("ms-team").value = s?.team || "";
         g("ms-ph").style.display = s ? "inline" : "none";
         g("ms-err").textContent = "";
         g("m-stu").className = "mover open";
@@ -4710,6 +5064,7 @@
         const name = g("ms-name").value.trim();
         const uname = g("ms-uname").value.trim();
         const pass = g("ms-pass").value;
+        const team = g("ms-team").value;
         const editId = g("ms-id").value;
         const err = g("ms-err");
 
@@ -4736,6 +5091,7 @@
             const upd = {
               name,
               username: uname,
+              team: team,
               updatedAt: new Date().toISOString(),
             };
             if (pass) upd.passwordHash = await sha(pass);
@@ -4745,6 +5101,7 @@
             await addDoc(collection(db, "students"), {
               name,
               username: uname,
+              team: team,
               passwordHash: await sha(pass),
               createdAt: new Date().toISOString(),
             });
