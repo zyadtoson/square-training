@@ -4335,7 +4335,7 @@
           const newStu = {
             name,
             username: uname,
-              team: team,
+            team: "",
             passwordHash: await sha(pass),
             createdAt: new Date().toISOString(),
           };
@@ -4482,8 +4482,8 @@
           let ctaHtml = "";
           let assignHtml = "";
           
-          if (isStudentView && currentUser) {
-            let myTeam = getStudentTeam(currentUser);
+          if (isStudentView && window._sStu) {
+            let myTeam = getStudentTeam(window._sStu);
             if (myTeam === t) {
               ctaHtml = `<a href="${whatsappLinks[t]}" target="_blank" class="team-cta">💬 انضم لتيمك على الواتساب</a>`;
             }
