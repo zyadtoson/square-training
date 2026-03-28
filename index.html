@@ -3786,6 +3786,19 @@
       </div>
     </div>
 
+    <!-- ════════ MODAL: CONFIRM DELETE ════════ -->
+    <div class="mover" id="m-confirm-delete" style="z-index: 9999;">
+      <div class="modal" style="max-width:420px; text-align:center; padding:32px 28px;">
+        <div style="font-size:3rem; margin-bottom:12px;">⚠️</div>
+        <h3 style="color:#fff; margin-bottom:8px;">تأكيد الحذف</h3>
+        <p id="confirm-del-msg" style="color:#aaa; font-size:0.95rem; margin-bottom:24px; line-height:1.6;"></p>
+        <div style="display:flex; gap:12px; justify-content:center;">
+          <button id="confirm-del-yes" style="background:#c41818; color:#fff; border:none; padding:12px 28px; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer; flex:1;">🗑️ حذف نهائياً</button>
+          <button onclick="document.getElementById('m-confirm-delete').className='mover';" style="background:#333; color:#eee; border:1px solid #555; padding:12px 28px; border-radius:8px; font-size:1rem; cursor:pointer; flex:1;">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ════════ MODAL: STUDENT ════════ -->
     <div class="mover" id="m-stu">
       <div class="modal">
@@ -5186,16 +5199,35 @@
         }
       };
 
+      // Helper: show custom confirm modal, returns a Promise<boolean>
+      window._confirmDelete = (message) => {
+        return new Promise((resolve) => {
+          g("confirm-del-msg").textContent = message;
+          g("m-confirm-delete").className = "mover open";
+          
+          const yesBtn = g("confirm-del-yes");
+          // Clone to remove old listeners
+          const newYes = yesBtn.cloneNode(true);
+          yesBtn.parentNode.replaceChild(newYes, yesBtn);
+          
+          newYes.onclick = () => {
+            g("m-confirm-delete").className = "mover";
+            resolve(true);
+          };
+        });
+      };
+
       window.delStu = async (id) => {
         const sId = String(id);
         const sObj = students.find(s => s.id === sId);
         const sName = sObj ? sObj.name : "هذا الطالب";
         
-        if (!confirm(`هل أنت متأكد من حذف الطالب "${sName}" وجميع بياناته نهائياً من النظام؟`)) return;
+        const confirmed = await window._confirmDelete(`هل أنت متأكد من حذف الطالب "${sName}" وجميع بياناته نهائياً من النظام؟ لا يمكن التراجع عن هذا.`);
+        if (!confirmed) return;
         
         loader(true, "جاري الحذف...");
         try {
-          // Delete related tasks
+          // Delete related tasks sequentially
           const toDel = tasks.filter((t) => t.studentId === sId);
           for (const t of toDel) {
             await deleteDoc(doc(db, "tasks", t.id));
@@ -5208,7 +5240,7 @@
           students = students.filter(s => s.id !== sId);
           tasks = tasks.filter(t => t.studentId !== sId);
           
-          toast("تم الحذف بنجاح ✓");
+          toast("تم حذف الطالب بنجاح ✓");
           
           // Force refresh
           await renderTeacher();
@@ -5217,7 +5249,7 @@
         } catch (e) {
           loader(false);
           console.error("Critical Delete Error:", e);
-          alert("خطأ تقني أثناء الحذف: " + e.message);
+          toast("خطأ: " + e.message);
         }
       };
 
