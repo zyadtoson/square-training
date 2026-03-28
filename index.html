@@ -4435,18 +4435,26 @@
       }
 
       window.assignToTeam = async function(studentId, teamName) {
-        if(teamName === "none" && !confirm("تأكيد إزالة الطالب من الفريق؟")) return;
         try {
-          loader(true, "جاري التحديث...");
+          loader(true, (teamName && teamName !== "none") ? "جاري الإضافة للفريق..." : "جاري الإزالة من الفريق...");
           await updateDoc(doc(db, "students", studentId), { team: teamName });
+          
           const idx = students.findIndex(s => s.id === studentId);
-          if(idx > -1) students[idx].team = teamName;
+          if (idx > -1) {
+            students[idx].team = teamName;
+          }
+          
           loader(false);
-          toast("تم تحديث الفريق بنجاح!");
-          renderTeamsView("t-teams-container", false);
-        } catch(e) {
+          toast("تم تحديث بيانات الفريق بنجاح!");
+          
+          // Re-render in all possible containers
+          if (g("t-teams-container")) renderTeamsView("t-teams-container", false);
+          if (g("s-teams-container")) renderTeamsView("s-teams-container", true);
+          
+        } catch (e) {
           loader(false);
-          toast("خطأ: " + e.message);
+          console.error("Team Assignment Error:", e);
+          toast("فشل التحديث: " + e.message);
         }
       };
 
