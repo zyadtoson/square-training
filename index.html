@@ -5134,21 +5134,33 @@
       };
 
       window.delStu = async (id) => {
-        if (!confirm("هل تريد حذف هذا الطالب وجميع مهامه؟")) return;
-        loader(true, "جاري الحذف...");
+        if (!confirm("هل أنت متأكد من حذف هذا الطالب نهائياً من النظام؟")) return;
+        
+        loader(true, "جاري حذف الطالب...");
         try {
-          await Promise.all(
-            tasks
-              .filter((t) => t.studentId === id)
-              .map((t) => deleteDoc(doc(db, "tasks", t.id))),
-          );
-          await deleteDoc(doc(db, "students", id));
-          toast("تم الحذف ✓");
+          const sId = String(id);
+          
+          // Delete related tasks in background
+          const toDel = tasks.filter((t) => t.studentId === sId);
+          await Promise.all(toDel.map((t) => deleteDoc(doc(db, "tasks", t.id))));
+          
+          // Delete student doc
+          await deleteDoc(doc(db, "students", sId));
+          
+          // Update local state immediately
+          students = students.filter(s => s.id !== sId);
+          tasks = tasks.filter(t => t.studentId !== sId);
+          
+          toast("تم حذف الطالب وجميع بياناته بنجاح ✓");
+          
+          // Re-render
           await renderTeacher();
           loader(false);
+          
         } catch (e) {
           loader(false);
-          toast("خطأ: " + e.message);
+          console.error("Delete Error:", e);
+          toast("خطأ في الحذف: " + e.message);
         }
       };
 
