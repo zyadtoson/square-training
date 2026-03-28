@@ -4432,10 +4432,8 @@
           }
         }
         return "";
-      }
-
       window.assignToTeam = async function(studentId, teamName) {
-        if(!confirm((teamName && teamName !== "none") ? "تأكيد إضافة الطالب للفريق؟" : "تأكيد إزالة الطالب من الفريق؟")) return;
+        if(teamName === "none" && !confirm("تأكيد إزالة الطالب من الفريق؟")) return;
         try {
           loader(true, "جاري التحديث...");
           await updateDoc(doc(db, "students", studentId), { team: teamName });
@@ -4447,6 +4445,15 @@
         } catch(e) {
           loader(false);
           toast("خطأ: " + e.message);
+        }
+      };
+
+      window.assignFromSelect = function(btn, teamName) {
+        const sel = btn.previousElementSibling;
+        if(sel && sel.value) {
+          window.assignToTeam(sel.value, teamName);
+        } else {
+          toast("الرجاء اختيار طالب أولاً");
         }
       };
 
@@ -4498,7 +4505,7 @@
                   <option value="">+ اختر طالب للإضافة...</option>
                   ${availableStudents.map(stu => `<option value="${stu.id}">${stu.name}</option>`).join("")}
                 </select>
-                <button onclick="let v = document.getElementById('${selId}').value; if(v) window.assignToTeam(v, '${t}')" style="width: 100%; padding: 8px; background: rgba(196, 24, 24, 0.2); color: #ff6b6b; border: 1px solid rgba(196, 24, 24, 0.5); border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: bold; font-size: 0.9rem; transition: 0.2s;" onmouseover="this.style.background='rgba(196, 24, 24, 0.4)'" onmouseout="this.style.background='rgba(196, 24, 24, 0.2)'">إضافة للفريق</button>
+                <button type="button" onclick="window.assignFromSelect(this, '${t}')" style="width: 100%; padding: 8px; background: rgba(196, 24, 24, 0.2); color: #ff6b6b; border: 1px solid rgba(196, 24, 24, 0.5); border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: bold; font-size: 0.9rem; transition: 0.2s;" onmouseover="this.style.background='rgba(196, 24, 24, 0.4)'" onmouseout="this.style.background='rgba(196, 24, 24, 0.2)'">إضافة للفريق</button>
               </div>
             `;
           }
