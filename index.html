@@ -472,98 +472,187 @@
         min-height: 18px;
       }
 
-      /* ── LOGIN ── */
+      /* ── LOGIN REDESIGN ── */
       .login-wrap {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 100vh;
-        padding: 20px;
+        padding: 40px 20px;
+        background: #000;
+        color: #fff;
       }
-      .login-card {
-        background: #2d2d2d;
-        border: 1px solid #3d3d3d;
-        border-radius: 16px;
-        padding: 42px 38px;
+      .login-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .login-header .login-logo {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+      }
+      .login-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+      .login-header .sub {
+        color: #888;
+        font-size: 1.1rem;
+      }
+      
+      .role-selection {
+        display: flex;
+        gap: 24px;
+        width: 100%;
+        max-width: 800px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .role-card {
+        flex: 1;
+        min-width: 280px;
+        background: #141414;
+        border: 1px solid #222;
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .role-card:hover {
+        transform: translateY(-8px);
+        background: #1a1a1a;
+        border-color: #333;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      }
+      .role-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--role-color);
+        opacity: 0;
+        transition: 0.3s;
+      }
+      .role-card:hover::after {
+        opacity: 1;
+      }
+      
+      .role-icon-box {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        margin-bottom: 24px;
+        background: rgba(255,255,255,0.03);
+        transition: 0.3s;
+      }
+      .role-card:hover .role-icon-box {
+        transform: scale(1.1);
+        background: var(--role-color-bg);
+      }
+      
+      .role-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #fff;
+      }
+      .role-card p {
+        color: #888;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      
+      .login-form-container {
         width: 100%;
         max-width: 400px;
-        text-align: center;
+        background: #141414;
+        border: 1px solid #222;
+        border-radius: 20px;
+        padding: 40px;
+        display: none;
+        animation: slideUp 0.4s ease-out;
       }
-      .login-logo {
-        margin-bottom: 18px;
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
-      .login-card h2 {
-        font-size: 1.35rem;
-        color: #fff;
-        margin-bottom: 4px;
-      }
-      .login-card .sub {
-        color: #888;
-        font-size: 0.88rem;
-        margin-bottom: 26px;
-      }
-      .role-tabs {
+      
+      .back-btn {
         display: flex;
-        gap: 6px;
-        background: #1a1a1a;
-        padding: 4px;
-        border-radius: 10px;
-        margin-bottom: 22px;
-      }
-      .rtab {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        border-radius: 7px;
-        cursor: pointer;
-        font-size: 0.88rem;
-        font-weight: 600;
-        background: transparent;
+        align-items: center;
+        gap: 8px;
         color: #888;
-        transition: all 0.2s;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+        transition: 0.2s;
+        padding: 0;
       }
-      .rtab.active {
-        background: #c41818;
+      .back-btn:hover {
         color: #fff;
       }
+      
       .linput {
         width: 100%;
-        background: #1a1a1a;
-        border: 1px solid #3a3a3a;
-        border-radius: 8px;
-        padding: 12px 16px;
-        color: #eee;
-        font-size: 0.95rem;
-        margin-bottom: 10px;
+        background: #000;
+        border: 1px solid #222;
+        border-radius: 12px;
+        padding: 14px 18px;
+        color: #fff;
+        font-size: 1rem;
+        margin-bottom: 14px;
         text-align: right;
-        direction: rtl;
-        transition: border-color 0.2s;
+        transition: 0.2s;
       }
       .linput:focus {
-        outline: none;
         border-color: #c41818;
+        background: #050505;
       }
+      
       .btn-login {
         background: #c41818;
-        border: none;
         color: #fff;
-        padding: 13px;
+        border: none;
         width: 100%;
-        border-radius: 8px;
-        font-size: 1rem;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 1.1rem;
         font-weight: 700;
         cursor: pointer;
-        transition: background 0.2s;
-        margin-top: 2px;
+        transition: 0.3s;
+        margin-top: 10px;
       }
       .btn-login:hover {
-        background: #a51414;
+        background: #e51b1b;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(196, 24, 24, 0.3);
       }
+      
+      .role-t { --role-color: #c41818; --role-color-bg: rgba(196, 24, 24, 0.15); }
+      .role-s { --role-color: #22c55e; --role-color-bg: rgba(34, 197, 94, 0.15); }
+      
       .lerr {
         color: #ff6b6b;
-        font-size: 0.84rem;
-        margin-top: 10px;
-        min-height: 18px;
+        font-size: 0.88rem;
+        margin-top: 16px;
+        text-align: center;
       }
 
       
@@ -1895,47 +1984,45 @@
     <!-- ════════════════════ VIEW: LOGIN ════════════════════ -->
     <div class="view" id="v-login">
       <div class="login-wrap">
-        <div class="login-card">
+        <div class="login-header" id="login-hdr">
           <div class="login-logo">
-            <svg width="58" height="58" viewBox="0 0 52 52" fill="none">
-              <rect
-                width="52"
-                height="52"
-                rx="10"
-                fill="rgba(255,255,255,0.04)"
-              />
-              <polygon
-                points="26,6 46,16 46,36 26,46 6,36 6,16"
-                fill="#C41818"
-              />
+            <svg width="64" height="64" viewBox="0 0 52 52" fill="none">
+              <rect width="52" height="52" rx="12" fill="rgba(255,255,255,0.06)" />
+              <polygon points="26,6 46,16 46,36 26,46 6,36 6,16" fill="#C41818" />
               <rect x="20" y="14" width="12" height="3" rx="1.5" fill="white" />
-              <rect
-                x="23.5"
-                y="17"
-                width="5"
-                height="14"
-                rx="1.5"
-                fill="white"
-              />
-              <path
-                d="M17 33 Q26 28 35 33"
-                stroke="white"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                fill="none"
-              />
+              <rect x="23.5" y="17" width="5" height="14" rx="1.5" fill="white" />
+              <path d="M17 33 Q26 28 35 33" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" />
             </svg>
           </div>
-          <h2>Square Training Center</h2>
-          <p class="sub">نظام متابعة المهام التدريبية</p>
-          <div class="role-tabs">
-            <button class="rtab active" onclick="setRole('teacher')" id="rt-t">
-              👨‍🏫 معلم
-            </button>
-            <button class="rtab" onclick="setRole('student')" id="rt-s">
-              👨‍🎓 طالب
-            </button>
+          <h2>نظام إدارة المهام</h2>
+          <p class="sub">اختر دورك للمتابعة</p>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="role-selection" id="role-sel">
+          <div class="role-card role-t" onclick="selectRole('teacher')">
+            <div class="role-icon-box" style="color: #c41818;">👨‍🏫</div>
+            <h3>معلم</h3>
+            <p>إدارة المهام والطلاب والفرق والمتابعة الشاملة</p>
           </div>
+          <div class="role-card role-s" onclick="selectRole('student')">
+            <div class="role-icon-box" style="color: #22c55e;">👨‍🎓</div>
+            <h3>طالب</h3>
+            <p>عرض المهام، تسليم الأعمال، ومتابعة التقدم الشخصي</p>
+          </div>
+        </div>
+
+        <!-- Login Form Container -->
+        <div class="login-form-container" id="l-form-cont">
+          <button class="back-btn" onclick="backToRole()">
+            <span>→</span> الرجوع للرئيسية
+          </button>
+          
+          <div id="role-title" style="margin-bottom: 24px; text-align: right;">
+            <h3 id="role-name" style="font-size: 1.6rem; color: #fff; margin-bottom: 8px;">دخول المعلم</h3>
+            <p style="color: #666; font-size: 0.9rem;">أدخل بيانات اعتمادك للمتابعة</p>
+          </div>
+
           <div id="tf">
             <input
               type="password"
@@ -1946,6 +2033,7 @@
             />
             <button class="btn-login" onclick="doLoginT()">دخول ←</button>
           </div>
+          
           <div id="sf" style="display: none">
             <input
               type="text"
@@ -1963,66 +2051,30 @@
             />
             <button class="btn-login" onclick="doLoginS()">دخول ←</button>
             <div
-              style="
-                margin-top: 16px;
-                font-size: 0.86rem;
-                color: #999;
-                cursor: pointer;
-              "
+              style="margin-top: 20px; font-size: 0.9rem; color: #666; cursor: pointer; text-align: center;"
               onclick="toggleReg(true)"
             >
-              ليس لديك حساب؟
-              <span style="color: #c41818; font-weight: 700"
-                >سجل الآن كطالب جديد</span
-              >
+              ليس لديك حساب؟ <span style="color: #c41818; font-weight: 700">سجل الآن</span>
             </div>
           </div>
+
           <div id="sreg" style="display: none">
-            <input
-              type="text"
-              class="linput"
-              id="sr-name"
-              placeholder="الاسم الكامل (سيظهر للمعلم)..."
-              onkeydown="if (event.key === 'Enter') doRegisterS();"
-            />
-            <input
-              type="text"
-              class="linput"
-              id="sr-uname"
-              dir="ltr"
-              placeholder="اختر اسم مستخدم..."
-              onkeydown="if (event.key === 'Enter') doRegisterS();"
-            />
-            <input
-              type="password"
-              class="linput"
-              id="sr-pass"
-              dir="ltr"
-              placeholder="اختر كلمة مرور..."
-              onkeydown="if (event.key === 'Enter') doRegisterS();"
-            />
-            <button
-              class="btn-login"
-              style="background: #22c55e"
-              onclick="doRegisterS()"
-            >
-              إنشاء حساب ←
-            </button>
+            <input type="text" class="linput" id="sr-name" placeholder="الاسم الكامل..." />
+            <input type="text" class="linput" id="sr-uname" dir="ltr" placeholder="اسم مستخدم..." />
+            <input type="password" class="linput" id="sr-pass" dir="ltr" placeholder="كلمة مرور..." />
+            <button class="btn-login" style="background: #22c55e" onclick="doRegisterS()">إنشاء حساب ←</button>
             <div
-              style="
-                margin-top: 16px;
-                font-size: 0.86rem;
-                color: #999;
-                cursor: pointer;
-              "
+              style="margin-top: 20px; font-size: 0.9rem; color: #666; cursor: pointer; text-align: center;"
               onclick="toggleReg(false)"
             >
-              لديك حساب بالفعل؟
-              <span style="color: #c41818; font-weight: 700">تسجيل الدخول</span>
+              لديك حساب بالفعل؟ <span style="color: #c41818; font-weight: 700">تسجيل الدخول</span>
             </div>
           </div>
+
           <div class="lerr" id="lerr"></div>
         </div>
+      </div>
+    </div>
       </div>
     </div>
 
@@ -4389,14 +4441,22 @@
       // ══════════════════════════════════════════════════════
       //  AUTH
       // ══════════════════════════════════════════════════════
-      window.setRole = (r) => {
+      window.selectRole = (r) => {
         role = r;
-        g("rt-t").className = "rtab" + (r === "teacher" ? " active" : "");
-        g("rt-s").className = "rtab" + (r === "student" ? " active" : "");
+        g("login-hdr").style.display = "none";
+        g("role-sel").style.display = "none";
+        g("l-form-cont").style.display = "block";
+        g("role-name").textContent = r === "teacher" ? "دخول المعلم" : "دخول الطالب";
         g("tf").style.display = r === "teacher" ? "block" : "none";
         g("sf").style.display = r === "student" ? "block" : "none";
-        if (g("sreg")) g("sreg").style.display = "none";
+        g("sreg").style.display = "none";
         g("lerr").textContent = "";
+      };
+
+      window.backToRole = () => {
+        g("login-hdr").style.display = "block";
+        g("role-sel").style.display = "flex";
+        g("l-form-cont").style.display = "none";
       };
 
       window.toggleReg = (show) => {
