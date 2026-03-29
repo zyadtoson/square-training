@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Square Training Center - نظام متابعة المهام</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
       *,
       *::before,
@@ -2262,31 +2263,19 @@
             <div class="input-group">
               <label>اسم المستخدم</label>
               <div class="l-input-wrap">
-                <i style="font-style: normal;">👤</i>
-                <input
-                  type="text"
-                  class="linput"
-                  id="su"
-                  placeholder="أدخل اسم المستخدم"
-                  onkeydown="if (event.key === 'Enter') doLoginS();"
-                />
+                <i data-lucide="user" style="width:18px;height:18px;"></i>
+                <input type="text" class="linput" id="su" placeholder="أدخل اسم المستخدم" onkeydown="if (event.key === 'Enter') doLoginS();" />
               </div>
             </div>
             <div class="input-group">
               <label>كلمة المرور</label>
               <div class="l-input-wrap">
-                <i style="font-style: normal;">🔒</i>
-                <input
-                  type="password"
-                  class="linput"
-                  id="sp"
-                  placeholder="أدخل كلمة المرور"
-                  onkeydown="if (event.key === 'Enter') doLoginS();"
-                />
+                <i data-lucide="lock" style="width:18px;height:18px;"></i>
+                <input type="password" class="linput" id="sp" placeholder="أدخل كلمة المرور" onkeydown="if (event.key === 'Enter') doLoginS();" />
               </div>
             </div>
             <button class="btn-login" onclick="doLoginS()">
-              تسجيل الدخول <span style="font-size: 1.2rem;">[→</span>
+              تسجيل الدخول <i data-lucide="arrow-left" style="width:18px;height:18px;display:inline-block;vertical-align:middle;"></i>
             </button>
             
             <div class="reg-footer">
@@ -2352,30 +2341,30 @@
           </div>
           <div class="sidebar-nav">
             <div class="nav-item active" onclick="switchTab('t-dash', this)">
-              <span class="n-icon">📊</span>
+              <span class="n-icon"><i data-lucide="layout-dashboard"></i></span>
               <span class="n-text">لوحة المعلومات</span>
             </div>
             <div class="nav-item" onclick="switchTab('t-students', this)">
-              <span class="n-icon">👨‍🎓</span>
+              <span class="n-icon"><i data-lucide="graduation-cap"></i></span>
               <span class="n-text" style="flex: 1">الطلاب</span>
               <span class="badge" id="sc-nav-badge">0</span>
             </div>
             <div class="nav-item" onclick="switchTab('t-tasks', this)">
-              <span class="n-icon">📋</span>
+              <span class="n-icon"><i data-lucide="list-todo"></i></span>
               <span class="n-text" style="flex: 1">المهام والتحديات</span>
               <span class="badge" id="t-tasks-badge" style="display:none;">0</span>
             </div>
             <div class="nav-item" onclick="switchTab('t-leaderboard', this)">
-              <span class="n-icon">🏆</span>
+              <span class="n-icon"><i data-lucide="trophy"></i></span>
               <span class="n-text">لوحة الشرف</span>
             </div>
             <div class="nav-item" onclick="switchTab('t-analytics', this)">
-              <span class="n-icon">📈</span>
+              <span class="n-icon"><i data-lucide="trending-up"></i></span>
               <span class="n-text" style="flex: 1">تحليل الطلاب</span>
               <span class="badge" id="t-analytics-badge" style="display:none;">0</span>
             </div>
             <div class="nav-item" onclick="switchTab('t-project', this)">
-              <span class="n-icon">🚀</span>
+              <span class="n-icon"><i data-lucide="folder-kanban"></i></span>
               <span class="n-text" style="flex: 1">المشاريع</span>
             </div>
           </div>
@@ -2396,30 +2385,30 @@
         <!-- Mobile Bottom Navigation: TEACHER -->
         <nav class="mob-bottom-nav" id="mob-nav-teacher">
           <button class="mob-nav-item active" data-tab="t-dash" onclick="switchTab('t-dash', this)">
-            <span class="mob-nav-icon">📊</span>
+            <span class="mob-nav-icon"><i data-lucide="layout-dashboard"></i></span>
             <span class="mob-nav-label">الرئيسية</span>
           </button>
           <button class="mob-nav-item" data-tab="t-students" onclick="switchTab('t-students', this)">
-            <span class="mob-nav-icon">👨‍🎓</span>
+            <span class="mob-nav-icon"><i data-lucide="graduation-cap"></i></span>
             <span class="mob-nav-label">الطلاب</span>
             <span class="mob-nav-badge" id="mob-sc-badge"></span>
           </button>
           <button class="mob-nav-item" data-tab="t-tasks" onclick="switchTab('t-tasks', this)">
-            <span class="mob-nav-icon">📋</span>
+            <span class="mob-nav-icon"><i data-lucide="list-todo"></i></span>
             <span class="mob-nav-label">المهام</span>
             <span class="mob-nav-badge" id="mob-t-tasks-badge"></span>
           </button>
           <button class="mob-nav-item" data-tab="t-leaderboard" onclick="switchTab('t-leaderboard', this)">
-            <span class="mob-nav-icon">🏆</span>
+            <span class="mob-nav-icon"><i data-lucide="trophy"></i></span>
             <span class="mob-nav-label">الشرف</span>
           </button>
           <button class="mob-nav-item" data-tab="t-analytics" onclick="switchTab('t-analytics', this)">
-            <span class="mob-nav-icon">📈</span>
+            <span class="mob-nav-icon"><i data-lucide="trending-up"></i></span>
             <span class="mob-nav-label">تحليل</span>
             <span class="mob-nav-badge" id="mob-t-analytics-badge"></span>
           </button>
           <button class="mob-nav-item" data-tab="t-project" onclick="switchTab('t-project', this)">
-            <span class="mob-nav-icon">🚀</span>
+            <span class="mob-nav-icon"><i data-lucide="folder-kanban"></i></span>
             <span class="mob-nav-label">مشاريع</span>
           </button>
         </nav>
@@ -2949,24 +2938,24 @@
 
           <div class="sidebar-nav">
             <div class="nav-item active" data-tab="tab-s-home" onclick="switchTab('tab-s-home', this)">
-              <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+              <span class="n-icon"><i data-lucide="home"></i></span>
               <span class="n-text">الرئيسية</span>
             </div>
             <div class="nav-item" data-tab="tab-s-tasks" onclick="switchTab('tab-s-tasks', this)">
-              <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg></span>
+              <span class="n-icon"><i data-lucide="list-todo"></i></span>
               <span class="n-text">المهام</span>
               <span class="badge" id="s-tasks-badge" style="display:none;">0</span>
             </div>
             <div class="nav-item" data-tab="tab-s-project" onclick="switchTab('tab-s-project', this)">
-              <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 17v-5"/><path d="M12 17v-3"/><path d="M16 17v-7"/></svg></span>
+              <span class="n-icon"><i data-lucide="folder-kanban"></i></span>
               <span class="n-text">المشاريع</span>
             </div>
             <div class="nav-item" data-tab="tab-s-leaderboard" onclick="switchTab('tab-s-leaderboard', this)">
-              <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
+              <span class="n-icon"><i data-lucide="trophy"></i></span>
               <span class="n-text">لوحة الشرف</span>
             </div>
             <div class="nav-item" data-tab="tab-s-profile" onclick="switchTab('tab-s-profile', this)">
-              <span class="n-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg></span>
+              <span class="n-icon"><i data-lucide="user-circle"></i></span>
               <span class="n-text">الملف الشخصي</span>
             </div>
           </div>
@@ -2990,24 +2979,24 @@
 
         <nav class="mob-bottom-nav" id="mob-nav-student">
           <button class="mob-nav-item active" data-tab="tab-s-home" onclick="switchTab('tab-s-home', this)">
-            <span class="mob-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+            <span class="mob-nav-icon"><i data-lucide="home"></i></span>
             <span class="mob-nav-label">الرئيسية</span>
           </button>
           <button class="mob-nav-item" data-tab="tab-s-tasks" onclick="switchTab('tab-s-tasks', this)">
-            <span class="mob-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg></span>
+            <span class="mob-nav-icon"><i data-lucide="list-todo"></i></span>
             <span class="mob-nav-label">المهام</span>
             <span class="mob-nav-badge" id="mob-s-tasks-badge"></span>
           </button>
           <button class="mob-nav-item" data-tab="tab-s-project" onclick="switchTab('tab-s-project', this)">
-            <span class="mob-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 17v-5"/><path d="M12 17v-3"/><path d="M16 17v-7"/></svg></span>
+            <span class="mob-nav-icon"><i data-lucide="folder-kanban"></i></span>
             <span class="mob-nav-label">المشاريع</span>
           </button>
           <button class="mob-nav-item" data-tab="tab-s-leaderboard" onclick="switchTab('tab-s-leaderboard', this)">
-            <span class="mob-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
+            <span class="mob-nav-icon"><i data-lucide="trophy"></i></span>
             <span class="mob-nav-label">الشرف</span>
           </button>
           <button class="mob-nav-item" data-tab="tab-s-profile" onclick="switchTab('tab-s-profile', this)">
-            <span class="mob-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg></span>
+            <span class="mob-nav-icon"><i data-lucide="user-circle"></i></span>
             <span class="mob-nav-label">بروفايل</span>
           </button>
         </nav>
@@ -3973,24 +3962,55 @@
           }
         });
 
+        // Team leaders mapping
+        const teamLeaders = {
+          "Team 1": "Habood",
+          "Team 2": "Mariam Ashraf",
+          "Team 3": "Zeina Esam",
+          "Team 4": "Linda Tamer"
+        };
+        const avatarColors = ["#E7000B","#f97316","#3b82f6","#8b5cf6","#10b981","#fbbf24","#ec4899","#14b8a6"];
+
         let html = "";
         for (let t in teamsData) {
-          let membersHtml = teamsData[t].map(s => {
-            if (isStudentView) return `<li>${s.name}</li>`;
-            return `<li style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
-              ${s.name}
-              <button onclick="window.assignToTeam('${s.id}', 'none')" style="background:transparent; border:none; color:#ff6b6b; cursor:pointer; font-size:1.2rem; padding: 0 4px;" title="إزالة من الفريق">&times;</button>
-            </li>`;
+          const leaderName = teamLeaders[t] || "";
+          const sortedMembers = [...teamsData[t]].sort((a, b) => {
+            if (a.name === leaderName) return -1;
+            if (b.name === leaderName) return 1;
+            return 0;
+          });
+
+          const membersHtml = sortedMembers.map((s, i) => {
+            const color = avatarColors[i % avatarColors.length];
+            const initial = s.name ? s.name.charAt(0) : "?";
+            const isLeader = s.name === leaderName;
+            
+            let removeBtn = "";
+            if (!isStudentView) {
+              removeBtn = `<button onclick="window.assignToTeam('${s.id}', 'none')" style="background:rgba(239,68,68,0.1); border:none; color:#ef4444; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">&times;</button>`;
+            }
+
+            return `
+              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#27272a;border-radius:12px; ${isLeader ? 'border:1px solid rgba(251,191,36,0.3);' : 'border:1px solid transparent;'}">
+                <div style="width:36px;height:36px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;color:#fff;flex-shrink:0;">${initial}</div>
+                <div style="flex:1;font-weight:600;color:#fff;font-size:0.9rem;">${s.name}</div>
+                ${isLeader ? `<span style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">👑 قائد</span>` : ""}
+                ${removeBtn}
+              </div>`;
           }).join("");
-          if (!membersHtml) membersHtml = "<li style='color:#777;'>لا يوجد أعضاء بعد</li>";
           
           let ctaHtml = "";
           let assignHtml = "";
+          let isMyTeam = false;
           
           if (isStudentView && window._sStu) {
             let myTeam = getStudentTeam(window._sStu);
             if (myTeam === t) {
-              ctaHtml = `<a href="${whatsappLinks[t]}" target="_blank" class="team-cta">💬 انضم لتيمك على الواتساب</a>`;
+              isMyTeam = true;
+              ctaHtml = `<a href="${whatsappLinks[t]}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:700;font-size:0.9rem;transition:0.2s;margin-top:8px;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+                انضم لتيمك على الواتساب
+              </a>`;
             }
           }
           
@@ -3998,28 +4018,32 @@
             let availableStudents = students.filter(stu => !getStudentTeam(stu));
             let selId = `sel-${t.replace(' ', '')}`;
             assignHtml = `
-              <div style="margin-top: 15px; border-top: 1px solid #333; padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
-                <select id="${selId}" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #3f3f46; background: #222; color: #fff; font-family: inherit; font-size: 0.9rem;">
-                  <option value="">+ اختر طالب للإضافة...</option>
+              <div style="margin-top: 10px; border-top: 1px solid #333; padding-top: 15px; display: flex; flex-direction: column; gap: 8px;">
+                <select id="${selId}" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #3f3f46; background: #222; color: #fff; font-family: inherit; font-size: 0.85rem;">
+                  <option value="">+ إضافة طالب للفريق...</option>
                   ${availableStudents.map(stu => `<option value="${stu.id}">${stu.name}</option>`).join("")}
                 </select>
-                <button type="button" onclick="window.assignFromSelect(this, '${t}')" style="width: 100%; padding: 8px; background: rgba(231, 0, 11, 0.2); color: #ff6b6b; border: 1px solid rgba(231, 0, 11, 0.5); border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: bold; font-size: 0.9rem; transition: 0.2s;" onmouseover="this.style.background='rgba(231, 0, 11, 0.4)'" onmouseout="this.style.background='rgba(231, 0, 11, 0.2)'">إضافة للفريق</button>
+                <button type="button" onclick="window.assignFromSelect(this, '${t}')" style="width: 100%; padding: 10px; background: rgba(231, 0, 11, 0.15); color: #ff6b6b; border: 1px solid rgba(231, 0, 11, 0.4); border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.85rem; transition: 0.2s;" onmouseover="this.style.background='rgba(231, 0, 11, 0.25)'" onmouseout="this.style.background='rgba(231, 0, 11, 0.15)'">إضافة الآن</button>
               </div>
             `;
           }
           
           html += `
-            <div class="team-card">
-              <div class="team-title">${teamNames[t]}</div>
-              <ul class="team-members">
-                ${membersHtml}
-              </ul>
+            <div style="background:#18181b; border:1px solid #27272a; border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:16px; ${isMyTeam ? 'border-color:rgba(231,0,11,0.5);' : ''}">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-size:1.1rem; font-weight:800; color:#fff;">${teamNames[t]}</div>
+                ${isMyTeam ? `<span style="background:#E7000B; color:#fff; font-size:0.7rem; font-weight:800; padding:4px 12px; border-radius:20px;">فريقك</span>` : `<span style="color:#52525b; font-size:0.75rem;">${sortedMembers.length} أعضاء</span>`}
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                ${membersHtml || '<div style="color:#52525b; font-size:0.85rem; text-align:center; padding:10px;">لا يوجد أعضاء بعد</div>'}
+              </div>
               ${ctaHtml}
               ${assignHtml}
             </div>
           `;
         }
         container.innerHTML = html;
+        if (window.lucide) lucide.createIcons();
       }
 
       const _projData = {
@@ -4064,29 +4088,37 @@
             if (b.name === leaderName) return 1;
             return 0;
           });
+          const avatarColors = ["#E7000B","#f97316","#3b82f6","#8b5cf6","#10b981","#fbbf24","#ec4899","#14b8a6"];
           const membersHtml = sortedMembers.length
-            ? sortedMembers.map((s) => {
+            ? sortedMembers.map((s, i) => {
+                const color = avatarColors[i % avatarColors.length];
+                const initial = s.name ? s.name.charAt(0) : "?";
                 const isLeader = s.name === leaderName;
-                return `<li${isLeader ? ' style="border-bottom:1px dashed rgba(251,191,36,0.4);"' : ''}>
-                  ${s.name}
-                  ${isLeader ? `<span style="margin-right:auto;background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.4);font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">👑 قائد</span>` : ""}
-                </li>`;
+                return `
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#27272a;border-radius:12px; ${isLeader ? 'border:1px solid rgba(251,191,36,0.3);' : 'border:1px solid transparent;'}">
+                    <div style="width:36px;height:36px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;color:#fff;flex-shrink:0;">${initial}</div>
+                    <div style="flex:1;font-weight:600;color:#fff;font-size:0.9rem;">${s.name}</div>
+                    ${isLeader ? `<span style="background:rgba(251,191,36,0.15);color:#fbbf24;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">👑 قائد</span>` : ""}
+                  </div>`;
               }).join("")
-            : `<li style="color:#555;">لا يوجد أعضاء بعد</li>`;
+            : `<div style="color:#52525b; font-size:0.85rem; text-align:center; padding:10px;">لا يوجد أعضاء بعد</div>`;
 
           const ctaHtml = isMyTeam && whatsappLinks[teamKey]
-            ? `<a href="${whatsappLinks[teamKey]}" target="_blank" class="team-cta">💬 انضم لتيمك على الواتساب</a>`
+            ? `<a href="${whatsappLinks[teamKey]}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:700;font-size:0.9rem;transition:0.2s;margin-top:8px;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+                انضم لتيمك على الواتساب
+              </a>`
             : "";
 
           teamsHtml += `
-            <div class="team-card${isMyTeam ? ' style="border-color:rgba(231,0,11,0.4);"' : ''}">
-              <div class="team-title" style="display:flex;justify-content:space-between;align-items:center;">
-                <span>${teamNames[teamKey]}</span>
-                ${isMyTeam ? `<span style="background:#E7000B;color:#fff;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;">فريقك</span>` : ""}
+            <div style="background:#18181b; border:1px solid #27272a; border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:16px; ${isMyTeam ? 'border-color:rgba(231,0,11,0.4);' : ''}">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-size:1.1rem; font-weight:800; color:#fff;">${teamNames[teamKey]}</div>
+                ${isMyTeam ? `<span style="background:#E7000B; color:#fff; font-size:0.7rem; font-weight:800; padding:4px 12px; border-radius:20px;">فريقك</span>` : `<span style="color:#52525b; font-size:0.75rem;">${sortedMembers.length} أعضاء</span>`}
               </div>
-              <ul class="team-members">
+              <div style="display:flex; flex-direction:column; gap:8px;">
                 ${membersHtml}
-              </ul>
+              </div>
               ${ctaHtml}
             </div>`;
         }
@@ -5619,8 +5651,8 @@
           const iconAward   = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>`;
           const icons = [iconTrophy, iconMedal, iconAward];
 
-          // Podium order: silver(idx1) left, gold(idx0) center, bronze(idx2) right
-          const podiumOrder = top3.length >= 3 ? [1, 0, 2] : top3.map((_,i) => i);
+          // RTL podium: bronze(idx2) on RIGHT, gold(idx0) center elevated, silver(idx1) on LEFT
+          const podiumOrder = top3.length >= 3 ? [2, 0, 1] : top3.map((_,i) => i);
 
           const podiumHtml = `
             <div style="display:flex;align-items:flex-end;justify-content:center;gap:12px;margin-bottom:32px;padding-top:16px;">
@@ -5654,19 +5686,18 @@
                   ? `<img src="${p.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
                   : `<span style="font-weight:800;color:#fff;font-size:0.85rem;">${initial}</span>`;
                 return `
-                  <div style="display:flex;align-items:center;gap:12px;padding:12px 0;${i < rest.length-1 ? "border-bottom:1px solid #27272a;" : ""}">
-                    <div style="width:30px;height:30px;border-radius:50%;background:#27272a;display:flex;align-items:center;justify-content:center;color:#71717a;font-size:0.78rem;font-weight:700;flex-shrink:0;">${i + 4}</div>
-                    <div style="width:36px;height:36px;border-radius:50%;background:#E7000B;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">${avatarEl}</div>
-                    <div style="flex:1;min-width:0;">
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-                        <div style="color:#71717a;font-size:0.72rem;">المهام <span style="color:#a1a1aa;">${p.done}/${p.total}</span></div>
-                        <div style="font-weight:700;color:#fff;font-size:0.9rem;">${p.name}</div>
-                      </div>
-                      <div style="display:flex;align-items:center;gap:8px;">
-                        <div style="height:5px;background:#27272a;border-radius:6px;flex:1;overflow:hidden;">
-                          <div style="height:100%;width:${p.pct}%;background:#E7000B;border-radius:6px;"></div>
-                        </div>
-                        <div style="color:#71717a;font-size:0.75rem;flex-shrink:0;width:40px;text-align:left;">${p.pct}%</div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:16px 0;${i < rest.length-1 ? "border-bottom:1px solid #27272a;" : ""}">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#27272a;display:flex;align-items:center;justify-content:center;color:#71717a;font-size:0.78rem;font-weight:700;flex-shrink:0;">${i + 4}</div>
+                    <div style="width:40px;height:40px;border-radius:50%;background:#E7000B;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">${avatarEl}</div>
+                    <div style="font-weight:700;color:#fff;font-size:0.9rem;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">${p.name}</div>
+                    <div style="flex:1;height:6px;background:#27272a;border-radius:6px;overflow:hidden;min-width:60px;">
+                      <div style="height:100%;width:${p.pct}%;background:#E7000B;border-radius:6px;"></div>
+                    </div>
+                    <div style="flex-shrink:0;text-align:left;min-width:80px;">
+                      <div style="color:#71717a;font-size:0.65rem;margin-bottom:2px;">المهام</div>
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <div style="color:#a1a1aa;font-size:0.75rem;">${p.pct}%</div>
+                        <div style="font-weight:700;color:#fff;font-size:0.88rem;">${p.done} / ${p.total}</div>
                       </div>
                     </div>
                   </div>`;
@@ -5767,17 +5798,17 @@
 
             <!-- ② Teacher notes -->
             <div class="stu-card" style="margin-bottom:20px;">
-              <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
                 <div style="font-size:1rem;font-weight:700;color:#fff;">أحدث ملاحظات المعلم</div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               </div>
               ${feedbackTasks.length ? feedbackTasks.map(t => `
                 <div style="background:#27272a;border-radius:10px;padding:14px;margin-bottom:8px;">
                   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                    <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;">${t.grade||"–"}</span>
+                    <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;flex-shrink:0;">${t.grade||"–"}</span>
                     <div style="font-weight:700;color:#fff;font-size:0.88rem;">${t.name}</div>
                   </div>
-                  <div style="color:#a1a1aa;font-size:0.82rem;line-height:1.5;text-align:right;">${t.feedback}</div>
+                  <div style="color:#a1a1aa;font-size:0.82rem;line-height:1.5;">${t.feedback}</div>
                 </div>`).join("") : `
                 <div style="text-align:center;padding:32px 16px;">
                   <div style="width:48px;height:48px;border-radius:50%;background:#27272a;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
@@ -5789,7 +5820,7 @@
 
             <!-- ③ Progress & Discipline -->
             <div class="stu-card" style="margin-bottom:20px;">
-              <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
                 <div style="font-size:1rem;font-weight:700;color:#fff;">التقدم والانضباط</div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
               </div>
@@ -5814,11 +5845,11 @@
 
             <!-- ④ Submission history -->
             <div class="stu-card" style="margin-bottom:20px;">
-              <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;text-align:right;">سجل التسليمات</div>
-              ${submissions.length ? submissions.map(t => `
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;${submissions.indexOf(t)<submissions.length-1?"border-bottom:1px solid #27272a;":""}">
-                  <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;">معتمد</span>
-                  <div style="text-align:right;">
+              <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;">سجل التسليمات</div>
+              ${submissions.length ? submissions.map((t,ti) => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;${ti<submissions.length-1?"border-bottom:1px solid #27272a;":""}">
+                  <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;flex-shrink:0;">معتمد</span>
+                  <div>
                     <div style="font-weight:600;color:#fff;font-size:0.88rem;">${t.name}</div>
                     <div style="color:#52525b;font-size:0.75rem;margin-top:2px;">${t.deadline||"–"}</div>
                   </div>
