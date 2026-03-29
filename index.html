@@ -549,20 +549,32 @@
       }
       
       .role-icon-box {
-        width: 64px;
-        height: 64px;
-        border-radius: 12px;
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 32px;
-        margin-bottom: 24px;
-        background: rgba(255,255,255,0.03);
-        transition: 0.3s;
+        margin-bottom: 28px;
+        background: #1a1a1a;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #222;
       }
       .role-card:hover .role-icon-box {
-        transform: scale(1.1);
+        transform: scale(1.1) rotate(5deg);
         background: var(--role-color-bg);
+        border-color: var(--role-color);
+        box-shadow: 0 10px 30px var(--role-color-bg);
+      }
+      .role-icon-box svg {
+        width: 32px;
+        height: 32px;
+        stroke: var(--role-color);
+        stroke-width: 2;
+        transition: 0.3s;
+      }
+      .role-card:hover .role-icon-box svg {
+        stroke: #fff;
       }
       
       .role-card h3 {
@@ -1965,15 +1977,26 @@
           <p class="sub">اختر دورك للمتابعة</p>
         </div>
 
-        <!-- Role Selection -->
         <div class="role-selection" id="role-sel">
           <div class="role-card role-t" onclick="selectRole('teacher')">
-            <div class="role-icon-box" style="color: #c41818;">👨‍🏫</div>
+            <div class="role-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M23 21V19C22.9993 18.1137 22.7044 17.2522 22.1614 16.5523C21.6184 15.8524 20.8581 15.3516 20 15.13" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25393 19.0078 6.11903 19.0078 7.005C19.0078 7.89097 18.7122 8.75607 18.1676 9.45768C17.623 10.1593 16.8604 10.6597 16 10.88" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3>معلم</h3>
             <p>إدارة المهام والطلاب والفرق والمتابعة الشاملة</p>
           </div>
           <div class="role-card role-s" onclick="selectRole('student')">
-            <div class="role-icon-box" style="color: #22c55e;">👨‍🎓</div>
+            <div class="role-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 10L12 5L2 10L12 15L22 10Z" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 12V17C6 17 8 19 12 19C16 19 18 17 18 17V12" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3>طالب</h3>
             <p>عرض المهام، تسليم الأعمال، ومتابعة التقدم الشخصي</p>
           </div>
