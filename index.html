@@ -3992,7 +3992,7 @@
             : `<div style="color:#52525b;font-size:0.85rem;padding:10px 0;">لا يوجد أعضاء بعد</div>`;
 
           teamsHtml += `
-            <div style="background:#18181b;border:1px solid #27272a;border-radius:14px;padding:20px 24px;margin-bottom:16px;">
+            <div style="background:#18181b;border:1px solid #27272a;border-radius:14px;padding:20px 24px;">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
                 <div style="display:flex;align-items:center;gap:10px;">
                   ${isMyTeam ? `<span style="background:#E7000B;color:#fff;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:20px;">فريقك</span>` : ""}
@@ -4052,7 +4052,9 @@
 
             <!-- Teams section -->
             <div style="font-size:1.3rem;font-weight:800;color:#fff;text-align:right;margin-bottom:16px;">الفرق</div>
-            ${teamsHtml}
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+              ${teamsHtml}
+            </div>
           </div>`;
 
         // Save restore function
