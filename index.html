@@ -2196,10 +2196,7 @@
                   onmouseover="this.style.transform = 'translateY(-2px)'"
                   onmouseout="this.style.transform = 'none'"
                   onclick="
-                    switchTab(
-                      't-tasks',
-                      document.querySelectorAll('.nav-item')[2],
-                    );
+                    switchTab('t-tasks');
                     openTaskModal();
                   "
                 >
@@ -2477,6 +2474,9 @@
               <div class="section">
                 <div class="sec-head">
                   <div class="sec-title">📊 ملخص أداء الطلاب</div>
+                  <button onclick="switchTab('t-tasks')" style="background:#2d2d2d; border:1px solid #444; color:#eee; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:0.9rem;">
+                    🎯 اذهب للمهام لإضافة جديد
+                  </button>
                 </div>
                 <div style="overflow-x:auto; margin-bottom:30px;">
                   <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
@@ -2509,7 +2509,7 @@
               <div class="section">
                 <!-- Header + Back Button -->
                 <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px; flex-wrap:wrap;">
-                  <button onclick="switchTab('t-tasks', document.querySelectorAll('#v-teacher .nav-item')[1])" style="background:#2d2d2d; border:1px solid #444; color:#eee; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:0.9rem;">
+                  <button onclick="switchTab('t-tasks')" style="background:#2d2d2d; border:1px solid #444; color:#eee; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:0.9rem;">
                     ← رجوع للمهام
                   </button>
                   <div>
@@ -2762,6 +2762,10 @@
           <button class="mob-nav-item" data-tab="s-profile" onclick="switchTab('s-profile', this)">
             <span class="mob-nav-icon">👤</span>
             <span class="mob-nav-label">حسابي</span>
+          </button>
+          <button class="mob-nav-item" data-tab="s-project" onclick="switchTab('s-project', this)">
+            <span class="mob-nav-icon">🚀</span>
+            <span class="mob-nav-label">مشاريع</span>
           </button>
         </nav>
 
@@ -5913,24 +5917,32 @@
       };
 
       window.switchTab = (tabId, element) => {
+        const isTeacher = tabId.startsWith('t-');
+        const view = document.getElementById(isTeacher ? 'v-teacher' : 'v-student');
+        
         // Update sidebar nav active (desktop)
-        document.querySelectorAll(".nav-item").forEach((el) => el.classList.remove("active"));
+        view.querySelectorAll(".nav-item").forEach((el) => el.classList.remove("active"));
         // Update bottom nav active (mobile)
-        document.querySelectorAll(".mob-nav-item").forEach((el) => el.classList.remove("active"));
+        view.querySelectorAll(".mob-nav-item").forEach((el) => el.classList.remove("active"));
 
-        // Mark clicked element as active (could be either nav type)
+        // Highlight clicked element if provided, or find it by tabId
         if (element) {
           element.classList.add("active");
-          // If it's a sidebar nav-item, also sync bottom nav
-          const matchMob = document.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
+          // Sync counterparts
+          const matchMob = view.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
+          if (matchMob && matchMob !== element) matchMob.classList.add("active");
+          const matchSide = view.querySelector(`.nav-item[onclick*="${tabId}"]`);
+          if (matchSide && matchSide !== element) matchSide.classList.add("active");
+        } else {
+          // No element provided, find and highlight both
+          const matchMob = view.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
           if (matchMob) matchMob.classList.add("active");
-          // If it's a bottom nav item, also sync sidebar nav-item
-          const matchSide = document.querySelector(`.nav-item[onclick*="${tabId}"]`);
+          const matchSide = view.querySelector(`.nav-item[onclick*="${tabId}"]`);
           if (matchSide) matchSide.classList.add("active");
         }
 
         // Get readable label for topbar
-        const mobItem = document.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
+        const mobItem = view.querySelector(`.mob-nav-item[data-tab="${tabId}"]`);
         const labelEl = mobItem ? mobItem.querySelector(".mob-nav-label") : null;
         const label = labelEl ? labelEl.textContent.trim() : "";
 
@@ -6549,27 +6561,18 @@
             `لديك مهام بانتظارك لم تنهيها بعد! (${pendR} مهام) ⏳`;
           g("smart-ai-action").textContent = "اذهب للمهام";
           g("smart-ai-action").onclick = () =>
-            switchTab(
-              "s-tasks",
-              document.querySelectorAll(".sidebar-nav .nav-item")[1],
-            );
+            switchTab("s-tasks");
         } else if (latestReview) {
           g("smart-ai-msg").textContent =
             "ألقِ نظرة على أحدث ملاحظات المعلم وتقييمك 💬";
           g("smart-ai-action").textContent = "عرض التقييم";
           g("smart-ai-action").onclick = () =>
-            switchTab(
-              "s-profile",
-              document.querySelectorAll(".sidebar-nav .nav-item")[4],
-            );
+            switchTab("s-profile");
         } else if (dnR > 0) {
           g("smart-ai-msg").textContent = "كل المهام مكتملة، مستواك رائع! 🌟";
           g("smart-ai-action").textContent = "تصفح أعمالك";
           g("smart-ai-action").onclick = () =>
-            switchTab(
-              "s-portfolio",
-              document.querySelectorAll(".sidebar-nav .nav-item")[3],
-            );
+            switchTab("s-portfolio");
         } else {
           g("smart-ai-msg").textContent =
             "استعد لمهامك القادمة بمجرد تعيينها 🎯";
@@ -6624,10 +6627,7 @@
           g("weekly-goal-action").style.display = "block";
           g("weekly-goal-action").textContent = "شاهد المهام";
           g("weekly-goal-action").onclick = () =>
-            switchTab(
-              "s-tasks",
-              document.querySelectorAll(".sidebar-nav .nav-item")[1],
-            );
+            switchTab("s-tasks");
 
           if (doneThisWeek >= targetTasks) {
             g("weekly-goal-msg").textContent = "حققت هدف الأسبوع! 🎉";
@@ -6651,10 +6651,7 @@
           alert(
             '⚠️ لا يمكنك إنهاء المهمة (تغيير حالتها إلى "خلص")!\n\nيجب عليك أولاً إرفاق (رابط للحل مثل فيجما) أو (صورة) لإثبات إتمامك للمهمة.',
           );
-          switchTab(
-            "s-tasks",
-            document.querySelectorAll(".sidebar-nav .nav-item")[1],
-          );
+          switchTab("s-tasks");
           return;
         }
 
