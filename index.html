@@ -613,8 +613,11 @@
         font-size: 36px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.3);
       }
-      .role-indicator.t { background: #3b82f6; color: #fff; }  /* Blue for Teacher as per screenshot */
-      .role-indicator.s { background: #f97316; color: #fff; }  /* Orange for Student as per screenshot */
+      .role-t { --role-color: #c41818; --role-color-bg: rgba(196, 24, 24, 0.1); }
+      .role-s { --role-color: #888888; --role-color-bg: rgba(255, 255, 255, 0.05); }
+
+      .role-indicator.t { background: #c41818; color: #fff; }  /* Red for Teacher */
+      .role-indicator.s { background: #1a1a1a; color: #fff; border: 1px solid #333; }  /* Dark for Student */
       
       .login-form-container h3 {
         font-size: 1.8rem;
@@ -679,11 +682,11 @@
         text-align: right;
       }
       .linput:focus {
-        border-color: #3b82f6;
+        border-color: #c41818;
         background: #1a1a1a;
         outline: none;
       }
-      .role-s .linput:focus { border-color: #f97316; }
+      .role-s .linput:focus { border-color: #555; }
 
       .btn-login {
         background: #e50914; /* Standard Red */
