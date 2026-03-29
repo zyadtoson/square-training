@@ -2124,10 +2124,16 @@
           <button class="mob-nav-item" data-tab="t-tasks" onclick="switchTab('t-tasks', this)">
             <span class="mob-nav-icon">📋</span>
             <span class="mob-nav-label">المهام</span>
+            <span class="mob-nav-badge" id="mob-t-tasks-badge"></span>
+          </button>
+          <button class="mob-nav-item" data-tab="t-leaderboard" onclick="switchTab('t-leaderboard', this)">
+            <span class="mob-nav-icon">🏆</span>
+            <span class="mob-nav-label">الشرف</span>
           </button>
           <button class="mob-nav-item" data-tab="t-analytics" onclick="switchTab('t-analytics', this)">
             <span class="mob-nav-icon">📈</span>
             <span class="mob-nav-label">تحليل</span>
+            <span class="mob-nav-badge" id="mob-t-analytics-badge"></span>
           </button>
           <button class="mob-nav-item" data-tab="t-project" onclick="switchTab('t-project', this)">
             <span class="mob-nav-icon">🚀</span>
@@ -4194,14 +4200,23 @@
 
       const updateNotificationBadge = (elementId, count) => {
         const badge = g(elementId);
-        if (badge) {
+        const mobBadge = g(`mob-${elementId}`);
+        
+        const updateEle = (el) => {
+          if (!el) return;
           if (count > 0) {
-            badge.textContent = count > 9 ? '9+' : count;
-            badge.style.display = 'block';
+            el.textContent = count > 9 ? '9+' : count;
+            el.style.display = 'block';
+            el.dataset.count = count;
           } else {
-            badge.style.display = 'none';
+            el.style.display = 'none';
+            el.dataset.count = 0;
+            el.textContent = '';
           }
-        }
+        };
+
+        updateEle(badge);
+        updateEle(mobBadge);
       };
 
       const checkNotifications = () => {
