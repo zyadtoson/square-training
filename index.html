@@ -858,7 +858,8 @@
 
       
       /* ── TEAMS ── */
-      .teams-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+      .teams-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+      @media (max-width: 640px) { .teams-grid { grid-template-columns: 1fr; } }
       .team-card { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 20px; }
       .team-title { font-size: 1.2rem; color: #E7000B; margin-bottom: 12px; font-weight: bold; border-bottom: 1px solid #27272a; padding-bottom: 8px;}
       .team-members { list-style: none; margin-bottom: 16px; }
