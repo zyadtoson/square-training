@@ -591,75 +591,162 @@
       
       .login-form-container {
         width: 100%;
-        max-width: 400px;
-        background: #141414;
-        border: 1px solid #222;
-        border-radius: 20px;
-        padding: 40px;
+        max-width: 440px;
+        background: #0d0d0d;
+        border: 1px solid #1a1a1a;
+        border-radius: 24px;
+        padding: 48px 40px;
         display: none;
-        animation: slideUp 0.4s ease-out;
-      }
-      @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
       }
       
-      .back-btn {
+      .role-indicator {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 24px;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      }
+      .role-indicator.t { background: #3b82f6; color: #fff; }  /* Blue for Teacher as per screenshot */
+      .role-indicator.s { background: #f97316; color: #fff; }  /* Orange for Student as per screenshot */
+      
+      .login-form-container h3 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+        color: #fff;
+      }
+      .login-form-container .form-subtext {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 32px;
+      }
+
+      .back-btn {
+        display: inline-flex;
         align-items: center;
         gap: 8px;
         color: #888;
         background: transparent;
         border: none;
         cursor: pointer;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         margin-bottom: 24px;
         transition: 0.2s;
-        padding: 0;
+        padding: 4px 8px;
       }
-      .back-btn:hover {
-        color: #fff;
+      .back-btn:hover { color: #fff; }
+
+      .input-group {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        display: block;
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        font-weight: 600;
       }
       
+      .l-input-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .l-input-wrap i {
+        position: absolute;
+        right: 16px;
+        color: #555;
+        font-size: 1.1rem;
+        pointer-events: none;
+      }
       .linput {
         width: 100%;
-        background: #000;
+        background: #141414;
         border: 1px solid #222;
-        border-radius: 12px;
-        padding: 14px 18px;
+        border-radius: 14px;
+        padding: 14px 48px 14px 18px; /* Extra padding for icon on right */
         color: #fff;
         font-size: 1rem;
-        margin-bottom: 14px;
-        text-align: right;
         transition: 0.2s;
+        text-align: right;
       }
       .linput:focus {
-        border-color: #c41818;
-        background: #050505;
+        border-color: #3b82f6;
+        background: #1a1a1a;
+        outline: none;
       }
-      
+      .role-s .linput:focus { border-color: #f97316; }
+
       .btn-login {
-        background: #c41818;
+        background: #e50914; /* Standard Red */
         color: #fff;
         border: none;
         width: 100%;
-        padding: 14px;
-        border-radius: 12px;
+        padding: 16px;
+        border-radius: 14px;
         font-size: 1.1rem;
         font-weight: 700;
         cursor: pointer;
         transition: 0.3s;
-        margin-top: 10px;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
       }
       .btn-login:hover {
-        background: #e51b1b;
+        background: #f40a16;
         transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(196, 24, 24, 0.3);
+        box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
       }
       
-      .role-t { --role-color: #c41818; --role-color-bg: rgba(196, 24, 24, 0.15); }
-      .role-s { --role-color: #22c55e; --role-color-bg: rgba(34, 197, 94, 0.15); }
-      
+      .reg-footer {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #1a1a1a;
+      }
+      .reg-footer p {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 16px;
+      }
+      .btn-reg-outline {
+        background: #141414;
+        border: 1px solid #222;
+        color: #ddd;
+        width: 100%;
+        padding: 14px;
+        border-radius: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .btn-reg-outline:hover {
+        background: #1a1a1a;
+        border-color: #333;
+        color: #fff;
+      }
+
+      .login-footer-copy {
+        margin-top: 40px;
+        color: #444;
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
       .lerr {
         color: #ff6b6b;
         font-size: 0.88rem;
@@ -2005,63 +2092,116 @@
         <!-- Login Form Container -->
         <div class="login-form-container" id="l-form-cont">
           <button class="back-btn" onclick="backToRole()">
-            <span>→</span> الرجوع للرئيسية
+            <span>←</span> العودة
           </button>
           
-          <div id="role-title" style="margin-bottom: 24px; text-align: right;">
-            <h3 id="role-name" style="font-size: 1.6rem; color: #fff; margin-bottom: 8px;">دخول المعلم</h3>
-            <p style="color: #666; font-size: 0.9rem;">أدخل بيانات اعتمادك للمتابعة</p>
+          <div class="role-indicator" id="role-ind">
+            <!-- SVG will be injected here or role icon -->
+            <span id="role-emoji"></span>
           </div>
 
+          <h3 id="role-form-title">تسجيل الدخول</h3>
+          <p class="form-subtext" id="role-form-sub">أدخل بياناتك للمتابعة</p>
+
+          <!-- TEACHER FORM -->
           <div id="tf">
-            <input
-              type="password"
-              class="linput"
-              id="tp"
-              placeholder="كلمة مرور المعلم..."
-              onkeydown="if (event.key === 'Enter') doLoginT();"
-            />
-            <button class="btn-login" onclick="doLoginT()">دخول ←</button>
+            <div class="input-group">
+              <label>كلمة المرور</label>
+              <div class="l-input-wrap">
+                <i style="font-style: normal;">🔒</i>
+                <input
+                  type="password"
+                  class="linput"
+                  id="tp"
+                  placeholder="أدخل كلمة المرور"
+                  onkeydown="if (event.key === 'Enter') doLoginT();"
+                />
+              </div>
+            </div>
+            <button class="btn-login" onclick="doLoginT()">
+              تسجيل الدخول <span style="font-size: 1.2rem;">[→</span>
+            </button>
           </div>
           
+          <!-- STUDENT FORM -->
           <div id="sf" style="display: none">
-            <input
-              type="text"
-              class="linput"
-              id="su"
-              placeholder="اسم المستخدم (Username)..."
-              onkeydown="if (event.key === 'Enter') doLoginS();"
-            />
-            <input
-              type="password"
-              class="linput"
-              id="sp"
-              placeholder="كلمة المرور..."
-              onkeydown="if (event.key === 'Enter') doLoginS();"
-            />
-            <button class="btn-login" onclick="doLoginS()">دخول ←</button>
-            <div
-              style="margin-top: 20px; font-size: 0.9rem; color: #666; cursor: pointer; text-align: center;"
-              onclick="toggleReg(true)"
-            >
-              ليس لديك حساب؟ <span style="color: #c41818; font-weight: 700">سجل الآن</span>
+            <div class="input-group">
+              <label>اسم المستخدم</label>
+              <div class="l-input-wrap">
+                <i style="font-style: normal;">👤</i>
+                <input
+                  type="text"
+                  class="linput"
+                  id="su"
+                  placeholder="أدخل اسم المستخدم"
+                  onkeydown="if (event.key === 'Enter') doLoginS();"
+                />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>كلمة المرور</label>
+              <div class="l-input-wrap">
+                <i style="font-style: normal;">🔒</i>
+                <input
+                  type="password"
+                  class="linput"
+                  id="sp"
+                  placeholder="أدخل كلمة المرور"
+                  onkeydown="if (event.key === 'Enter') doLoginS();"
+                />
+              </div>
+            </div>
+            <button class="btn-login" onclick="doLoginS()">
+              تسجيل الدخول <span style="font-size: 1.2rem;">[→</span>
+            </button>
+            
+            <div class="reg-footer">
+              <p>ليس لديك حساب؟</p>
+              <button class="btn-reg-outline" onclick="toggleReg(true)">
+                <span style="font-size: 1.2rem;">👤+</span> إنشاء حساب طالب جديد
+              </button>
             </div>
           </div>
 
+          <!-- REGISTER FORM -->
           <div id="sreg" style="display: none">
-            <input type="text" class="linput" id="sr-name" placeholder="الاسم الكامل..." />
-            <input type="text" class="linput" id="sr-uname" dir="ltr" placeholder="اسم مستخدم..." />
-            <input type="password" class="linput" id="sr-pass" dir="ltr" placeholder="كلمة مرور..." />
-            <button class="btn-login" style="background: #22c55e" onclick="doRegisterS()">إنشاء حساب ←</button>
+            <div class="input-group">
+              <label>الاسم الكامل</label>
+              <div class="l-input-wrap">
+                <i style="font-style: normal;">📝</i>
+                <input type="text" class="linput" id="sr-name" placeholder="أدخل اسمك بالكامل" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>اسم المستخدم</label>
+              <div class="l-input-wrap">
+                <i style="font-style: normal;">👤</i>
+                <input type="text" class="linput" id="sr-uname" dir="ltr" placeholder="اختر اسم مستخدم" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>كلمة المرور</label>
+              <div class="l-input-wrap">
+                <i style="font-style: normal;">🔒</i>
+                <input type="password" class="linput" id="sr-pass" dir="ltr" placeholder="اختر كلمة مرور" />
+              </div>
+            </div>
+            <button class="btn-login" style="background: #22c55e" onclick="doRegisterS()">
+              إنشاء حساب وكمل طريقك <span style="font-size: 1.2rem;">✨</span>
+            </button>
             <div
-              style="margin-top: 20px; font-size: 0.9rem; color: #666; cursor: pointer; text-align: center;"
+              style="margin-top: 24px; font-size: 0.9rem; color: #666; cursor: pointer; text-align: center;"
               onclick="toggleReg(false)"
             >
-              لديك حساب بالفعل؟ <span style="color: #c41818; font-weight: 700">تسجيل الدخول</span>
+              لديك حساب بالفعل؟ <span style="color: #3b82f6; font-weight: 700">تسجيل الدخول</span>
             </div>
           </div>
 
           <div class="lerr" id="lerr"></div>
+        </div>
+        
+        <div class="login-footer-copy" id="login-copy">
+          نظام إدارة مهام الطلاب © 2026
         </div>
       </div>
     </div>
@@ -4348,17 +4488,35 @@
         g("login-hdr").style.display = "none";
         g("role-sel").style.display = "none";
         g("l-form-cont").style.display = "block";
-        g("role-name").textContent = r === "teacher" ? "دخول المعلم" : "دخول الطالب";
+        g("l-form-cont").className = "login-form-container role-" + (r === 'teacher' ? 't' : 's');
+        
+        const ind = g("role-ind");
+        ind.className = "role-indicator " + (r === 'teacher' ? 't' : 's');
+        g("role-emoji").innerHTML = r === 'teacher' ? `
+          <svg viewBox="0 0 24 24" width="36" height="36" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>` : `
+          <svg viewBox="0 0 24 24" width="36" height="36" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10L12 5L2 10L12 15L22 10Z"></path>
+            <path d="M6 12v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-5"></path>
+          </svg>`;
+
+        g("role-form-title").textContent = r === "teacher" ? "تسجيل الدخول كمعلم" : "تسجيل الدخول كطالب";
+        g("role-form-sub").textContent = r === "teacher" ? "أدخل كلمة المرور للمتابعة" : "أدخل بيانات حسابك للمتابعة";
+        
         g("tf").style.display = r === "teacher" ? "block" : "none";
         g("sf").style.display = r === "student" ? "block" : "none";
         g("sreg").style.display = "none";
         g("lerr").textContent = "";
+        g("login-copy").style.display = "block";
       };
 
       window.backToRole = () => {
         g("login-hdr").style.display = "block";
         g("role-sel").style.display = "flex";
         g("l-form-cont").style.display = "none";
+        g("login-copy").style.display = "none";
       };
 
       window.toggleReg = (show) => {
