@@ -1198,9 +1198,6 @@
         .sidebar-overlay {
           display: none !important;
         }
-        .hamburger {
-          display: none !important;
-        }
 
         /* Layout resets */
         .app-layout {
@@ -1333,6 +1330,10 @@
         }
 
         /* BUTTONS */
+        #mob-t-out,
+        #mob-s-out {
+          display: block !important;
+        }
         .btn-add,
         .btn-logout {
           padding: 8px 12px;
@@ -2760,9 +2761,8 @@
 
         <main class="main-area">
           <div class="topbar">
-            <button class="hamburger" onclick="toggleSidebar()">☰</button>
             <div
-              style="font-weight: 700; font-size: 1.1rem; color: #fff"
+              style="font-weight: 700; font-size: 1.05rem; color: #fff"
               id="s-top-title"
             >
               الرئيسية
