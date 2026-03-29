@@ -5734,7 +5734,7 @@
         const profCont = g("s-profile-cont");
         if (profCont) {
           // Extra stats
-          const pending   = myTasks.filter(t => t.status === "لسه").length;
+          const pending   = myTasks.filter(t => t.status === "لسه" || t.status === "شغال").length;
           const onTime    = myTasks.filter(t => t.status === "خلص").length;
           const lateTasks = myTasks.filter(t => t.status === "متأخر").length;
           const reviewed  = myTasks.filter(t => t.reviewed && t.grade);
@@ -5751,117 +5751,109 @@
           const initial = stu.name ? stu.name.charAt(0).toUpperCase() : "?";
           const avatarEl = stu.avatar
             ? `<img src="${stu.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
-            : `<span style="font-size:1.8rem;font-weight:800;color:#fff;">${initial}</span>`;
+            : `<span style="font-size:2rem;font-weight:800;color:#fff;">${initial}</span>`;
 
           profCont.innerHTML = `
-            <!-- ① Student card -->
-            <div class="stu-card" style="margin-bottom:20px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;">
-                <div style="display:flex;align-items:center;gap:16px;">
-                  <div style="text-align:right;">
-                    <div style="font-size:1.4rem;font-weight:800;color:#fff;">${stu.name}</div>
-                    <div style="color:#71717a;font-size:0.88rem;margin-top:2px;">طالب</div>
-                    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
-                      <a id="sprof-linkedin" href="${stu.linkedin||"#"}" target="_blank" style="display:${stu.linkedin?"inline-flex":"none"};align-items:center;gap:5px;padding:5px 10px;background:rgba(0,119,181,0.12);border:1px solid rgba(0,119,181,0.3);border-radius:6px;color:#60a5fa;text-decoration:none;font-size:0.78rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                        LinkedIn
-                      </a>
-                      <a id="sprof-behance" href="${stu.behance||"#"}" target="_blank" style="display:${stu.behance?"inline-flex":"none"};align-items:center;gap:5px;padding:5px 10px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.3);border-radius:6px;color:#818cf8;text-decoration:none;font-size:0.78rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
-                        Behance
-                      </a>
-                      <span style="display:${stu.linkedin||stu.behance?"none":"inline-flex"};color:#52525b;font-size:0.78rem;align-items:center;">(اختياري) LinkedIn &amp; Behance</span>
+            <div style="font-size:1.4rem; font-weight:800; color:#fff; margin-bottom:20px; text-align:right;">الملف الشخصي</div>
+            
+            <div style="background:#18181b; border:1px solid #27272a; border-radius:18px; padding:32px; margin-bottom:24px;">
+              <!-- Profile Header Row -->
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:32px;">
+                <div style="display:flex; flex-direction:column; align-items:flex-end;">
+                  <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+                    <div style="text-align:right;">
+                      <div style="font-size:1.8rem; font-weight:900; color:#fff;">${stu.name}</div>
+                      <div style="color:#71717a; font-size:1rem; margin-top:4px;">طالب</div>
+                    </div>
+                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#E7000B,#f97316); display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; border:4px solid #27272a;">
+                      ${avatarEl}
                     </div>
                   </div>
-                </div>
-                <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#E7000B,#f97316);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">${avatarEl}</div>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
-                  <div style="font-size:1.5rem;font-weight:800;color:#fff;">${tot}</div>
-                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">إجمالي المهام</div>
-                </div>
-                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
-                  <div style="font-size:1.5rem;font-weight:800;color:#22c55e;">${dn}</div>
-                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">مهام مكتملة</div>
-                </div>
-                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
-                  <div style="font-size:1.5rem;font-weight:800;color:#f97316;">${pending}</div>
-                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">بانتظارك</div>
-                </div>
-                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
-                  <div style="font-size:1.5rem;font-weight:800;color:#60a5fa;">${avgGrade}</div>
-                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">متوسط التقييمات</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ② Teacher notes -->
-            <div class="stu-card" style="margin-bottom:20px;">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
-                <div style="font-size:1rem;font-weight:700;color:#fff;">أحدث ملاحظات المعلم</div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              </div>
-              ${feedbackTasks.length ? feedbackTasks.map(t => `
-                <div style="background:#27272a;border-radius:10px;padding:14px;margin-bottom:8px;">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                    <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;flex-shrink:0;">${t.grade||"–"}</span>
-                    <div style="font-weight:700;color:#fff;font-size:0.88rem;">${t.name}</div>
+                  
+                  <!-- Social Links -->
+                  <div style="display:flex; gap:12px; margin-top:4px; align-items:center;">
+                    ${stu.linkedin ? `
+                      <a href="${stu.linkedin}" target="_blank" style="display:flex;align-items:center;gap:6px;color:#a1a1aa;text-decoration:none;font-size:0.85rem;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a1a1aa'">
+                        LinkedIn <i data-lucide="linkedin" style="width:16px;height:16px;"></i>
+                      </a>
+                    ` : `<span style="color:#3f3f46; font-size:0.82rem;">LinkedIn (اختياري) <i data-lucide="linkedin" style="width:14px;height:14px;display:inline-block;vertical-align:middle;"></i></span>`}
+                    
+                    <span style="color:#3f3f46; font-size:1rem;">|</span>
+                    
+                    ${stu.behance ? `
+                      <a href="${stu.behance}" target="_blank" style="display:flex;align-items:center;gap:6px;color:#a1a1aa;text-decoration:none;font-size:0.85rem;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a1a1aa'">
+                        Behance <i data-lucide="palette" style="width:16px;height:16px;"></i>
+                      </a>
+                    ` : `<span style="color:#3f3f46; font-size:0.82rem;">Behance (اختياري) <i data-lucide="palette" style="width:14px;height:14px;display:inline-block;vertical-align:middle;"></i></span>`}
                   </div>
-                  <div style="color:#a1a1aa;font-size:0.82rem;line-height:1.5;">${t.feedback}</div>
-                </div>`).join("") : `
-                <div style="text-align:center;padding:32px 16px;">
-                  <div style="width:48px;height:48px;border-radius:50%;background:#27272a;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  </div>
-                  <div style="color:#71717a;font-size:0.85rem;line-height:1.6;">لا توجد تقييمات أو ملاحظات بساقة حق الآن.<br>أمور أفضلها انتظارك، ارجع تتابعهم في بياناتهم!</div>
-                </div>`}
-            </div>
-
-            <!-- ③ Progress & Discipline -->
-            <div class="stu-card" style="margin-bottom:20px;">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
-                <div style="font-size:1rem;font-weight:700;color:#fff;">التقدم والانضباط</div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:0.85rem;">
-                <span style="color:#fff;font-weight:700;">${pct}%</span>
-                <span style="color:#71717a;">معدل الإنجاز</span>
-              </div>
-              <div style="height:8px;background:#27272a;border-radius:8px;overflow:hidden;margin-bottom:16px;">
-                <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,#E7000B,#f97316);border-radius:8px;transition:0.8s;"></div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
-                  <div style="font-size:1.5rem;font-weight:800;color:#22c55e;">${onTime}</div>
-                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">تسليم في الموعد</div>
                 </div>
-                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
-                  <div style="font-size:1.5rem;font-weight:800;color:#E7000B;">${lateTasks}</div>
-                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">تسليم متأخر</div>
+              </div>
+
+              <!-- Stats Row -->
+              <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+                <!-- Avg Grade -->
+                <div style="background:#27272a; border-radius:12px; padding:24px 16px; text-align:center; border:2px solid #3b82f6; box-shadow: 0 0 20px rgba(59,130,246,0.1);">
+                  <div style="font-size:2rem; font-weight:900; color:#fff; margin-bottom:8px;">${avgGrade}</div>
+                  <div style="color:#71717a; font-size:0.85rem; font-weight:600;">متوسط التقييمات</div>
+                </div>
+                <!-- Pending -->
+                <div style="background:#27272a; border-radius:12px; padding:24px 16px; text-align:center; border:1px solid transparent;">
+                  <div style="font-size:2rem; font-weight:900; color:#f97316; margin-bottom:8px;">${pending}</div>
+                  <div style="color:#71717a; font-size:0.85rem; font-weight:600;">بانتظارك</div>
+                </div>
+                <!-- Completed -->
+                <div style="background:#27272a; border-radius:12px; padding:24px 16px; text-align:center; border:1px solid transparent;">
+                  <div style="font-size:2rem; font-weight:900; color:#22c55e; margin-bottom:8px;">${onTime}</div>
+                  <div style="color:#71717a; font-size:0.85rem; font-weight:600;">مهام مكتملة</div>
+                </div>
+                <!-- Total -->
+                <div style="background:#27272a; border-radius:12px; padding:24px 16px; text-align:center; border:1px solid transparent;">
+                  <div style="font-size:2rem; font-weight:900; color:#fff; margin-bottom:8px;">${tot}</div>
+                  <div style="color:#71717a; font-size:0.85rem; font-weight:600;">إجمالي المهام</div>
                 </div>
               </div>
             </div>
 
-            <!-- ④ Submission history -->
-            <div class="stu-card" style="margin-bottom:20px;">
-              <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;">سجل التسليمات</div>
-              ${submissions.length ? submissions.map((t,ti) => `
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;${ti<submissions.length-1?"border-bottom:1px solid #27272a;":""}">
-                  <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;flex-shrink:0;">معتمد</span>
-                  <div>
-                    <div style="font-weight:600;color:#fff;font-size:0.88rem;">${t.name}</div>
-                    <div style="color:#52525b;font-size:0.75rem;margin-top:2px;">${t.deadline||"–"}</div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+               <!-- Feedback -->
+               <div style="background:#18181b; border:1px solid #27272a; border-radius:18px; padding:24px;">
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px; justify-content:flex-end;">
+                    <div style="font-size:1.1rem; font-weight:800; color:#fff;">أحدث ملاحظات المعلم</div>
+                    <i data-lucide="message-square" style="width:20px; height:20px; color:#E7000B;"></i>
                   </div>
-                </div>`).join("") : `
-                <div style="text-align:center;padding:24px;color:#52525b;font-size:0.85rem;">لا توجد تسليمات بعد</div>`}
-            </div>
+                  ${feedbackTasks.length ? feedbackTasks.map(t => `
+                    <div style="background:#27272a; border-radius:12px; padding:16px; margin-bottom:12px; text-align:right;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="background:rgba(34,197,94,0.15); color:#22c55e; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:20px;">${t.grade||"100/100"}</span>
+                        <div style="font-weight:700; color:#fff; font-size:0.95rem;">${t.name}</div>
+                      </div>
+                      <div style="color:#a1a1aa; font-size:0.85rem; line-height:1.6;">${t.feedback}</div>
+                    </div>`).join("") : `<div style="color:#52525b; text-align:center; padding:20px;">لا توجد ملاحظات بعد</div>`}
+               </div>
 
-            <!-- ⑤ Settings button -->
-            <button onclick="openSettings()" class="stu-btn-action" style="width:100%;justify-content:center;gap:8px;padding:14px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-              الإعدادات
-            </button>`;
+               <!-- History & Settings -->
+               <div style="display:flex; flex-direction:column; gap:20px;">
+                  <div style="background:#18181b; border:1px solid #27272a; border-radius:18px; padding:24px; flex:1;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px; justify-content:flex-end;">
+                      <div style="font-size:1.1rem; font-weight:800; color:#fff;">سجل التسليمات الأخيرة</div>
+                      <i data-lucide="clock" style="width:20px; height:20px; color:#E7000B;"></i>
+                    </div>
+                    ${submissions.length ? submissions.map((t,ti) => `
+                      <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:#27272a; border-radius:10px; margin-bottom:8px;">
+                        <span style="background:rgba(34,197,94,0.15); color:#22c55e; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:20px;">معتمد</span>
+                        <div style="text-align:right;">
+                          <div style="font-weight:700; color:#fff; font-size:0.9rem;">${t.name}</div>
+                          <div style="color:#52525b; font-size:0.75rem; margin-top:2px;">تم التسليم في الموعد</div>
+                        </div>
+                      </div>`).join("") : `<div style="color:#52525b; text-align:center; padding:20px;">لا توجد تسليمات بعد</div>`}
+                  </div>
+                  
+                  <button onclick="openSettings()" style="background:#E7000B; border:none; color:#fff; border-radius:14px; padding:18px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; font-size:1rem; transition:0.3s;" onmouseover="this.style.background='#c8000a'" onmouseout="this.style.background='#E7000B'">
+                    إعدادات الحساب
+                    <i data-lucide="settings" style="width:20px; height:20px;"></i>
+                  </button>
+               </div>
+            </div>`;
         }
 
         // 6. Render Projects Tab
