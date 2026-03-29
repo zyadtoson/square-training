@@ -2827,30 +2827,22 @@
           </div>
 
           <div class="sidebar-nav">
-            <div class="nav-item active" onclick="switchTab('s-dash', this)">
-              <span class="n-icon">🏠</span>
-              <span class="n-text">الرئيسية</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('s-tasks', this)">
+            <div class="nav-item active" onclick="switchTab('s-tasks', this)">
               <span class="n-icon">📋</span>
-              <span class="n-text" style="flex: 1">مهامي</span>
+              <span class="n-text" style="flex: 1">المهام</span>
               <span class="badge" id="s-tasks-badge" style="display:none;">0</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('s-project', this)">
+              <span class="n-icon">🚀</span>
+              <span class="n-text" style="flex: 1">المشاريع</span>
             </div>
             <div class="nav-item" onclick="switchTab('s-leaderboard', this)">
               <span class="n-icon">🏆</span>
               <span class="n-text">لوحة الشرف</span>
             </div>
-            <div class="nav-item" onclick="switchTab('s-portfolio', this)">
-              <span class="n-icon">🎨</span>
-              <span class="n-text">معرض أعمالي</span>
-            </div>
             <div class="nav-item" onclick="switchTab('s-profile', this)">
               <span class="n-icon">👤</span>
               <span class="n-text">الملف الشخصي</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('s-project', this)">
-              <span class="n-icon">🚀</span>
-              <span class="n-text" style="flex: 1">المشاريع</span>
             </div>
           </div>
 
@@ -2873,30 +2865,22 @@
 
         <!-- Mobile Bottom Navigation: STUDENT -->
         <nav class="mob-bottom-nav" id="mob-nav-student">
-          <button class="mob-nav-item active" data-tab="s-dash" onclick="switchTab('s-dash', this)">
-            <span class="mob-nav-icon">🏠</span>
-            <span class="mob-nav-label">الرئيسية</span>
-          </button>
-          <button class="mob-nav-item" data-tab="s-tasks" onclick="switchTab('s-tasks', this)">
+          <button class="mob-nav-item active" data-tab="s-tasks" onclick="switchTab('s-tasks', this)">
             <span class="mob-nav-icon">📋</span>
-            <span class="mob-nav-label">مهامي</span>
+            <span class="mob-nav-label">المهام</span>
             <span class="mob-nav-badge" id="mob-s-tasks-badge"></span>
+          </button>
+          <button class="mob-nav-item" data-tab="s-project" onclick="switchTab('s-project', this)">
+            <span class="mob-nav-icon">🚀</span>
+            <span class="mob-nav-label">المشاريع</span>
           </button>
           <button class="mob-nav-item" data-tab="s-leaderboard" onclick="switchTab('s-leaderboard', this)">
             <span class="mob-nav-icon">🏆</span>
             <span class="mob-nav-label">الشرف</span>
           </button>
-          <button class="mob-nav-item" data-tab="s-portfolio" onclick="switchTab('s-portfolio', this)">
-            <span class="mob-nav-icon">🎨</span>
-            <span class="mob-nav-label">أعمالي</span>
-          </button>
           <button class="mob-nav-item" data-tab="s-profile" onclick="switchTab('s-profile', this)">
             <span class="mob-nav-icon">👤</span>
-            <span class="mob-nav-label">حسابي</span>
-          </button>
-          <button class="mob-nav-item" data-tab="s-project" onclick="switchTab('s-project', this)">
-            <span class="mob-nav-icon">🚀</span>
-            <span class="mob-nav-label">مشاريع</span>
+            <span class="mob-nav-label">بروفايل</span>
           </button>
         </nav>
 
