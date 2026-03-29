@@ -3989,8 +3989,14 @@
           const members = students.filter(s => getStudentTeam(s) === teamKey);
           const isMyTeam = myTeam === teamKey;
           const leaderName = teamLeaders[teamKey] || "";
-          const membersHtml = members.length
-            ? members.map((s, i) => {
+          // Sort: leader always first
+          const sortedMembers = [...members].sort((a, b) => {
+            if (a.name === leaderName) return -1;
+            if (b.name === leaderName) return 1;
+            return 0;
+          });
+          const membersHtml = sortedMembers.length
+            ? sortedMembers.map((s, i) => {
                 const color = avatarColors[i % avatarColors.length];
                 const initial = s.name ? s.name.charAt(0) : "?";
                 const isLeader = s.name === leaderName;
