@@ -628,15 +628,23 @@
       .stu-progress-bar { height: 10px; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
       .stu-progress-fill { height: 100%; background: linear-gradient(90deg, #e50914, #f97316); border-radius: 10px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
       
-      .stu-task-card { display: flex; flex-direction: column; gap: 20px; border-radius: 20px; }
-      .stu-task-header { display: flex; justify-content: space-between; align-items: flex-start; }
-      .stu-task-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
-      .stu-task-info { color: #666; font-size: 0.88rem; line-height: 1.5; }
-      .stu-task-meta { display: flex; gap: 20px; color: #555; font-size: 0.82rem; margin-top: 16px; }
-      .stu-task-meta-item { display: flex; align-items: center; gap: 6px; }
-      
-      .stu-btn-action { background: #e50914; color: #fff; border: none; padding: 10px 24px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
-      .stu-btn-action:hover { background: #f40a16; transform: translateY(-2px); }
+      .stu-task-card { background:#111; border:1px solid #1a1a1a; border-radius:18px; padding:22px; display:flex; flex-direction:column; gap:14px; transition:0.2s; }
+      .stu-task-card:hover { border-color:#2a2a2a; transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+      .stu-task-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+      .stu-task-name { font-size:1.05rem; font-weight:700; color:#fff; }
+      .stu-task-meta { color:#666; font-size:0.82rem; margin-top:4px; }
+      .stu-task-desc { color:#888; font-size:0.88rem; line-height:1.6; }
+      .stu-task-status { padding:4px 12px; border-radius:20px; font-size:0.78rem; font-weight:700; white-space:nowrap; flex-shrink:0; }
+      .stu-task-status.status-done { background:rgba(34,197,94,0.15); color:#22c55e; }
+      .stu-task-status.status-active { background:rgba(249,115,22,0.15); color:#f97316; }
+      .stu-task-status.status-pending { background:rgba(107,114,128,0.15); color:#9ca3af; }
+      .stu-task-actions { display:flex; gap:10px; flex-wrap:wrap; }
+      .stu-task-footer { border-top:1px solid #1a1a1a; padding-top:12px; }
+      .stu-btn-action { background:#1a1a1a; color:#eee; border:1px solid #2a2a2a; padding:9px 18px; border-radius:10px; font-size:0.88rem; font-weight:600; cursor:pointer; transition:0.2s; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+      .stu-btn-action:hover { background:#222; border-color:#444; }
+      .stu-btn-action.prim { background:#e50914; color:#fff; border-color:#e50914; }
+      .stu-btn-action.prim:hover { background:#f40a16; transform:translateY(-1px); }
+      .stu-card-title { font-size:1rem; font-weight:700; color:#fff; margin-bottom:4px; }
       
       .stu-avatar-big { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #f97316, #e50914); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; color: #fff; }
       
@@ -2912,6 +2920,10 @@
               <span class="n-icon">👤</span>
               <span class="n-text">الملف الشخصي</span>
             </div>
+            <div class="nav-item" data-tab="tab-s-articles" onclick="switchTab('tab-s-articles', this)">
+              <span class="n-icon">📖</span>
+              <span class="n-text">مقالات</span>
+            </div>
           </div>
 
           <div style="padding: 20px">
@@ -2952,6 +2964,10 @@
           <button class="mob-nav-item" data-tab="tab-s-profile" onclick="switchTab('tab-s-profile', this)">
             <span class="mob-nav-icon">👤</span>
             <span class="mob-nav-label">بروفايل</span>
+          </button>
+          <button class="mob-nav-item" data-tab="tab-s-articles" onclick="switchTab('tab-s-articles', this)">
+            <span class="mob-nav-icon">📖</span>
+            <span class="mob-nav-label">مقالات</span>
           </button>
         </nav>
 
@@ -5152,10 +5168,14 @@
           if (g("s-top-title")) g("s-top-title").textContent = label || "الرئيسية";
           document.querySelectorAll("#v-student .tab-content").forEach((el) => {
             el.classList.remove("active");
+            el.style.display = "none"; // hide all with inline style too
           });
           // Student tabIds already include "tab-" prefix e.g. 'tab-s-home' → id="tab-s-home"
           const tab = document.getElementById(tabId);
-          if (tab) tab.classList.add("active");
+          if (tab) {
+            tab.style.display = ""; // clear inline style so CSS class takes over
+            tab.classList.add("active");
+          }
         }
       };
 
@@ -5339,9 +5359,82 @@
         }
 
         loader(false);
-        // Ensure teams are rendered in the home tab
-        renderTeamsView("s-teams-container", true);
-        // Restore active tab (default to home)
+
+        // 5. Render Profile Tab
+        const profCont = g("s-profile-cont");
+        if (profCont) {
+          const avatarHtml = stu.avatar
+            ? `<img src="${stu.avatar}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">`
+            : `<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#e50914,#f97316);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#fff;">${stu.name ? stu.name.charAt(0) : "?"}</div>`;
+          profCont.innerHTML = `
+            <div class="stu-card" style="margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;">
+                <div style="position:relative;">
+                  ${avatarHtml}
+                  <label style="position:absolute;bottom:0;right:0;width:28px;height:28px;background:#e50914;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;" title="تغيير الصورة">
+                    📷<input type="file" accept="image/*" style="display:none" onchange="uploadAvatar(event)">
+                  </label>
+                </div>
+                <div>
+                  <div style="font-size:1.4rem;font-weight:800;color:#fff;">${stu.name}</div>
+                  <div style="color:#888;font-size:0.9rem;margin-top:4px;">طالب • ${stu.id}</div>
+                  <div style="display:flex;gap:10px;margin-top:12px;">
+                    ${stu.linkedin ? `<a href="${stu.linkedin}" target="_blank" style="padding:5px 12px;background:rgba(0,119,181,0.15);border:1px solid rgba(0,119,181,0.3);border-radius:6px;color:#0077b5;text-decoration:none;font-size:0.8rem;">🔗 LinkedIn</a>` : ""}
+                    ${stu.behance ? `<a href="${stu.behance}" target="_blank" style="padding:5px 12px;background:rgba(0,87,255,0.15);border:1px solid rgba(0,87,255,0.3);border-radius:6px;color:#0057ff;text-decoration:none;font-size:0.8rem;">🎨 Behance</a>` : ""}
+                  </div>
+                </div>
+              </div>
+              <div class="stu-grid" style="grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
+                <div style="background:#1a1a1a;border-radius:12px;padding:16px;text-align:center;">
+                  <div style="font-size:1.8rem;font-weight:800;color:#fff;">${tot}</div>
+                  <div style="color:#888;font-size:0.82rem;margin-top:4px;">إجمالي المهام</div>
+                </div>
+                <div style="background:#1a1a1a;border-radius:12px;padding:16px;text-align:center;">
+                  <div style="font-size:1.8rem;font-weight:800;color:#22c55e;">${dn}</div>
+                  <div style="color:#888;font-size:0.82rem;margin-top:4px;">مكتملة</div>
+                </div>
+                <div style="background:#1a1a1a;border-radius:12px;padding:16px;text-align:center;">
+                  <div style="font-size:1.8rem;font-weight:800;color:#f97316;">${left}</div>
+                  <div style="color:#888;font-size:0.82rem;margin-top:4px;">متبقية</div>
+                </div>
+              </div>
+              <div style="margin-bottom:8px;display:flex;justify-content:space-between;font-size:0.9rem;">
+                <span style="color:#aaa;">معدل الإنجاز</span>
+                <span style="color:#fff;font-weight:700;">${pct}%</span>
+              </div>
+              <div style="height:10px;background:#1a1a1a;border-radius:10px;overflow:hidden;">
+                <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,#e50914,#f97316);transition:0.8s;border-radius:10px;"></div>
+              </div>
+            </div>
+            <div class="stu-card" style="margin-bottom:20px;">
+              <div class="stu-card-title" style="margin-bottom:16px;">⚙️ روابط السوشيال ميديا</div>
+              <div style="margin-bottom:12px;">
+                <label style="display:block;color:#888;font-size:0.85rem;margin-bottom:6px;">LinkedIn</label>
+                <input id="linkedin-input" type="url" value="${stu.linkedin || ""}" placeholder="https://linkedin.com/in/..." class="stu-input-area">
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;color:#888;font-size:0.85rem;margin-bottom:6px;">Behance</label>
+                <input id="behance-input" type="url" value="${stu.behance || ""}" placeholder="https://behance.net/..." class="stu-input-area">
+              </div>
+              <button onclick="saveSocialMedia()" class="stu-btn-action prim" style="width:100%;">💾 حفظ الروابط</button>
+            </div>`;
+        }
+
+        // 6. Render Projects Tab (show student's teams)
+        const projCont = g("tab-s-project");
+        if (projCont) {
+          projCont.innerHTML = `
+            <div class="stu-sec-title">🚀 مشاريعك والفرق</div>
+            <div id="s-project-teams" class="stu-grid"></div>`;
+          // Teams will be populated by renderTeamsView
+        }
+
+        // Ensure teams are rendered in home and projects tabs
+        if (typeof renderTeamsView === "function") {
+          renderTeamsView("s-teams-container", true);
+        }
+
+        // Show home tab by default
         const activeTab = document.querySelector("#v-student .tab-content.active");
         if (!activeTab) switchTab("tab-s-home");
       }
