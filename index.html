@@ -5140,21 +5140,21 @@
         const labelEl = mobItem ? mobItem.querySelector(".mob-nav-label") : null;
         const label = labelEl ? labelEl.textContent.trim() : "";
 
-        if (tabId.startsWith("t-")) {
+        if (isTeacher) {
           if (g("t-top-title")) g("t-top-title").textContent = label || "لوحة المعلومات";
           document.querySelectorAll("#v-teacher .tab-content").forEach((el) => {
             el.classList.remove("active");
-            el.style.display = "";
           });
+          // Teacher tabIds are like 't-dash' → look for element id="tab-t-dash"
           const tab = document.getElementById("tab-" + tabId);
           if (tab) tab.classList.add("active");
         } else {
           if (g("s-top-title")) g("s-top-title").textContent = label || "الرئيسية";
           document.querySelectorAll("#v-student .tab-content").forEach((el) => {
             el.classList.remove("active");
-            el.style.display = "";
           });
-          const tab = document.getElementById("tab-" + tabId);
+          // Student tabIds already include "tab-" prefix e.g. 'tab-s-home' → id="tab-s-home"
+          const tab = document.getElementById(tabId);
           if (tab) tab.classList.add("active");
         }
       };
@@ -5339,6 +5339,11 @@
         }
 
         loader(false);
+        // Ensure teams are rendered in the home tab
+        renderTeamsView("s-teams-container", true);
+        // Restore active tab (default to home)
+        const activeTab = document.querySelector("#v-student .tab-content.active");
+        if (!activeTab) switchTab("tab-s-home");
       }
 
       window.updStatus = async (taskId, ns) => {
@@ -5349,7 +5354,7 @@
           alert(
             '⚠️ لا يمكنك إنهاء المهمة (تغيير حالتها إلى "خلص")!\n\nيجب عليك أولاً إرفاق (رابط للحل مثل فيجما) أو (صورة) لإثبات إتمامك للمهمة.',
           );
-          switchTab("s-tasks");
+          switchTab("tab-s-tasks");
           return;
         }
 
