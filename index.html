@@ -3077,15 +3077,7 @@
 
             <!-- ── TAB: LEADERBOARD ── -->
             <div class="tab-content" id="tab-s-leaderboard" style="display:none;">
-              <div class="stu-sec-title">
-                🏆 ترتيب الطلاب (لوحة الشرف)
-              </div>
-              <div id="s-leader-podium" class="stu-leaderboard-podium">
-                 <!-- Podium injected here -->
-              </div>
-              <div class="stu-leader-list" id="s-leader-full">
-                 <!-- Full list injected here -->
-              </div>
+              <!-- Injected by JS -->
             </div>
 
             <!-- ── TAB: PROFILE ── -->
@@ -3094,6 +3086,83 @@
             </div>
           </div>
         </main>
+      </div>
+    </div>
+
+    <!-- ════════ MODAL: STUDENT SETTINGS ════════ -->
+    <div class="mover" id="m-stu-settings" onclick="if(event.target===this)this.classList.remove('open')">
+      <div class="modal" style="max-width:500px; padding:0; overflow:hidden;">
+        <div style="padding:20px 24px; border-bottom:1px solid #27272a; display:flex; justify-content:space-between; align-items:center;">
+          <button onclick="g('m-stu-settings').classList.remove('open')" style="background:transparent;border:none;color:#71717a;cursor:pointer;font-size:1.1rem;padding:4px;">✕</button>
+          <div style="font-size:1.05rem;font-weight:800;color:#fff;">الإعدادات</div>
+        </div>
+        <div style="padding:24px; max-height:80vh; overflow-y:auto; display:flex; flex-direction:column; gap:24px;">
+
+          <!-- Avatar -->
+          <div>
+            <div style="font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:14px;">الصورة الشخصية</div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="position:relative;flex-shrink:0;">
+                <div id="settings-avatar-preview" style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#E7000B,#f97316);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800;color:#fff;overflow:hidden;"></div>
+                <label style="position:absolute;bottom:0;right:0;width:22px;height:22px;background:#E7000B;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;" title="تغيير الصورة">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                  <input type="file" accept="image/*" style="display:none" onchange="uploadAvatar(event)">
+                </label>
+              </div>
+              <div>
+                <div style="font-weight:600;color:#e4e4e7;font-size:0.9rem;">تغيير الصورة الشخصية</div>
+                <div style="color:#71717a;font-size:0.8rem;margin-top:3px;">اضغط على أيقونة الكاميرا لرفع صورة جديدة</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name -->
+          <div>
+            <div style="font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:14px;">تعديل الاسم</div>
+            <div style="margin-bottom:10px;">
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">الاسم الحالي</label>
+              <div id="settings-cur-name-display" style="background:#27272a;border:1px solid #3f3f46;border-radius:10px;padding:10px 14px;color:#a1a1aa;font-size:0.95rem;text-align:right;"></div>
+            </div>
+            <div>
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">الاسم الجديد</label>
+              <input id="settings-new-name" type="text" placeholder="أدخل الاسم الجديد" class="stu-input-area">
+            </div>
+            <button onclick="saveSettingsName()" class="stu-btn-action prim" style="width:100%;margin-top:12px;justify-content:center;">حفظ الاسم</button>
+          </div>
+
+          <!-- Social -->
+          <div>
+            <div style="font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:14px;">روابط السوشيال ميديا</div>
+            <div style="margin-bottom:10px;">
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">LinkedIn</label>
+              <input id="settings-linkedin" type="url" placeholder="https://linkedin.com/in/..." class="stu-input-area">
+            </div>
+            <div style="margin-bottom:12px;">
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">Behance</label>
+              <input id="settings-behance" type="url" placeholder="https://behance.net/..." class="stu-input-area">
+            </div>
+            <button onclick="saveSettingsSocial()" class="stu-btn-action prim" style="width:100%;justify-content:center;">حفظ الروابط</button>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <div style="font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:14px;">تغيير كلمة المرور</div>
+            <div style="margin-bottom:10px;">
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">كلمة المرور الحالية</label>
+              <input id="settings-cur-pass" type="password" placeholder="••••••••" class="stu-input-area">
+            </div>
+            <div style="margin-bottom:10px;">
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">كلمة المرور الجديدة</label>
+              <input id="settings-new-pass" type="password" placeholder="••••••••" class="stu-input-area">
+            </div>
+            <div style="margin-bottom:12px;">
+              <label style="display:block;color:#71717a;font-size:0.8rem;margin-bottom:6px;">تأكيد كلمة المرور</label>
+              <input id="settings-confirm-pass" type="password" placeholder="••••••••" class="stu-input-area">
+            </div>
+            <button onclick="changePassword()" class="stu-btn-action prim" style="width:100%;justify-content:center;">تغيير كلمة المرور</button>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -3996,34 +4065,29 @@
             return 0;
           });
           const membersHtml = sortedMembers.length
-            ? sortedMembers.map((s, i) => {
-                const color = avatarColors[i % avatarColors.length];
-                const initial = s.name ? s.name.charAt(0) : "?";
+            ? sortedMembers.map((s) => {
                 const isLeader = s.name === leaderName;
-                return `
-                  <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#27272a;border-radius:10px;${isLeader ? 'border:1px solid rgba(251,191,36,0.3);' : ''}">
-                    <div style="width:38px;height:38px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0;">${initial}</div>
-                    <div style="flex:1;font-weight:700;color:#fff;font-size:0.95rem;">${s.name}</div>
-                    ${isLeader ? `<span style="background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.4);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;">👑 قائد الفريق</span>` : ""}
-                  </div>`;
+                return `<li${isLeader ? ' style="border-bottom:1px dashed rgba(251,191,36,0.4);"' : ''}>
+                  ${s.name}
+                  ${isLeader ? `<span style="margin-right:auto;background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.4);font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">👑 قائد</span>` : ""}
+                </li>`;
               }).join("")
-            : `<div style="color:#52525b;font-size:0.85rem;padding:10px 0;">لا يوجد أعضاء بعد</div>`;
+            : `<li style="color:#555;">لا يوجد أعضاء بعد</li>`;
+
+          const ctaHtml = isMyTeam && whatsappLinks[teamKey]
+            ? `<a href="${whatsappLinks[teamKey]}" target="_blank" class="team-cta">💬 انضم لتيمك على الواتساب</a>`
+            : "";
 
           teamsHtml += `
-            <div style="background:#18181b;border:1px solid #27272a;border-radius:14px;padding:20px 24px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  ${isMyTeam ? `<span style="background:#E7000B;color:#fff;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:20px;">فريقك</span>` : ""}
-                  ${isMyTeam && whatsappLinks[teamKey] ? `
-                    <a href="${whatsappLinks[teamKey]}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#E7000B;color:#fff;padding:7px 14px;border-radius:8px;text-decoration:none;font-size:0.82rem;font-weight:700;">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      مجموعة واتساب
-                    </a>` : ""}
-                </div>
-                <div style="font-size:1.05rem;font-weight:800;color:#fff;">${teamNames[teamKey]}</div>
+            <div class="team-card${isMyTeam ? ' style="border-color:rgba(231,0,11,0.4);"' : ''}">
+              <div class="team-title" style="display:flex;justify-content:space-between;align-items:center;">
+                <span>${teamNames[teamKey]}</span>
+                ${isMyTeam ? `<span style="background:#E7000B;color:#fff;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;">فريقك</span>` : ""}
               </div>
-              <div style="color:#71717a;font-size:0.8rem;margin-bottom:10px;text-align:right;">أعضاء الفريق</div>
-              <div style="display:flex;flex-direction:column;gap:8px;">${membersHtml}</div>
+              <ul class="team-members">
+                ${membersHtml}
+              </ul>
+              ${ctaHtml}
             </div>`;
         }
 
@@ -5532,55 +5596,105 @@
         const allS = [];
         const ssSnap = await getDocs(collection(db, "students"));
         ssSnap.forEach(d => allS.push({ id: d.id, ...d.data() }));
-        // Populate global students array so renderTeamsView works for student view
         students = allS.slice();
-        
+
         const lbStats = allS.map(s => {
-           // We count tasks where status is "خلص"
-           // Note: In a production app, we should probably join this differently, but for now we have it all
-           const sTasks = snap.docs.filter(d => d.data().studentId === s.id && d.data().status === "خلص");
-           return { id: s.id, name: s.name, avatar: s.avatar, score: sTasks.length };
-        }).sort((a,b) => b.score - a.score);
+          const sTasks = snap.docs.filter(d => d.data().studentId === s.id);
+          const done = sTasks.filter(d => d.data().status === "خلص").length;
+          const total = sTasks.length;
+          const pct = total ? Math.round((done / total) * 1000) / 10 : 0;
+          return { id: s.id, name: s.name, avatar: s.avatar, done, total, pct };
+        }).sort((a,b) => b.pct - a.pct || b.done - a.done);
 
-        // Podium (Top 3)
-        const podiumCont = g("s-leader-podium");
-        if (podiumCont) {
+        const lbCont = g("tab-s-leaderboard");
+        if (lbCont) {
           const top3 = lbStats.slice(0, 3);
-          podiumCont.innerHTML = top3.map((p, idx) => {
-            const ranks = ["gold", "silver", "bronze"];
-            const colors = ["#fbbf24", "#94a3b8", "#b45309"];
-            const crown = idx === 0 ? "👑" : (idx === 1 ? "🥈" : "🥉");
-            
-            return `
-              <div class="stu-podium-item ${ranks[idx]}">
-                <div class="stu-podium-rank" style="background:${colors[idx]}">${crown}</div>
-                <div class="stu-podium-avatar">
-                   ${p.avatar ? `<img src="${p.avatar}" style="width:100%; height:100%; object-fit:cover;">` : p.name.charAt(0)}
-                </div>
-                <div class="stu-podium-name">${p.name}</div>
-                <div class="stu-podium-score">${p.score} مشروع</div>
-              </div>`;
-          }).join("");
-        }
+          const rest  = lbStats.slice(3);
+          const avgPct = lbStats.length ? (lbStats.reduce((s,x) => s + x.pct, 0) / lbStats.length).toFixed(1) : 0;
+          const excellent = lbStats.filter(x => x.pct >= 90).length;
 
-        // List (Rest)
-        const listCont = g("s-leader-full");
-        if (listCont) {
-          const rest = lbStats.slice(3);
-          listCont.innerHTML = rest.map((p, idx) => `
-            <div class="stu-leader-row">
-              <div class="stu-leader-rank">#${idx + 4}</div>
-              <div class="stu-leader-info">
-                <div class="stu-leader-avatar">
-                   ${p.avatar ? `<img src="${p.avatar}" style="width:100%; height:100%; object-fit:cover;">` : p.name.charAt(0)}
-                </div>
-                <div>
-                   <div class="stu-leader-name">${p.name}</div>
-                   <div style="font-size:0.75rem; color:#666;">طالب نشط</div>
-                </div>
+          // SVG icons
+          const iconTrophy  = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`;
+          const iconMedal   = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M12 8V2"/><path d="m9 5 3 3 3-3"/></svg>`;
+          const iconAward   = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>`;
+          const icons = [iconTrophy, iconMedal, iconAward];
+
+          // Podium order: silver(idx1) left, gold(idx0) center, bronze(idx2) right
+          const podiumOrder = top3.length >= 3 ? [1, 0, 2] : top3.map((_,i) => i);
+
+          const podiumHtml = `
+            <div style="display:flex;align-items:flex-end;justify-content:center;gap:12px;margin-bottom:32px;padding-top:16px;">
+              ${podiumOrder.map(i => {
+                const p = top3[i];
+                if (!p) return "";
+                const isFirst = i === 0;
+                const avatarBg = isFirst ? "#E7000B" : "#3f3f46";
+                const avatarSize = isFirst ? "64px" : "52px";
+                const initial = p.name ? p.name.charAt(0).toUpperCase() : "?";
+                const avatarEl = p.avatar
+                  ? `<img src="${p.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+                  : `<span style="font-weight:800;color:#fff;font-size:${isFirst?"1.5rem":"1.1rem"};">${initial}</span>`;
+                return `
+                  <div style="flex:1;text-align:center;background:#18181b;border:1px solid ${isFirst?"#E7000B":"#27272a"};border-radius:14px;padding:20px 12px;${isFirst?"transform:translateY(-16px);":""};max-width:200px;">
+                    <div style="margin-bottom:10px;">${icons[i]}</div>
+                    <div style="width:${avatarSize};height:${avatarSize};border-radius:50%;background:${avatarBg};margin:0 auto 12px;display:flex;align-items:center;justify-content:center;overflow:hidden;">${avatarEl}</div>
+                    <div style="font-weight:700;color:#fff;font-size:0.95rem;margin-bottom:6px;">${p.name}</div>
+                    <div style="color:#E7000B;font-size:${isFirst?"1.3rem":"1.1rem"};font-weight:800;margin-bottom:4px;">${p.pct}%</div>
+                    <div style="color:#52525b;font-size:0.75rem;">${p.done} / ${p.total} مهمة مكتملة</div>
+                  </div>`;
+              }).join("")}
+            </div>`;
+
+          const restHtml = rest.length ? `
+            <div class="stu-card" style="margin-bottom:24px;">
+              <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;text-align:right;">باقي الطلاب</div>
+              ${rest.map((p, i) => {
+                const initial = p.name ? p.name.charAt(0).toUpperCase() : "?";
+                const avatarEl = p.avatar
+                  ? `<img src="${p.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+                  : `<span style="font-weight:800;color:#fff;font-size:0.85rem;">${initial}</span>`;
+                return `
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 0;${i < rest.length-1 ? "border-bottom:1px solid #27272a;" : ""}">
+                    <div style="width:30px;height:30px;border-radius:50%;background:#27272a;display:flex;align-items:center;justify-content:center;color:#71717a;font-size:0.78rem;font-weight:700;flex-shrink:0;">${i + 4}</div>
+                    <div style="width:36px;height:36px;border-radius:50%;background:#E7000B;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">${avatarEl}</div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                        <div style="color:#71717a;font-size:0.72rem;">المهام <span style="color:#a1a1aa;">${p.done}/${p.total}</span></div>
+                        <div style="font-weight:700;color:#fff;font-size:0.9rem;">${p.name}</div>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <div style="height:5px;background:#27272a;border-radius:6px;flex:1;overflow:hidden;">
+                          <div style="height:100%;width:${p.pct}%;background:#E7000B;border-radius:6px;"></div>
+                        </div>
+                        <div style="color:#71717a;font-size:0.75rem;flex-shrink:0;width:40px;text-align:left;">${p.pct}%</div>
+                      </div>
+                    </div>
+                  </div>`;
+              }).join("")}
+            </div>` : "";
+
+          lbCont.innerHTML = `
+            <div class="stu-sec-title" style="justify-content:center;gap:12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+              ترتيب الطلاب (لوحة الشرف)
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            </div>
+            ${podiumHtml}
+            ${restHtml}
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+              <div class="stu-card" style="text-align:center;">
+                <div style="color:#71717a;font-size:0.78rem;margin-bottom:6px;">إجمالي الطلاب</div>
+                <div style="font-size:1.8rem;font-weight:800;color:#E7000B;">${lbStats.length}</div>
               </div>
-              <div class="stu-leader-score">${p.score}</div>
-            </div>`).join("");
+              <div class="stu-card" style="text-align:center;">
+                <div style="color:#71717a;font-size:0.78rem;margin-bottom:6px;">متوسط الإنجاز</div>
+                <div style="font-size:1.8rem;font-weight:800;color:#E7000B;">${avgPct}%</div>
+              </div>
+              <div class="stu-card" style="text-align:center;">
+                <div style="color:#71717a;font-size:0.78rem;margin-bottom:6px;">طلاب متفوقون</div>
+                <div style="font-size:1.8rem;font-weight:800;color:#E7000B;">${excellent}</div>
+              </div>
+            </div>`;
         }
 
         loader(false);
@@ -5588,61 +5702,135 @@
         // 5. Render Profile Tab
         const profCont = g("s-profile-cont");
         if (profCont) {
-          const avatarHtml = stu.avatar
-            ? `<img src="${stu.avatar}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">`
-            : `<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#E7000B,#f97316);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#fff;">${stu.name ? stu.name.charAt(0) : "?"}</div>`;
+          // Extra stats
+          const pending   = myTasks.filter(t => t.status === "لسه").length;
+          const onTime    = myTasks.filter(t => t.status === "خلص").length;
+          const lateTasks = myTasks.filter(t => t.status === "متأخر").length;
+          const reviewed  = myTasks.filter(t => t.reviewed && t.grade);
+          const avgGrade  = reviewed.length
+            ? (reviewed.reduce((sum, t) => {
+                const m = String(t.grade).match(/(\d+)/);
+                return sum + (m ? parseInt(m[1]) : 0);
+              }, 0) / reviewed.length / 20).toFixed(1)
+            : "–";
+
+          const feedbackTasks = myTasks.filter(t => t.reviewed && t.feedback).slice(0, 3);
+          const submissions   = myTasks.filter(t => t.status === "خلص").slice(0, 6);
+
+          const initial = stu.name ? stu.name.charAt(0).toUpperCase() : "?";
+          const avatarEl = stu.avatar
+            ? `<img src="${stu.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+            : `<span style="font-size:1.8rem;font-weight:800;color:#fff;">${initial}</span>`;
+
           profCont.innerHTML = `
+            <!-- ① Student card -->
             <div class="stu-card" style="margin-bottom:20px;">
-              <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;">
-                <div style="position:relative;">
-                  ${avatarHtml}
-                  <label style="position:absolute;bottom:0;right:0;width:28px;height:28px;background:#E7000B;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;" title="تغيير الصورة">
-                    📷<input type="file" accept="image/*" style="display:none" onchange="uploadAvatar(event)">
-                  </label>
-                </div>
-                <div>
-                  <div style="font-size:1.4rem;font-weight:800;color:#fff;">${stu.name}</div>
-                  <div style="color:#888;font-size:0.9rem;margin-top:4px;">طالب • ${stu.id}</div>
-                  <div style="display:flex;gap:10px;margin-top:12px;">
-                    ${stu.linkedin ? `<a href="${stu.linkedin}" target="_blank" style="padding:5px 12px;background:rgba(0,119,181,0.15);border:1px solid rgba(0,119,181,0.3);border-radius:6px;color:#0077b5;text-decoration:none;font-size:0.8rem;">🔗 LinkedIn</a>` : ""}
-                    ${stu.behance ? `<a href="${stu.behance}" target="_blank" style="padding:5px 12px;background:rgba(0,87,255,0.15);border:1px solid rgba(0,87,255,0.3);border-radius:6px;color:#0057ff;text-decoration:none;font-size:0.8rem;">🎨 Behance</a>` : ""}
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;">
+                <div style="display:flex;align-items:center;gap:16px;">
+                  <div style="text-align:right;">
+                    <div style="font-size:1.4rem;font-weight:800;color:#fff;">${stu.name}</div>
+                    <div style="color:#71717a;font-size:0.88rem;margin-top:2px;">طالب</div>
+                    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                      <a id="sprof-linkedin" href="${stu.linkedin||"#"}" target="_blank" style="display:${stu.linkedin?"inline-flex":"none"};align-items:center;gap:5px;padding:5px 10px;background:rgba(0,119,181,0.12);border:1px solid rgba(0,119,181,0.3);border-radius:6px;color:#60a5fa;text-decoration:none;font-size:0.78rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        LinkedIn
+                      </a>
+                      <a id="sprof-behance" href="${stu.behance||"#"}" target="_blank" style="display:${stu.behance?"inline-flex":"none"};align-items:center;gap:5px;padding:5px 10px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.3);border-radius:6px;color:#818cf8;text-decoration:none;font-size:0.78rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                        Behance
+                      </a>
+                      <span style="display:${stu.linkedin||stu.behance?"none":"inline-flex"};color:#52525b;font-size:0.78rem;align-items:center;">(اختياري) LinkedIn &amp; Behance</span>
+                    </div>
                   </div>
                 </div>
+                <div style="width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#E7000B,#f97316);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">${avatarEl}</div>
               </div>
-              <div class="stu-grid" style="grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
-                <div style="background:#27272a;border-radius:12px;padding:16px;text-align:center;">
-                  <div style="font-size:1.8rem;font-weight:800;color:#fff;">${tot}</div>
-                  <div style="color:#888;font-size:0.82rem;margin-top:4px;">إجمالي المهام</div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#fff;">${tot}</div>
+                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">إجمالي المهام</div>
                 </div>
-                <div style="background:#27272a;border-radius:12px;padding:16px;text-align:center;">
-                  <div style="font-size:1.8rem;font-weight:800;color:#22c55e;">${dn}</div>
-                  <div style="color:#888;font-size:0.82rem;margin-top:4px;">مكتملة</div>
+                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#22c55e;">${dn}</div>
+                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">مهام مكتملة</div>
                 </div>
-                <div style="background:#27272a;border-radius:12px;padding:16px;text-align:center;">
-                  <div style="font-size:1.8rem;font-weight:800;color:#f97316;">${left}</div>
-                  <div style="color:#888;font-size:0.82rem;margin-top:4px;">متبقية</div>
+                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#f97316;">${pending}</div>
+                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">بانتظارك</div>
                 </div>
-              </div>
-              <div style="margin-bottom:8px;display:flex;justify-content:space-between;font-size:0.9rem;">
-                <span style="color:#aaa;">معدل الإنجاز</span>
-                <span style="color:#fff;font-weight:700;">${pct}%</span>
-              </div>
-              <div style="height:10px;background:#27272a;border-radius:10px;overflow:hidden;">
-                <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,#E7000B,#f97316);transition:0.8s;border-radius:10px;"></div>
+                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#60a5fa;">${avgGrade}</div>
+                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">متوسط التقييمات</div>
+                </div>
               </div>
             </div>
+
+            <!-- ② Teacher notes -->
             <div class="stu-card" style="margin-bottom:20px;">
-              <div class="stu-card-title" style="margin-bottom:16px;">⚙️ روابط السوشيال ميديا</div>
-              <div style="margin-bottom:12px;">
-                <label style="display:block;color:#888;font-size:0.85rem;margin-bottom:6px;">LinkedIn</label>
-                <input id="linkedin-input" type="url" value="${stu.linkedin || ""}" placeholder="https://linkedin.com/in/..." class="stu-input-area">
+              <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:16px;">
+                <div style="font-size:1rem;font-weight:700;color:#fff;">أحدث ملاحظات المعلم</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               </div>
-              <div style="margin-bottom:16px;">
-                <label style="display:block;color:#888;font-size:0.85rem;margin-bottom:6px;">Behance</label>
-                <input id="behance-input" type="url" value="${stu.behance || ""}" placeholder="https://behance.net/..." class="stu-input-area">
+              ${feedbackTasks.length ? feedbackTasks.map(t => `
+                <div style="background:#27272a;border-radius:10px;padding:14px;margin-bottom:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;">${t.grade||"–"}</span>
+                    <div style="font-weight:700;color:#fff;font-size:0.88rem;">${t.name}</div>
+                  </div>
+                  <div style="color:#a1a1aa;font-size:0.82rem;line-height:1.5;text-align:right;">${t.feedback}</div>
+                </div>`).join("") : `
+                <div style="text-align:center;padding:32px 16px;">
+                  <div style="width:48px;height:48px;border-radius:50%;background:#27272a;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  </div>
+                  <div style="color:#71717a;font-size:0.85rem;line-height:1.6;">لا توجد تقييمات أو ملاحظات بساقة حق الآن.<br>أمور أفضلها انتظارك، ارجع تتابعهم في بياناتهم!</div>
+                </div>`}
+            </div>
+
+            <!-- ③ Progress & Discipline -->
+            <div class="stu-card" style="margin-bottom:20px;">
+              <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:16px;">
+                <div style="font-size:1rem;font-weight:700;color:#fff;">التقدم والانضباط</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
               </div>
-              <button onclick="saveSocialMedia()" class="stu-btn-action prim" style="width:100%;">💾 حفظ الروابط</button>
-            </div>`;
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:0.85rem;">
+                <span style="color:#fff;font-weight:700;">${pct}%</span>
+                <span style="color:#71717a;">معدل الإنجاز</span>
+              </div>
+              <div style="height:8px;background:#27272a;border-radius:8px;overflow:hidden;margin-bottom:16px;">
+                <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,#E7000B,#f97316);border-radius:8px;transition:0.8s;"></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#22c55e;">${onTime}</div>
+                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">تسليم في الموعد</div>
+                </div>
+                <div style="background:#27272a;border-radius:10px;padding:14px;text-align:center;">
+                  <div style="font-size:1.5rem;font-weight:800;color:#E7000B;">${lateTasks}</div>
+                  <div style="color:#71717a;font-size:0.75rem;margin-top:4px;">تسليم متأخر</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ④ Submission history -->
+            <div class="stu-card" style="margin-bottom:20px;">
+              <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;text-align:right;">سجل التسليمات</div>
+              ${submissions.length ? submissions.map(t => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;${submissions.indexOf(t)<submissions.length-1?"border-bottom:1px solid #27272a;":""}">
+                  <span style="background:rgba(34,197,94,0.15);color:#22c55e;font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:20px;">معتمد</span>
+                  <div style="text-align:right;">
+                    <div style="font-weight:600;color:#fff;font-size:0.88rem;">${t.name}</div>
+                    <div style="color:#52525b;font-size:0.75rem;margin-top:2px;">${t.deadline||"–"}</div>
+                  </div>
+                </div>`).join("") : `
+                <div style="text-align:center;padding:24px;color:#52525b;font-size:0.85rem;">لا توجد تسليمات بعد</div>`}
+            </div>
+
+            <!-- ⑤ Settings button -->
+            <button onclick="openSettings()" class="stu-btn-action" style="width:100%;justify-content:center;gap:8px;padding:14px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              الإعدادات
+            </button>`;
         }
 
         // 6. Render Projects Tab
@@ -5747,6 +5935,92 @@
           toast("خطأ: " + e.message);
         }
       };
+
+      // ── Settings modal helpers ──────────────────────────────
+      window.openSettings = function() {
+        const stu = window._sStu;
+        if (!stu) return;
+        // Populate fields
+        const preview = g("settings-avatar-preview");
+        if (preview) {
+          preview.innerHTML = stu.avatar
+            ? `<img src="${stu.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+            : `<span style="font-size:1.6rem;font-weight:800;color:#fff;">${(stu.name||"?").charAt(0).toUpperCase()}</span>`;
+        }
+        const curName = g("settings-cur-name-display");
+        if (curName) curName.textContent = stu.name || "";
+        const newName = g("settings-new-name");
+        if (newName) newName.value = "";
+        const li = g("settings-linkedin");
+        if (li) li.value = stu.linkedin || "";
+        const be = g("settings-behance");
+        if (be) be.value = stu.behance || "";
+        // Clear password fields
+        ["settings-cur-pass","settings-new-pass","settings-confirm-pass"].forEach(id => {
+          const el = g(id); if (el) el.value = "";
+        });
+        g("m-stu-settings").classList.add("open");
+      };
+
+      window.saveSettingsName = async () => {
+        const stu = window._sStu;
+        if (!stu) return;
+        const newName = (g("settings-new-name")?.value || "").trim();
+        if (!newName) { toast("أدخل الاسم الجديد"); return; }
+        try {
+          await updateDoc(doc(db, "students", stu.id), { name: newName });
+          stu.name = newName;
+          // Refresh profile
+          await renderStudent(stu);
+          // Re-open settings to keep context
+          g("m-stu-settings").classList.add("open");
+          toast("✓ تم تغيير الاسم بنجاح");
+        } catch(e) { toast("خطأ: " + e.message); }
+      };
+
+      window.saveSettingsSocial = async () => {
+        const stu = window._sStu;
+        if (!stu) return;
+        const linkedin = (g("settings-linkedin")?.value || "").trim();
+        const behance  = (g("settings-behance")?.value  || "").trim();
+        try {
+          await updateDoc(doc(db, "students", stu.id), {
+            linkedin: linkedin || null,
+            behance:  behance  || null,
+          });
+          stu.linkedin = linkedin;
+          stu.behance  = behance;
+          // Update visible links in profile
+          const li = g("sprof-linkedin");
+          if (li) { li.href = linkedin || "#"; li.style.display = linkedin ? "inline-flex" : "none"; }
+          const be = g("sprof-behance");
+          if (be) { be.href = behance || "#"; be.style.display = behance ? "inline-flex" : "none"; }
+          toast("✓ تم حفظ الروابط بنجاح");
+        } catch(e) { toast("خطأ: " + e.message); }
+      };
+
+      window.changePassword = async () => {
+        const stu = window._sStu;
+        if (!stu) return;
+        const curPass     = g("settings-cur-pass")?.value     || "";
+        const newPass     = g("settings-new-pass")?.value     || "";
+        const confirmPass = g("settings-confirm-pass")?.value || "";
+        if (!curPass || !newPass || !confirmPass) { toast("أدخل جميع الحقول"); return; }
+        if (newPass.length < 4) { toast("كلمة المرور يجب أن تكون 4 أحرف على الأقل"); return; }
+        if (newPass !== confirmPass) { toast("كلمة المرور الجديدة غير متطابقة"); return; }
+        const curHash = await sha(curPass);
+        if (curHash !== stu.passwordHash) { toast("كلمة المرور الحالية غير صحيحة"); return; }
+        try {
+          const newHash = await sha(newPass);
+          await updateDoc(doc(db, "students", stu.id), { passwordHash: newHash });
+          stu.passwordHash = newHash;
+          ["settings-cur-pass","settings-new-pass","settings-confirm-pass"].forEach(id => {
+            const el = g(id); if (el) el.value = "";
+          });
+          toast("✓ تم تغيير كلمة المرور بنجاح");
+        } catch(e) { toast("خطأ: " + e.message); }
+      };
+      // ────────────────────────────────────────────────────────
 
       window.saveSocialMedia = async () => {
         if (!window._sStu) return;
