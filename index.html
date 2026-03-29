@@ -3975,18 +3975,30 @@
         // Build teams section
         const myTeam = window._sStu ? getStudentTeam(window._sStu) : null;
         const avatarColors = ["#E7000B","#f97316","#3b82f6","#8b5cf6","#10b981","#fbbf24","#ec4899","#14b8a6"];
+        
+        // Team leaders mapping
+        const teamLeaders = {
+          "Team 1": "Habood",
+          "Team 2": "Mariam Ashraf",
+          "Team 3": "Zeina Esam",
+          "Team 4": "Linda Tamer"
+        };
+
         let teamsHtml = "";
         for (const teamKey in teamNames) {
           const members = students.filter(s => getStudentTeam(s) === teamKey);
           const isMyTeam = myTeam === teamKey;
+          const leaderName = teamLeaders[teamKey] || "";
           const membersHtml = members.length
             ? members.map((s, i) => {
                 const color = avatarColors[i % avatarColors.length];
                 const initial = s.name ? s.name.charAt(0) : "?";
+                const isLeader = s.name === leaderName;
                 return `
-                  <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#27272a;border-radius:10px;">
+                  <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#27272a;border-radius:10px;${isLeader ? 'border:1px solid rgba(251,191,36,0.3);' : ''}">
                     <div style="width:38px;height:38px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0;">${initial}</div>
-                    <div style="font-weight:700;color:#fff;font-size:0.95rem;">${s.name}</div>
+                    <div style="flex:1;font-weight:700;color:#fff;font-size:0.95rem;">${s.name}</div>
+                    ${isLeader ? `<span style="background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.4);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;">👑 قائد الفريق</span>` : ""}
                   </div>`;
               }).join("")
             : `<div style="color:#52525b;font-size:0.85rem;padding:10px 0;">لا يوجد أعضاء بعد</div>`;
