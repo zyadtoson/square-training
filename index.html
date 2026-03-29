@@ -601,6 +601,70 @@
         text-align: center;
         box-shadow: 0 30px 60px rgba(0,0,0,0.5);
       }
+
+      /* ── STUDENT DASHBOARD REDESIGN ── */
+      .stu-main { background: #000; color: #fff; min-height: 100vh; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+      .stu-topbar { display: flex; justify-content: space-between; align-items: center; padding: 24px 40px; background: #000; border-bottom: 1px solid #1a1a1a; }
+      .stu-brand-group { text-align: right; }
+      .stu-brand-group h1 { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+      .stu-brand-group p { font-size: 0.9rem; color: #666; font-weight: 500; }
+      
+      .stu-card { background: #111; border: 1px solid #1a1a1a; border-radius: 18px; padding: 24px; transition: 0.3s; }
+      .stu-card.hover:hover { transform: translateY(-4px); border-color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+      
+      .stu-sec-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 24px; color: #fff; text-align: right; display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+      
+      .stu-badge { padding: 4px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+      .stu-badge.active { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+      .stu-badge.pending { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+      .stu-badge.done { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+      
+      .stu-stat-box { text-align: center; }
+      .stu-stat-box .label { color: #555; font-size: 0.85rem; margin-bottom: 8px; font-weight: 600; }
+      .stu-stat-box .value { font-size: 1.8rem; font-weight: 800; color: #fff; }
+      
+      .stu-progress-container { margin-bottom: 16px; }
+      .stu-progress-labels { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; font-weight: 600; }
+      .stu-progress-bar { height: 10px; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
+      .stu-progress-fill { height: 100%; background: linear-gradient(90deg, #e50914, #f97316); border-radius: 10px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+      
+      .stu-task-card { display: flex; flex-direction: column; gap: 20px; border-radius: 20px; }
+      .stu-task-header { display: flex; justify-content: space-between; align-items: flex-start; }
+      .stu-task-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+      .stu-task-info { color: #666; font-size: 0.88rem; line-height: 1.5; }
+      .stu-task-meta { display: flex; gap: 20px; color: #555; font-size: 0.82rem; margin-top: 16px; }
+      .stu-task-meta-item { display: flex; align-items: center; gap: 6px; }
+      
+      .stu-btn-action { background: #e50914; color: #fff; border: none; padding: 10px 24px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
+      .stu-btn-action:hover { background: #f40a16; transform: translateY(-2px); }
+      
+      .stu-avatar-big { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #f97316, #e50914); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; color: #fff; }
+      
+      .stu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+      
+      .stu-leaderboard-podium { display: flex; align-items: flex-end; justify-content: center; gap: 20px; margin-bottom: 60px; padding-top: 40px; }
+      .stu-podium-item { flex: 1; max-width: 240px; text-align: center; }
+      .stu-podium-item.first { order: 2; transform: translateY(-20px); }
+      .stu-podium-item.first .stu-card { border: 1px solid #e50914; box-shadow: 0 10px 30px rgba(229, 9, 20, 0.2); }
+      .stu-podium-item.second { order: 1; }
+      .stu-podium-item.third { order: 3; }
+      
+      .stu-p-avatar { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 42px; font-weight: 800; position: relative; }
+      .stu-p-avatar .rank-badge { position: absolute; top: -10px; right: -10px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 3px solid #111; }
+      
+      .stu-leader-list { background: #0d0d0d; border-radius: 20px; overflow: hidden; border: 1px solid #1a1a1a; }
+      .stu-leader-item { display: flex; align-items: center; padding: 16px 24px; border-bottom: 1px solid #1a1a1a; transition: 0.2s; }
+      .stu-leader-item:hover { background: #141414; }
+      .stu-leader-rank { width: 40px; color: #555; font-weight: 800; font-size: 1.1rem; }
+      .stu-leader-info { display: flex; align-items: center; gap: 16px; flex: 1; text-align: right; }
+      .stu-leader-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+      .stu-leader-detail { flex: 1; }
+      .stu-leader-name { font-weight: 700; color: #fff; font-size: 1.05rem; margin-bottom: 4px; }
+      .stu-leader-progress { width: 200px; padding: 0 24px; }
+      .stu-leader-percent { min-width: 80px; text-align: left; font-weight: 800; color: #fff; font-size: 1rem; }
+      
+      .stu-input-area { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 12px 16px; width: 100%; color: #fff; font-size: 0.95rem; text-align: right; }
+      .stu-input-area:focus { border-color: #e50914; outline: none; }
       
       .role-indicator {
         width: 80px;
@@ -2827,20 +2891,24 @@
           </div>
 
           <div class="sidebar-nav">
-            <div class="nav-item active" onclick="switchTab('s-tasks', this)">
+            <div class="nav-item active" data-tab="tab-s-home" onclick="switchTab('tab-s-home', this)">
+              <span class="n-icon">🏠</span>
+              <span class="n-text">الرئيسية</span>
+            </div>
+            <div class="nav-item" data-tab="tab-s-tasks" onclick="switchTab('tab-s-tasks', this)">
               <span class="n-icon">📋</span>
-              <span class="n-text" style="flex: 1">المهام</span>
+              <span class="n-text">المهام</span>
               <span class="badge" id="s-tasks-badge" style="display:none;">0</span>
             </div>
-            <div class="nav-item" onclick="switchTab('s-project', this)">
+            <div class="nav-item" data-tab="tab-s-project" onclick="switchTab('tab-s-project', this)">
               <span class="n-icon">🚀</span>
-              <span class="n-text" style="flex: 1">المشاريع</span>
+              <span class="n-text">المشاريع</span>
             </div>
-            <div class="nav-item" onclick="switchTab('s-leaderboard', this)">
+            <div class="nav-item" data-tab="tab-s-leaderboard" onclick="switchTab('tab-s-leaderboard', this)">
               <span class="n-icon">🏆</span>
               <span class="n-text">لوحة الشرف</span>
             </div>
-            <div class="nav-item" onclick="switchTab('s-profile', this)">
+            <div class="nav-item" data-tab="tab-s-profile" onclick="switchTab('tab-s-profile', this)">
               <span class="n-icon">👤</span>
               <span class="n-text">الملف الشخصي</span>
             </div>
@@ -2863,1092 +2931,111 @@
           </div>
         </aside>
 
-        <!-- Mobile Bottom Navigation: STUDENT -->
         <nav class="mob-bottom-nav" id="mob-nav-student">
-          <button class="mob-nav-item active" data-tab="s-tasks" onclick="switchTab('s-tasks', this)">
+          <button class="mob-nav-item active" data-tab="tab-s-home" onclick="switchTab('tab-s-home', this)">
+            <span class="mob-nav-icon">🏠</span>
+            <span class="mob-nav-label">الرئيسية</span>
+          </button>
+          <button class="mob-nav-item" data-tab="tab-s-tasks" onclick="switchTab('tab-s-tasks', this)">
             <span class="mob-nav-icon">📋</span>
             <span class="mob-nav-label">المهام</span>
             <span class="mob-nav-badge" id="mob-s-tasks-badge"></span>
           </button>
-          <button class="mob-nav-item" data-tab="s-project" onclick="switchTab('s-project', this)">
+          <button class="mob-nav-item" data-tab="tab-s-project" onclick="switchTab('tab-s-project', this)">
             <span class="mob-nav-icon">🚀</span>
             <span class="mob-nav-label">المشاريع</span>
           </button>
-          <button class="mob-nav-item" data-tab="s-leaderboard" onclick="switchTab('s-leaderboard', this)">
+          <button class="mob-nav-item" data-tab="tab-s-leaderboard" onclick="switchTab('tab-s-leaderboard', this)">
             <span class="mob-nav-icon">🏆</span>
             <span class="mob-nav-label">الشرف</span>
           </button>
-          <button class="mob-nav-item" data-tab="s-profile" onclick="switchTab('s-profile', this)">
+          <button class="mob-nav-item" data-tab="tab-s-profile" onclick="switchTab('tab-s-profile', this)">
             <span class="mob-nav-icon">👤</span>
             <span class="mob-nav-label">بروفايل</span>
           </button>
         </nav>
 
-        <main class="main-area">
-          <div class="topbar">
-            <div
-              style="font-weight: 700; font-size: 1.05rem; color: #fff"
-              id="s-top-title"
-            >
-              الرئيسية
+        <main class="stu-main">
+          <!-- TOPBAR -->
+          <div class="stu-topbar">
+            <!-- Branding/Square Training Logo Section -->
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="text-align: right;">
+                <h1 style="margin:0; font-size:1.4rem; font-weight:800; color:#fff;">SQUARE <span style="color:#e50914">TRAINING</span></h1>
+                <p style="margin:0; font-size:0.85rem; color:#666; font-weight:500;">CENTER</p>
+              </div>
+              <img src="logo.png" alt="Logo" style="width:44px; height:auto; opacity:0.9;">
             </div>
-            <button
-              class="btn-logout"
-              style="display: none"
-              id="mob-s-out"
-              onclick="doLogout()"
-            >
-              خروج
-            </button>
+
+            <!-- Student Name Section -->
+            <div class="stu-brand-group">
+              <h1 id="s-top-title">لوحة تحكم الطالب</h1>
+              <p id="s-hname-main"></p>
+            </div>
           </div>
 
-          <div class="dash stu-dash">
-            <!-- ── TAB: DASHBOARD ── -->
-            <div class="tab-content active" id="tab-s-dash">
-              <!-- TOP ROW: WELCOME & PROGRESS -->
-              <div
-                style="
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                  gap: 16px;
-                  margin-bottom: 24px;
-                "
-              >
-                <!-- Welcome Banner -->
-                <div
-                  class="welcome-banner"
-                  style="
-                    background: linear-gradient(
-                      135deg,
-                      rgba(196, 24, 24, 0.85) 0%,
-                      rgba(139, 0, 0, 0.85) 100%
-                    );
-                    margin: 0;
-                    padding: 24px;
-                    border-radius: 14px;
-                    display: flex;
-                    align-items: center;
-                    gap: 16px;
-                    color: #fff;
-                    box-shadow: 0 4px 20px rgba(196, 24, 24, 0.3);
-                    border: 1px solid #c41818;
-                  "
-                >
-                  <img src="logo.png" alt="Square Logo" style="width:120px; height:auto; display:block; flex-shrink:0;">
-                  <div>
-                    <h2
-                      id="s-wname"
-                      style="margin: 0; font-size: 1.35rem; font-weight: 800"
-                    >
-                      أهلاً بطل! 👋
-                    </h2>
-                    <p
-                      style="
-                        margin: 6px 0 0 0;
-                        font-size: 0.95rem;
-                        opacity: 0.9;
-                      "
-                    >
-                      تابع أداءك وأنجز مهامك اليوم 🎯
-                    </p>
+          <div class="dash stu-dash" style="padding: 30px 40px;">
+            <!-- ── TAB: HOME (OVERVIEW) ── -->
+            <div class="tab-content active" id="tab-s-home">
+               <div class="stu-grid">
+                  <div class="stu-card">
+                     <div class="stu-card-title">🚀 تقدمك الأسبوعي</div>
+                     <div style="height:8px; background:#222; border-radius:10px; margin: 16px 0 8px; overflow:hidden;">
+                        <div id="stu-home-pbar" style="width:0%; height:100%; background:#e50914; transition: 0.5s;"></div>
+                     </div>
+                     <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#888;">
+                        <span id="stu-home-ptext">0% مكتمل</span>
+                        <span>الهدف: 3 مهام</span>
+                     </div>
                   </div>
-                </div>
+                  <div class="stu-card">
+                     <div class="stu-card-title">💡 نصيحة اليوم</div>
+                     <p style="color:#aaa; font-size:0.9rem; line-height:1.6; margin-top:12px;">
+                        "التنظيم هو مفتاح الإبداع. حاول دائماً تقسيم مهامك الكبيرة إلى خطوات صغيرة قابلة للتنفيذ."
+                     </p>
+                  </div>
+               </div>
 
-                <!-- Progress section -->
-                <div
-                  class="section"
-                  style="
-                    background: #141414;
-                    padding: 24px;
-                    border-radius: 14px;
-                    border: 1px solid #333;
-                    margin: 0;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                  "
-                >
-                  <div
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      align-items: center;
-                      margin-bottom: 12px;
-                    "
-                  >
-                    <div
-                      style="font-size: 1.05rem; font-weight: 700; color: #eee"
-                    >
-                      📈 نسبة الإنجاز العام
-                    </div>
-                    <strong id="s-pct" style="font-size: 1.4rem; color: #c41818"
-                      >0%</strong
-                    >
+               <div class="stu-card" style="margin-top:24px;">
+                  <div class="stu-card-title">👥 الفرق المنتسبة إليها</div>
+                  <div id="s-teams-container" class="teams-grid" style="margin-top:16px;">
+                     <!-- Teams list -->
                   </div>
-                  <div
-                    class="pbar-bg"
-                    style="
-                      background: #222;
-                      border-radius: 10px;
-                      height: 8px;
-                      overflow: hidden;
-                    "
-                  >
-                    <div
-                      class="pbar-fill"
-                      id="s-pbar"
-                      style="
-                        height: 100%;
-                        background: linear-gradient(90deg, #c41818, #ff6060);
-                        width: 0%;
-                        transition: width 0.5s;
-                      "
-                    ></div>
-                  </div>
-                </div>
-
-                <!-- Smart Assistant -->
-                <div
-                  class="section"
-                  style="
-                    background: rgba(30, 144, 255, 0.05);
-                    padding: 24px;
-                    border-radius: 14px;
-                    border: 1px solid rgba(30, 144, 255, 0.2);
-                    margin: 0;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                  "
-                >
-                  <div
-                    style="
-                      font-size: 1.05rem;
-                      font-weight: 700;
-                      color: #60a5fa;
-                      margin-bottom: 8px;
-                      display: flex;
-                      align-items: center;
-                      gap: 6px;
-                    "
-                  >
-                    💡 مساعدك الذكي
-                  </div>
-                  <div
-                    id="smart-ai-msg"
-                    style="
-                      color: #fff;
-                      font-size: 1.15rem;
-                      font-weight: 800;
-                      margin-bottom: 12px;
-                      line-height: 1.4;
-                    "
-                  >
-                    جاري التحليل...
-                  </div>
-                  <button
-                    id="smart-ai-action"
-                    style="
-                      padding: 8px 16px;
-                      background: rgba(30, 144, 255, 0.15);
-                      border: 1px solid #60a5fa;
-                      color: #60a5fa;
-                      font-weight: bold;
-                      border-radius: 8px;
-                      cursor: pointer;
-                      align-self: flex-start;
-                      transition: 0.2s;
-                    "
-                    onmouseover="this.style.background = 'rgba(30,144,255,0.3)'"
-                    onmouseout="this.style.background = 'rgba(30,144,255,0.15)'"
-                  >
-                    عرض التفاصيل
-                  </button>
-                </div>
-
-                <!-- Weekly Goal -->
-                <div
-                  class="section"
-                  style="
-                    background: rgba(168, 85, 247, 0.05);
-                    padding: 24px;
-                    border-radius: 14px;
-                    border: 1px solid rgba(168, 85, 247, 0.2);
-                    margin: 0;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                  "
-                >
-                  <div
-                    style="
-                      font-size: 1.05rem;
-                      font-weight: 700;
-                      color: #c084fc;
-                      margin-bottom: 8px;
-                      display: flex;
-                      align-items: center;
-                      gap: 6px;
-                    "
-                  >
-                    🎯 هدف الأسبوع
-                  </div>
-                  <div
-                    id="weekly-goal-msg"
-                    style="
-                      color: #fff;
-                      font-size: 1.15rem;
-                      font-weight: 800;
-                      margin-bottom: 12px;
-                      line-height: 1.4;
-                    "
-                  >
-                    سيظهر هدفك الأسبوعي هنا
-                  </div>
-                  <div
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      align-items: center;
-                      margin-bottom: 8px;
-                      font-size: 0.85rem;
-                      color: #aaa;
-                    "
-                  >
-                    <span id="weekly-goal-desc">قيد الحساب...</span>
-                    <strong id="weekly-goal-pct" style="color: #c084fc"
-                      >0/0</strong
-                    >
-                  </div>
-                  <div
-                    style="
-                      background: rgba(0, 0, 0, 0.3);
-                      border-radius: 10px;
-                      height: 6px;
-                      overflow: hidden;
-                      margin-bottom: 12px;
-                    "
-                  >
-                    <div
-                      id="weekly-goal-bar"
-                      style="
-                        height: 100%;
-                        background: linear-gradient(90deg, #a855f7, #d8b4fe);
-                        width: 0%;
-                        transition: width 0.5s;
-                      "
-                    ></div>
-                  </div>
-                  <button
-                    id="weekly-goal-action"
-                    style="
-                      padding: 8px 16px;
-                      background: rgba(168, 85, 247, 0.15);
-                      border: 1px solid #c084fc;
-                      color: #c084fc;
-                      font-weight: bold;
-                      border-radius: 8px;
-                      cursor: pointer;
-                      align-self: flex-start;
-                      transition: 0.2s;
-                      display: none;
-                    "
-                    onmouseover="
-                      this.style.background = 'rgba(168, 85, 247, 0.3)'
-                    "
-                    onmouseout="
-                      this.style.background = 'rgba(168, 85, 247, 0.15)'
-                    "
-                  >
-                    المهام القادمة
-                  </button>
-                </div>
+               </div>
+            </div>
+            <!-- ── TAB: TASKS (NOW DEFAULT) ── -->
+            <div class="tab-content" id="tab-s-tasks" style="display:none;">
+              <div class="stu-sec-title">
+                📋 المهام
               </div>
-
-              <!-- STATS CARDS ROW -->
-              <div
-                class="stats-row"
-                id="s-stats"
-                style="
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                  gap: 16px;
-                  margin-bottom: 30px;
-                "
-              ></div>
-
-              <!-- PENDING TASKS SECTION -->
-              <div
-                style="
-                  display: flex;
-                  flex-direction: column;
-                  gap: 24px;
-                  margin-bottom: 30px;
-                "
-              >
-                <div
-                  id="s-pending-section"
-                  class="section"
-                  style="
-                    background: #141414;
-                    padding: 24px;
-                    border-radius: 14px;
-                    border: 1px solid #333;
-                    margin-bottom: 0;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                  "
-                >
-                  <div
-                    class="sec-head"
-                    style="
-                      margin-bottom: 20px;
-                      border-bottom: 1px solid #222;
-                      padding-bottom: 12px;
-                    "
-                  >
-                    <div
-                      class="sec-title"
-                      style="
-                        font-size: 1.25rem;
-                        font-weight: 800;
-                        display: flex;
-                        align-items: center;
-                        gap: 8px;
-                      "
-                    >
-                      📌 مهام بحاجة لإنجاز (التالي)
-                    </div>
-                  </div>
-                  <div
-                    id="s-pending-tasks"
-                    style="
-                      display: flex;
-                      flex-direction: column;
-                      gap: 12px;
-                      max-height: 480px;
-                      overflow-y: auto;
-                      padding-left: 8px;
-                      scrollbar-width: thin;
-                      scrollbar-color: #333 transparent;
-                    "
-                  ></div>
-                </div>
+              <div id="s-tasks-list" class="stu-grid">
+                <!-- Task Cards will be injected here -->
               </div>
             </div>
 
-            <!-- ── TAB: TASKS ── -->
-            <div class="tab-content" id="tab-s-tasks">
-              <div
-                class="section"
-                style="
-                  background: #141414;
-                  padding: 24px;
-                  border-radius: 14px;
-                  border: 1px solid #333;
-                  margin: 0;
-                "
-              >
-                <div
-                  class="sec-head"
-                  style="
-                    margin-bottom: 24px;
-                    border-bottom: 1px solid #222;
-                    padding-bottom: 14px;
-                  "
-                >
-                  <div class="sec-title" style="font-size: 1.25rem">
-                    📋 جميع المهام الموكلة إليك
-                  </div>
-                </div>
-                <div id="s-tcards-container"></div>
-              </div>
+            <!-- ── TAB: PROJECTS ── -->
+            <div class="tab-content" id="tab-s-project" style="display:none;">
+              <!-- Handled in JS -->
             </div>
 
             <!-- ── TAB: LEADERBOARD ── -->
-            <div class="tab-content" id="tab-s-leaderboard">
-              <div
-                class="section"
-                style="
-                  background: #141414;
-                  padding: 24px;
-                  border-radius: 14px;
-                  border: 1px solid #333;
-                  margin: 0;
-                "
-              >
-                <div
-                  class="sec-head"
-                  style="
-                    margin-bottom: 20px;
-                    border-bottom: 1px solid #222;
-                    padding-bottom: 12px;
-                  "
-                >
-                  <div class="sec-title" style="font-size: 1.25rem">
-                    🏆 ترتيب الطلاب (لوحة الشرف)
-                  </div>
-                </div>
-                <div class="s-lb" id="s-leaderboard-list"></div>
+            <div class="tab-content" id="tab-s-leaderboard" style="display:none;">
+              <div class="stu-sec-title">
+                🏆 ترتيب الطلاب (لوحة الشرف)
               </div>
-            </div>
-
-            <!-- ── TAB: PORTFOLIO ── -->
-            <div class="tab-content" id="tab-s-portfolio">
-              <div
-                class="section"
-                style="
-                  background: #141414;
-                  padding: 24px;
-                  border-radius: 14px;
-                  border: 1px solid #333;
-                  margin: 0;
-                "
-              >
-                <div
-                  class="sec-head"
-                  style="
-                    margin-bottom: 24px;
-                    border-bottom: 1px solid #222;
-                    padding-bottom: 16px;
-                  "
-                >
-                  <div
-                    class="sec-title"
-                    style="
-                      font-size: 1.35rem;
-                      font-weight: 800;
-                      display: flex;
-                      align-items: center;
-                      gap: 8px;
-                    "
-                  >
-                    🎨 معرض أعمالي
-                  </div>
-                  <div
-                    style="font-size: 0.95rem; color: #aaa; margin-top: 8px"
-                    id="s-port-msg"
-                  >
-                    اكتشف رحلتك والمشاريع التي أنجزتها 🚀
-                  </div>
-                </div>
-
-                <!-- First & Latest Highlight -->
-                <div
-                  id="s-port-highlights"
-                  style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 16px;
-                    margin-bottom: 30px;
-                  "
-                ></div>
-
-                <!-- Filter -->
-                <div style="margin-bottom: 24px; display: flex; gap: 10px">
-                  <button
-                    class="sbt on"
-                    id="pf-all"
-                    style="
-                      padding: 10px 20px;
-                      border-radius: 8px;
-                      font-weight: bold;
-                      cursor: pointer;
-                      background: #c41818;
-                      color: #fff;
-                      border: none;
-                      transition: 0.2s;
-                    "
-                    onclick="filterPortfolio('all')"
-                  >
-                    كل المهام
-                  </button>
-                  <button
-                    class="sbt"
-                    id="pf-done"
-                    style="
-                      padding: 10px 20px;
-                      border-radius: 8px;
-                      font-weight: bold;
-                      cursor: pointer;
-                      background: rgba(255, 255, 255, 0.05);
-                      color: #aaa;
-                      border: 1px solid #333;
-                      transition: 0.2s;
-                    "
-                    onclick="filterPortfolio('done')"
-                  >
-                    المكتملة فقط
-                  </button>
-                </div>
-
-                <!-- Items Grid -->
-                <div
-                  id="s-port-grid"
-                  style="
-                    display: grid;
-                    grid-template-columns: repeat(
-                      auto-fill,
-                      minmax(280px, 1fr)
-                    );
-                    gap: 24px;
-                  "
-                ></div>
+              <div id="s-leader-podium" class="stu-leaderboard-podium">
+                 <!-- Podium injected here -->
+              </div>
+              <div class="stu-leader-list" id="s-leader-full">
+                 <!-- Full list injected here -->
               </div>
             </div>
 
             <!-- ── TAB: PROFILE ── -->
-            <div class="tab-content" id="tab-s-profile">
-              <div
-                class="section"
-                style="
-                  background: #141414;
-                  padding: 24px;
-                  border-radius: 14px;
-                  border: 1px solid #333;
-                  margin: 0;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 24px;
-                "
-              >
-                <!-- Header Card (Avatar & Status) -->
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 20px;
-                    background: rgba(255, 255, 255, 0.02);
-                    padding: 24px;
-                    border-radius: 12px;
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-                  "
-                >
-                  <label
-                    style="
-                      width: 80px;
-                      height: 80px;
-                      background: linear-gradient(135deg, #c41818, #8b0000);
-                      border-radius: 50%;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      font-size: 2.5rem;
-                      font-weight: bold;
-                      color: #fff;
-                      box-shadow: 0 4px 10px rgba(196, 24, 24, 0.3);
-                      cursor: pointer;
-                      position: relative;
-                    "
-                    id="sprof-avatar-container"
-                    onmouseover="this.querySelector('.ov').style.opacity = 1"
-                    onmouseout="this.querySelector('.ov').style.opacity = 0"
-                  >
-                    <div
-                      id="sprof-avatar"
-                      style="
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 50%;
-                        overflow: hidden;
-                      "
-                    >
-                      👤
-                    </div>
-                    <div
-                      class="ov"
-                      style="
-                        position: absolute;
-                        inset: 0;
-                        background: rgba(196, 24, 24, 0.7);
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        opacity: 0;
-                        transition: 0.2s;
-                        border-radius: 50%;
-                        gap: 6px;
-                      "
-                    >
-                      <span style="font-size: 2rem">✏️</span>
-                      <span style="font-size: 0.7rem; color: #fff; font-weight: 600;">عدّل</span>
-                    </div>
-                    <input
-                      type="file"
-                      style="display: none"
-                      accept="image/*"
-                      onchange="uploadAvatar(event)"
-                    />
-                  </label>
-                  <div style="flex: 1">
-                    <div
-                      style="
-                        display: flex;
-                        align-items: center;
-                        gap: 12px;
-                        flex-wrap: wrap;
-                        margin-bottom: 8px;
-                      "
-                    >
-                      <h2
-                        id="sprof-name"
-                        style="margin: 0; font-size: 1.6rem; color: #fff"
-                      ></h2>
-                      <span
-                        id="sprof-lvl-badge"
-                        style="
-                          font-size: 0.85rem;
-                          padding: 4px 12px;
-                          border-radius: 20px;
-                          font-weight: bold;
-                          background: rgba(196, 24, 24, 0.15);
-                          border: 1px solid rgba(196, 24, 24, 0.3);
-                          color: #ff6b6b;
-                        "
-                        >مستواك</span
-                      >
-                    </div>
-                    <div id="sprof-msg" style="color: #aaa; font-size: 0.95rem">
-                      مستواك يتحسن مع كل مهمة وتسليم!
-                    </div>
-                    <div
-                      id="sprof-badges"
-                      style="
-                        display: flex;
-                        gap: 8px;
-                        margin-top: 16px;
-                        flex-wrap: wrap;
-                      "
-                    ></div>
-
-                    <!-- Social Media Links -->
-                    <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
-                      <a
-                        id="sprof-linkedin"
-                        href="#"
-                        target="_blank"
-                        style="display: none; padding: 6px 12px; background: rgba(0, 119, 181, 0.2); border: 1px solid rgba(0, 119, 181, 0.4); border-radius: 6px; color: #0077b5; text-decoration: none; font-size: 0.85rem; font-weight: 600;"
-                        onclick="event.preventDefault(); document.getElementById('linkedin-input').focus();"
-                      >
-                        🔗 LinkedIn
-                      </a>
-                      <a
-                        id="sprof-behance"
-                        href="#"
-                        target="_blank"
-                        style="display: none; padding: 6px 12px; background: rgba(0, 87, 255, 0.2); border: 1px solid rgba(0, 87, 255, 0.4); border-radius: 6px; color: #0057ff; text-decoration: none; font-size: 0.85rem; font-weight: 600;"
-                        onclick="event.preventDefault(); document.getElementById('behance-input').focus();"
-                      >
-                        🎨 Behance
-                      </a>
-                    </div>
-
-                    <!-- Social Media Edit Fields -->
-                    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
-                      <div>
-                        <label style="font-size: 0.8rem; color: #888; display: block; margin-bottom: 4px;">LinkedIn (اختياري)</label>
-                        <input
-                          type="text"
-                          id="linkedin-input"
-                          placeholder="https://linkedin.com/in/yourprofile"
-                          style="width: 100%; padding: 8px; background: #222; border: 1px solid #333; border-radius: 6px; color: #eee; font-size: 0.85rem;"
-                          onchange="saveSocialMedia()"
-                        />
-                      </div>
-                      <div>
-                        <label style="font-size: 0.8rem; color: #888; display: block; margin-bottom: 4px;">Behance (اختياري)</label>
-                        <input
-                          type="text"
-                          id="behance-input"
-                          placeholder="https://behance.net/yourprofile"
-                          style="width: 100%; padding: 8px; background: #222; border: 1px solid #333; border-radius: 6px; color: #eee; font-size: 0.85rem;"
-                          onchange="saveSocialMedia()"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Stats Grid -->
-                <div
-                  style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                    gap: 16px;
-                  "
-                >
-                  <div
-                    class="scard"
-                    style="
-                      background: rgba(255, 255, 255, 0.03);
-                      border: 1px solid #333;
-                      padding: 20px;
-                      border-radius: 12px;
-                    "
-                  >
-                    <div
-                      class="val"
-                      id="sprof-tot"
-                      style="font-size: 1.8rem; font-weight: 800; color: #fff"
-                    >
-                      0
-                    </div>
-                    <div
-                      class="lbl"
-                      style="
-                        font-size: 0.95rem;
-                        color: #aaa;
-                        font-weight: 600;
-                        margin-top: 4px;
-                      "
-                    >
-                      إجمالي المهام
-                    </div>
-                  </div>
-                  <div
-                    class="scard"
-                    style="
-                      background: rgba(34, 197, 94, 0.05);
-                      border: 1px solid rgba(34, 197, 94, 0.2);
-                      padding: 20px;
-                      border-radius: 12px;
-                    "
-                  >
-                    <div
-                      class="val"
-                      id="sprof-dn"
-                      style="
-                        font-size: 1.8rem;
-                        font-weight: 800;
-                        color: #22c55e;
-                      "
-                    >
-                      0
-                    </div>
-                    <div
-                      class="lbl"
-                      style="
-                        font-size: 0.95rem;
-                        color: #aaa;
-                        font-weight: 600;
-                        margin-top: 4px;
-                      "
-                    >
-                      مهام مكتملة
-                    </div>
-                  </div>
-                  <div
-                    class="scard"
-                    style="
-                      background: rgba(251, 191, 36, 0.05);
-                      border: 1px solid rgba(251, 191, 36, 0.2);
-                      padding: 20px;
-                      border-radius: 12px;
-                    "
-                  >
-                    <div
-                      class="val"
-                      id="sprof-pend"
-                      style="
-                        font-size: 1.8rem;
-                        font-weight: 800;
-                        color: #fbbf24;
-                      "
-                    >
-                      0
-                    </div>
-                    <div
-                      class="lbl"
-                      style="
-                        font-size: 0.95rem;
-                        color: #aaa;
-                        font-weight: 600;
-                        margin-top: 4px;
-                      "
-                    >
-                      بانتظارك
-                    </div>
-                  </div>
-                  <div
-                    class="scard"
-                    style="
-                      background: rgba(96, 165, 250, 0.05);
-                      border: 1px solid rgba(96, 165, 250, 0.2);
-                      padding: 20px;
-                      border-radius: 12px;
-                    "
-                  >
-                    <div
-                      class="val"
-                      id="sprof-avg"
-                      style="
-                        font-size: 1.8rem;
-                        font-weight: 800;
-                        color: #60a5fa;
-                      "
-                    >
-                      0
-                    </div>
-                    <div
-                      class="lbl"
-                      style="
-                        font-size: 0.95rem;
-                        color: #aaa;
-                        font-weight: 600;
-                        margin-top: 4px;
-                      "
-                    >
-                      متوسط التقييمات
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 24px;
-                  "
-                >
-                  <!-- Progress Review Card -->
-                  <div
-                    style="
-                      background: rgba(255, 255, 255, 0.02);
-                      padding: 24px;
-                      border-radius: 12px;
-                      border: 1px solid #333;
-                    "
-                  >
-                    <h3
-                      style="
-                        margin: 0 0 16px 0;
-                        font-size: 1.15rem;
-                        color: #fff;
-                      "
-                    >
-                      📊 التقدم والانضباط
-                    </h3>
-                    <div
-                      style="
-                        display: flex;
-                        justify-content: space-between;
-                        margin-bottom: 8px;
-                      "
-                    >
-                      <span style="color: #aaa">معدل الإنجاز</span>
-                      <strong id="sprof-comp-pct" style="color: #fff"
-                        >0%</strong
-                      >
-                    </div>
-                    <div
-                      style="
-                        background: #222;
-                        border-radius: 8px;
-                        height: 8px;
-                        overflow: hidden;
-                        margin-bottom: 24px;
-                      "
-                    >
-                      <div
-                        id="sprof-comp-bar"
-                        style="height: 100%; background: #22c55e; width: 0%"
-                      ></div>
-                    </div>
-
-                    <div
-                      style="
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 12px;
-                      "
-                    >
-                      <div
-                        style="
-                          background: #1a1a1a;
-                          padding: 12px;
-                          border-radius: 8px;
-                          border: 1px solid #333;
-                          text-align: center;
-                        "
-                      >
-                        <div
-                          id="sprof-ontime"
-                          style="
-                            font-size: 1.4rem;
-                            font-weight: bold;
-                            color: #4ade80;
-                          "
-                        >
-                          0
-                        </div>
-                        <div style="font-size: 0.8rem; color: #888">
-                          تسليم في الموعد
-                        </div>
-                      </div>
-                      <div
-                        style="
-                          background: #1a1a1a;
-                          padding: 12px;
-                          border-radius: 8px;
-                          border: 1px solid #333;
-                          text-align: center;
-                        "
-                      >
-                        <div
-                          id="sprof-late"
-                          style="
-                            font-size: 1.4rem;
-                            font-weight: bold;
-                            color: #ef4444;
-                          "
-                        >
-                          0
-                        </div>
-                        <div style="font-size: 0.8rem; color: #888">
-                          تسليم متأخر
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Latest Feedback -->
-                  <div
-                    style="
-                      background: rgba(255, 255, 255, 0.02);
-                      padding: 24px;
-                      border-radius: 12px;
-                      border: 1px solid #333;
-                      display: flex;
-                      flex-direction: column;
-                    "
-                  >
-                    <h3
-                      style="
-                        margin: 0 0 16px 0;
-                        font-size: 1.15rem;
-                        color: #fff;
-                      "
-                    >
-                      💬 أحدث ملاحظات المعلم
-                    </h3>
-                    <div
-                      id="sprof-feedback-box"
-                      style="
-                        flex: 1;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                      "
-                    ></div>
-                  </div>
-                </div>
-              </div>
+            <div class="tab-content" id="tab-s-profile" style="display:none;">
+              <div id="s-profile-cont"></div>
             </div>
           </div>
-<div id="tab-s-project" class="tab-content" style="padding-bottom: 40px;">
-        <div class="stu-dash">
-          <div class="sec-head">
-            <h2 class="sec-title">🎯 تفاصيل <em>المشروع النهائي</em></h2>
-          </div>
-          <div class="team-card" style="margin-bottom: 24px;">
-            <div id="s-project-desc" style="color: #ddd; line-height: 1.8; font-size: 0.95rem;">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
-                <p style="margin: 0; font-size: 1.05rem;"><strong style="color: #fff;">المشروع:</strong> تصميم UI لتطبيق توصيل Dual-Mode داخل مصر — Customer + Delivery Agent<br>
-                <strong style="color: #fff;">المدة:</strong> أسبوعان | 4 تيمات، كل تيم بـ Visual Style مختلف</p>
-                <a href="./WeDeliver_Brief.pdf" download="WeDeliver_Brief.pdf" style="background: rgba(196, 24, 24, 0.2); color: #ff6b6b; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; border: 1px solid rgba(196, 24, 24, 0.5); display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; white-space: nowrap; transition: 0.3s;" onmouseover="this.style.background='rgba(196, 24, 24, 0.4)'" onmouseout="this.style.background='rgba(196, 24, 24, 0.2)'">
-                  ⬇️ تحميل ملف (PDF)
-                </a>
-              </div>
-  
-              <h3 style="color: #c41818; margin-bottom: 10px; font-size: 1.1rem;">💡 فكرة التطبيق - WeDeliver</h3>
-              <p style="margin-bottom: 16px;">WeDeliver بيخلي المستخدم يطلب أكل، دواء، أو مشتريات من أي متجر قريب منه. التطبيق فيه مودين:</p>
-              <ul style="margin-bottom: 24px; padding-right: 20px; list-style-type: disc;">
-                <li><strong style="color: #60a5fa;">Customer:</strong> يتصفح، يطلب، يدفع، يتابع الأوردر</li>
-                <li><strong style="color: #fbbf24;">Delivery Agent:</strong> يشوف الأوردرات، يقبل، يتوجه، يوصّل، يتابع أرباحه</li>
-              </ul>
-              <p style="margin-bottom: 24px;">كل تيم بيصمم الموداتين بنفس الـ Visual Style.</p>
-  
-              <h3 style="color: #c41818; margin-bottom: 12px; font-size: 1.1rem;">🛠️ مراحل العمل</h3>
-              <div style="display: grid; gap: 12px; margin-bottom: 24px;">
-                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #c41818;">
-                  <strong style="color:#fff;">01 — Structure:</strong> اكتب هيكل التطبيق — اسم كل شاشة والـ Flow بينهم. حدد إيه المحتوى في كل شاشة. المخرج: فريم في Figma — مش تصميم، بس هيكل نصي واضح.
-                </div>
-                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #fbbf24;">
-                  <strong style="color:#fff;">02 — Mini Design System:</strong> اختار الألوان، الخطوط، والـ Grid. سمّي كل لون واستخدامه. حدد أحجام الخطوط والـ Spacing المتكرر.
-                </div>
-                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #60a5fa;">
-                  <strong style="color:#fff;">03 — Components:</strong> ابنِ الـ Components الأساسية بـ Auto Layout — Buttons, Input Fields, Cards, Nav Bar, Icons. كل Component يكون reusable ومبني على الـ Design System.
-                </div>
-                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #10b981;">
-                  <strong style="color:#fff;">04 — Screens Design:</strong> صمم كل الشاشات بالـ Components اللي بنيتها. ابدأ بـ Customer App ثم Delivery Agent App.
-                </div>
-                <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-right: 3px solid #8b5cf6;">
-                  <strong style="color:#fff;">05 — Prototype & Delivery:</strong> اربط الشاشات في Figma Prototype (Customer: Home → Cart → Checkout → Tracking | Agent: Dashboard → قبول أوردر → تأكيد التوصيل).
-                </div>
-              </div>
-  
-              <h3 style="color: #c41818; margin-bottom: 12px; font-size: 1.1rem;">📅 متطلبات التسليم ومعايير التقييم</h3>
-              <div style="overflow-x: auto; margin-bottom: 8px;">
-                <table style="width: 100%; border-collapse: collapse; min-width: 600px; text-align: right; font-size: 0.9rem;">
-                  <thead>
-                    <tr style="background: #1a1a1a; border-bottom: 2px solid #333;">
-                      <th style="padding: 10px;">المرحلة / الأيام</th>
-                      <th style="padding: 10px;">المطلوب تسليمه</th>
-                      <th style="padding: 10px;">معيار التقييم والوزن</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style="border-bottom: 1px solid #282828;">
-                      <td style="padding: 10px;"><strong>يوم 1-2:</strong> Structure</td>
-                      <td style="padding: 10px;">هيكل التطبيق + الشاشات والـ Flow</td>
-                      <td style="padding: 10px; color: #fbbf24;">تنظيم الملف (5%)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #282828;">
-                      <td style="padding: 10px;"><strong>يوم 3:</strong> Design System</td>
-                      <td style="padding: 10px;">الألوان، الخطوط، الـ Grid (Page 1)</td>
-                      <td style="padding: 10px; color: #fbbf24;">Mini Design System (20%)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #282828;">
-                      <td style="padding: 10px;"><strong>يوم 4-5:</strong> Components</td>
-                      <td style="padding: 10px;">بناء الـ Components (Page 2)</td>
-                      <td style="padding: 10px; color: #fbbf24;">Components + Auto Layout (20%)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #282828;">
-                      <td style="padding: 10px;"><strong>يوم 6-8:</strong> Screens</td>
-                      <td style="padding: 10px;">Customer App (Page 3) + Agent App (Page 4)</td>
-                      <td style="padding: 10px; color: #fbbf24;">Visual Design (25%) + اكتمال الشاشات (20%)</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #282828;">
-                      <td style="padding: 10px;"><strong>يوم 9:</strong> Prototype</td>
-                      <td style="padding: 10px;">مراجعة + ربط الشاشات (Page 5)</td>
-                      <td style="padding: 10px; color: #fbbf24;">Prototype (10%)</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 10px;"><strong>يوم 10:</strong> التسليم</td>
-                      <td style="padding: 10px; color: #4ade80;">تسليم ملف Figma + عرض 7 دقايق</td>
-                      <td style="padding: 10px;">-</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          
-          <div class="sec-head">
-            <h2 class="sec-title">👥 الفرق <em>المشاركة</em></h2>
-          </div>
-          <div class="teams-grid" id="s-teams-container">
-            <!-- Teams Rendered Here -->
-          </div>
-        </div>
-      </div>
         </main>
       </div>
     </div>
@@ -6090,663 +5177,167 @@
       //  STUDENT DASHBOARD
       // ══════════════════════════════════════════════════════
       async function renderStudent(stu) {
-        loader(true, "جاري تحميل مهامك...");
-        const snap = await getDocs(collection(db, "tasks"));
+        if (!stu) return;
+        loader(true, "تحميل بياناتك...");
+        
+        // Save current student
+        window._sStu = stu;
 
+        // Fetch tasks
+        const snap = await getDocs(collection(db, "tasks"));
         const myTasks = [];
         snap.forEach((d) => {
           const t = { id: d.id, ...d.data() };
           if (t.studentId === stu.id) myTasks.push(t);
         });
-        loader(false);
-
         window._sTasks = myTasks;
-        window._sStu = stu;
 
-        g("s-hname").textContent = stu.name;
-        g("s-wname").textContent = `أهلاً، ${stu.name}! 👋`;
-
-        const tot = myTasks.length,
-          dn = myTasks.filter((t) => t.status === "خلص").length,
-          rm = tot - dn;
+        // 1. Update Topbar & Welcome
+        const welcomeSpan = document.querySelector("#s-welcome-msg span");
+        if (welcomeSpan) welcomeSpan.textContent = stu.name;
+        
+        // 2. Statistics & Home Progress
+        const tot = myTasks.length;
+        const dn = myTasks.filter(t => t.status === "خلص").length;
+        const left = tot - dn;
         const pct = tot ? Math.round((dn / tot) * 100) : 0;
+        
+        if (g("stu-home-pbar")) g("stu-home-pbar").style.width = pct + "%";
+        if (g("stu-home-ptext")) g("stu-home-ptext").textContent = pct + "% مكتمل";
+        
+        if (g("s-tot-tasks")) g("s-tot-tasks").textContent = tot;
+        if (g("s-done-tasks")) g("s-done-tasks").textContent = dn;
+        if (g("s-left-tasks")) g("s-left-tasks").textContent = left;
 
-        const bgNormalCard =
-          "background:rgba(255,255,255,0.03); border:1px solid #333;";
-        const bgSuccessCard =
-          "background:rgba(34,197,94,0.05); border:1px solid rgba(34,197,94,0.2);";
-        const bgWarningCard =
-          "background:rgba(251,191,36,0.05); border:1px solid rgba(251,191,36,0.2);";
-
-        g("s-stats").innerHTML = `
-      <div class="scard" style="${bgNormalCard} padding:20px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-        <div class="val" style="font-size:1.8rem; font-weight:800; color:#fff;">${tot}</div>
-        <div class="lbl" style="font-size:1rem; color:#aaa; font-weight:600; margin-top:4px;">إجمالي المهام</div>
-      </div>
-      <div class="scard" style="${bgSuccessCard} padding:20px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-        <div class="val" style="font-size:1.8rem; font-weight:800; color:#22c55e;">${dn}</div>
-        <div class="lbl" style="font-size:1rem; color:#aaa; font-weight:600; margin-top:4px;">مهام مكتملة</div>
-      </div>
-      <div class="scard" style="${bgWarningCard} padding:20px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-        <div class="val" style="font-size:1.8rem; font-weight:800; color:#fbbf24;">${rm}</div>
-        <div class="lbl" style="font-size:1rem; color:#aaa; font-weight:600; margin-top:4px;">مهام متبقية</div>
-      </div>`;
-
-        g("s-pct").textContent = pct + "%";
-        g("s-pbar").style.width = pct + "%";
-
-        const ord = { متأخر: 0, لسه: 1, شغال: 2, خلص: 3 };
-
-        // Pending tasks for Overview Home (NEW MINIMAL DESIGN)
-        const pendingTasks = myTasks.filter((t) => t.status !== "خلص");
-        g("s-pending-tasks").innerHTML = pendingTasks.length
-          ? pendingTasks
-              .map((t) => {
-                const late =
-                  t.status !== "خلص" &&
-                  t.deadline &&
-                  new Date(t.deadline) < new Date();
-                const ds = late ? "متأخر" : t.status;
-
-                let statusLabel = t.status === "خلص" ? "خلص" : (t.status === "شغال" ? "قيد التنفيذ" : "بانتظار البدء");
-                let statusColor = t.status === "خلص" ? (t.reviewed ? "#10b981" : "#f59e0b") : (t.status === "شغال" ? "#3b82f6" : "#6b7280");
-                let statusBg = t.status === "خلص" ? "rgba(16,185,129,0.15)" : (t.status === "شغال" ? "rgba(59,130,246,0.15)" : "rgba(107,119,128,0.15)");
-
-                let actionBtn = "ابدأ الآن";
-                let actionBgColor = "#3b82f6";
-                if (t.status === "شغال") { actionBtn = "أكمل المهمة"; actionBgColor = "#f59e0b"; }
-                else if (t.status === "خلص") { actionBtn = t.reviewed ? "عرض التقييم" : "قيد المراجعة"; actionBgColor = t.reviewed ? "#10b981" : "#8b5cf6"; }
-
-                const hasSubmission = t.attachment || t.link;
-                const shortNotes = t.notes ? (t.notes.length > 80 ? t.notes.substring(0, 80) + "..." : t.notes) : null;
-
-                return `
-          <div style="background:#1a1a1a; border:1px solid #333; border-radius:12px; overflow:hidden; margin-bottom:16px; transition:0.3s;">
-            <!-- Header -->
-            <div style="padding:16px 20px; border-bottom:1px solid #222; display:flex; justify-content:space-between; align-items:flex-start;">
-              <div style="flex:1;">
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:700; color:#fff;">${t.name}</h3>
-                  <span style="font-size:0.75rem; padding:3px 8px; border-radius:5px; background:${statusBg}; color:${statusColor}; font-weight:600;">${statusLabel}</span>
-                </div>
-                <span style="font-size:0.8rem; color:#888; display:inline-block;">${t.groupName || "عامة"}</span>
-              </div>
-              ${late ? '<span style="color:#ef4444; font-weight:bold; font-size:0.85rem; background:rgba(239,68,68,0.15); padding:4px 10px; border-radius:6px; border:1px solid rgba(239,68,68,0.3);">⚠️ متأخر</span>' : ""}
-            </div>
-
-            <!-- Main Content -->
-            <div style="padding:16px 20px;">
-              ${shortNotes ? `<p style="margin:0 0 12px; color:#bbb; font-size:0.95rem; line-height:1.5;">${shortNotes}</p>` : ""}
-              ${t.deadline ? `<div style="font-size:0.9rem; color:#888; display:flex; align-items:center; gap:6px;">📅 <span>${t.deadline}</span></div>` : ""}
-            </div>
-
-            <!-- Primary Action Button -->
-            <div style="padding:0 20px 16px;">
-              <button onclick="updStatus('${t.id}','${t.status === "لسه" ? "شغال" : "خلص"}')" style="width:100%; background:${actionBgColor}; color:#fff; border:none; padding:11px; border-radius:8px; font-weight:600; cursor:pointer; font-size:0.95rem; transition:0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-                ${actionBtn}
-              </button>
-            </div>
-
-            <!-- Submission Section -->
-            <div style="background:#0f0f0f; padding:16px 20px; border-top:1px solid #222;">
-              <div style="font-size:0.85rem; font-weight:600; color:#aaa; margin-bottom:12px; text-transform:uppercase;">📤 أضف تسليمك</div>
-
-              ${hasSubmission ? `
-                <div style="margin-bottom:12px; display:flex; gap:8px; flex-wrap:wrap;">
-                  ${t.attachment ? `<a href="${t.attachment}" target="_blank" style="font-size:0.8rem; color:#60a5fa; background:rgba(96,165,250,0.1); padding:6px 10px; border-radius:6px; text-decoration:none; border:1px solid rgba(96,165,250,0.2);">📁 ملف</a>` : ""}
-                  ${t.link ? `<a href="${t.link}" target="_blank" style="font-size:0.8rem; color:#22c55e; background:rgba(34,197,94,0.1); padding:6px 10px; border-radius:6px; text-decoration:none; border:1px solid rgba(34,197,94,0.2);">🔗 رابط</a>` : ""}
-                </div>
-              ` : ""}
-
-              <div style="display:flex; gap:8px;">
-                <label style="flex:1; text-align:center; cursor:pointer; font-size:0.8rem; font-weight:600; background:#222; padding:8px; border-radius:6px; border:1px solid #333; color:#ddd; transition:0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#222'">
-                  📁 ملف
-                  <input type="file" style="display:none;" id="file-${t.id}" onchange="uploadFile('${t.id}', event)">
-                </label>
-                <button onclick="addLink('${t.id}')" style="flex:1; cursor:pointer; font-size:0.8rem; font-weight:600; background:#222; padding:8px; border-radius:6px; border:1px solid #333; color:#ddd; transition:0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#222'">
-                  🔗 رابط
-                </button>
-              </div>
-              <div id="prog-${t.id}" style="font-size:0.75rem; color:#fbbf24; margin-top:8px; font-weight:bold; display:none;">جاري الرفع... 0%</div>
-            </div>
-
-            <!-- Feedback Section (if exists) -->
-            ${t.reviewed ? `
-              <div style="background:#0a2e0a; padding:16px 20px; border-top:1px solid #1a3a1a;">
-                <div style="font-size:0.85rem; font-weight:600; color:#4ade80; margin-bottom:12px; text-transform:uppercase;">✅ التقييم</div>
-                ${t.grade ? `<div style="margin-bottom:12px;"><span style="font-size:2rem; font-weight:800; color:#4ade80;">${t.grade}</span><span style="color:#888; margin-right:8px;">من 100</span></div>` : ""}
-                ${t.feedback ? `<p style="margin:0; color:#bbb; font-size:0.9rem; line-height:1.6;">💬 ${t.feedback}</p>` : ""}
-              </div>
-            ` : (t.status === "خلص" && !t.reviewed) ? `
-              <div style="background:#2a2107; padding:14px 20px; border-top:1px solid #3a3107; text-align:center; font-size:0.85rem; color:#f59e0b;">
-                ⏳ جاري مراجعة التسليم من قبل المعلم
-              </div>
-            ` : ""}
-
-            <!-- Reference Link -->
-            ${t.reflink ? `
-              <div style="padding:12px 20px; border-top:1px solid #222;">
-                <a href="${t.reflink}" target="_blank" style="display:inline-flex; align-items:center; gap:6px; color:#60a5fa; text-decoration:none; font-size:0.85rem;">📖 مرجع <span style="text-decoration:underline;">→</span></a>
-              </div>
-            ` : ""}
-          </div>
-        `;
-              })
-              .join("")
-          : `
-      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; background:rgba(34,197,94,0.05); border:1px dashed rgba(34,197,94,0.3); border-radius:12px; text-align:center;">
-        <span style="font-size:2.5rem; margin-bottom:12px;">🎉</span>
-        <h3 style="color:#22c55e; margin:0 0 8px 0; font-size:1.3rem;">أحسنت يا بطل!</h3>
-        <p style="color:#aaa; margin:0; font-size:0.95rem;">لقد أنجزت جميع مهامك المطلوبة بنجاح. استرح قليلاً أو راجع الملاحظات السابقة للمراجعة.</p>
-      </div>
-    `;
-
-        const groupedMyTasks = {};
-        myTasks.forEach((t) => {
-          const grp = t.groupName || "مهام عامة";
-          if (!groupedMyTasks[grp]) groupedMyTasks[grp] = [];
-          groupedMyTasks[grp].push(t);
-        });
-
-        g("s-tcards-container").innerHTML = Object.keys(groupedMyTasks).length
-          ? Object.entries(groupedMyTasks)
-              .map(([gName, tList]) => {
-                let thtml = tList
-                  .map((t) => {
-                    const late = t.status !== "خلص" && t.deadline && new Date(t.deadline) < new Date();
-                    let statusLabel = t.status === "خلص" ? "خلص" : (t.status === "شغال" ? "قيد التنفيذ" : "بانتظار البدء");
-                    let statusColor = t.status === "خلص" ? (t.reviewed ? "#10b981" : "#f59e0b") : (t.status === "شغال" ? "#3b82f6" : "#6b7280");
-                    let statusBg = t.status === "خلص" ? "rgba(16,185,129,0.15)" : (t.status === "شغال" ? "rgba(59,130,246,0.15)" : "rgba(107,119,128,0.15)");
-
-                    let actionBtn = "ابدأ الآن";
-                    let actionBgColor = "#3b82f6";
-                    if (t.status === "شغال") { actionBtn = "أكمل المهمة"; actionBgColor = "#f59e0b"; }
-                    else if (t.status === "خلص") { actionBtn = t.reviewed ? "عرض التقييم" : "قيد المراجعة"; actionBgColor = t.reviewed ? "#10b981" : "#8b5cf6"; }
-
-                    const hasSubmission = t.attachment || t.link;
-                    const shortNotes = t.notes ? (t.notes.length > 80 ? t.notes.substring(0, 80) + "..." : t.notes) : null;
-
-                    return `
-          <div style="background:#1a1a1a; border:1px solid #333; border-radius:12px; overflow:hidden; margin-bottom:16px; transition:0.3s;">
-            <!-- Header -->
-            <div style="padding:16px 20px; border-bottom:1px solid #222; display:flex; justify-content:space-between; align-items:flex-start;">
-              <div style="flex:1;">
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:700; color:#fff;">${t.name}</h3>
-                  <span style="font-size:0.75rem; padding:3px 8px; border-radius:5px; background:${statusBg}; color:${statusColor}; font-weight:600;">${statusLabel}</span>
-                </div>
-                <span style="font-size:0.8rem; color:#888; display:inline-block;">${gName}</span>
-              </div>
-              ${late ? '<span style="color:#ef4444; font-weight:bold; font-size:0.85rem; background:rgba(239,68,68,0.15); padding:4px 10px; border-radius:6px; border:1px solid rgba(239,68,68,0.3);">⚠️ متأخر</span>' : ""}
-            </div>
-
-            <!-- Main Content -->
-            <div style="padding:16px 20px;">
-              ${shortNotes ? `<p style="margin:0 0 12px; color:#bbb; font-size:0.95rem; line-height:1.5;">${shortNotes}</p>` : ""}
-              ${t.deadline ? `<div style="font-size:0.9rem; color:#888; display:flex; align-items:center; gap:6px;">📅 <span>${t.deadline}</span></div>` : ""}
-            </div>
-
-            <!-- Primary Action Button -->
-            <div style="padding:0 20px 16px;">
-              <button onclick="updStatus('${t.id}','${t.status === "لسه" ? "شغال" : "خلص"}')" style="width:100%; background:${actionBgColor}; color:#fff; border:none; padding:11px; border-radius:8px; font-weight:600; cursor:pointer; font-size:0.95rem; transition:0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-                ${actionBtn}
-              </button>
-            </div>
-
-            <!-- Submission Section -->
-            <div style="background:#0f0f0f; padding:16px 20px; border-top:1px solid #222;">
-              <div style="font-size:0.85rem; font-weight:600; color:#aaa; margin-bottom:12px; text-transform:uppercase;">📤 أضف تسليمك</div>
-
-              ${hasSubmission ? `
-                <div style="margin-bottom:12px; display:flex; gap:8px; flex-wrap:wrap;">
-                  ${t.attachment ? `<a href="${t.attachment}" target="_blank" style="font-size:0.8rem; color:#60a5fa; background:rgba(96,165,250,0.1); padding:6px 10px; border-radius:6px; text-decoration:none; border:1px solid rgba(96,165,250,0.2);">📁 ملف</a>` : ""}
-                  ${t.link ? `<a href="${t.link}" target="_blank" style="font-size:0.8rem; color:#22c55e; background:rgba(34,197,94,0.1); padding:6px 10px; border-radius:6px; text-decoration:none; border:1px solid rgba(34,197,94,0.2);">🔗 رابط</a>` : ""}
-                </div>
-              ` : ""}
-
-              <div style="display:flex; gap:8px;">
-                <label style="flex:1; text-align:center; cursor:pointer; font-size:0.8rem; font-weight:600; background:#222; padding:8px; border-radius:6px; border:1px solid #333; color:#ddd; transition:0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#222'">
-                  📁 ملف
-                  <input type="file" style="display:none;" id="file-${t.id}" onchange="uploadFile('${t.id}', event)">
-                </label>
-                <button onclick="addLink('${t.id}')" style="flex:1; cursor:pointer; font-size:0.8rem; font-weight:600; background:#222; padding:8px; border-radius:6px; border:1px solid #333; color:#ddd; transition:0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#222'">
-                  🔗 رابط
-                </button>
-              </div>
-              <div id="prog-${t.id}" style="font-size:0.75rem; color:#fbbf24; margin-top:8px; font-weight:bold; display:none;">جاري الرفع... 0%</div>
-            </div>
-
-            <!-- Feedback Section (if exists) -->
-            ${t.reviewed ? `
-              <div style="background:#0a2e0a; padding:16px 20px; border-top:1px solid #1a3a1a;">
-                <div style="font-size:0.85rem; font-weight:600; color:#4ade80; margin-bottom:12px; text-transform:uppercase;">✅ التقييم</div>
-                ${t.grade ? `<div style="margin-bottom:12px;"><span style="font-size:2rem; font-weight:800; color:#4ade80;">${t.grade}</span><span style="color:#888; margin-right:8px;">من 100</span></div>` : ""}
-                ${t.feedback ? `<p style="margin:0; color:#bbb; font-size:0.9rem; line-height:1.6;">💬 ${t.feedback}</p>` : ""}
-              </div>
-            ` : (t.status === "خلص" && !t.reviewed) ? `
-              <div style="background:#2a2107; padding:14px 20px; border-top:1px solid #3a3107; text-align:center; font-size:0.85rem; color:#f59e0b;">
-                ⏳ جاري مراجعة التسليم من قبل المعلم
-              </div>
-            ` : ""}
-
-            <!-- Reference Link -->
-            ${t.reflink ? `
-              <div style="padding:12px 20px; border-top:1px solid #222;">
-                <a href="${t.reflink}" target="_blank" style="display:inline-flex; align-items:center; gap:6px; color:#60a5fa; text-decoration:none; font-size:0.85rem;">
-                  🔗 فتح المرجع
-                </a>
-              </div>
-            ` : ""}
-          </div>`;
-                  })
-                  .join("");
-
-                return `
-        <div style="margin-bottom:28px;">
-          <h4 style="color:#C41818; margin-bottom:14px; font-size:1rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">${gName}</h4>
-          <div>${thtml}</div>
-        </div>
-      `;
-              })
-              .join("")
-          : '<div style="text-align:center; padding:40px 20px; color:#666;"><div style="font-size:3rem; margin-bottom:12px;">📭</div><p>لم تقم بالتسليم بعد</p></div>';
-
-        // Evaluate Leaderboard
-        const allStudents = [];
-        const ssSnap = await getDocs(collection(db, "students"));
-        ssSnap.forEach((d) => allStudents.push({ id: d.id, ...d.data() }));
-        students = allStudents;
-
-        // We already have all tasks from db from Teacher side if needed, but wait: student fetch only gets ALL tasks in snapshot
-        const tsSnap = snap;
-        const lbStats = {};
-        allStudents.forEach((s) => {
-          lbStats[s.id] = { name: s.name, done: 0, total: 0 };
-        });
-        tsSnap.docs.forEach((d) => {
-          const dd = d.data();
-          if (lbStats[dd.studentId]) {
-            lbStats[dd.studentId].total += 1;
-            if (dd.status === "خلص") lbStats[dd.studentId].done += 1;
-          }
-        });
-
-        const lbArr = Object.values(lbStats).sort((a, b) => b.done - a.done);
-        g("s-leaderboard-list").innerHTML = lbArr.length
-          ? lbArr
-              .map((lb, idx) => {
-                const isMe = lb.name === stu.name;
-                const rankClr =
-                  idx == 0
-                    ? "#fbbf24"
-                    : idx == 1
-                      ? "#94a3b8"
-                      : idx == 2
-                        ? "#b45309"
-                        : "#555";
-                return `
-         <div style="display:flex; align-items:center; gap:16px; padding:14px 20px; border-bottom:1px solid #2d2d2d; background:${isMe ? "rgba(196,24,24,0.08)" : "transparent"};">
-           <div style="font-size:1.2rem; font-weight:800; color:${rankClr}; width:24px; text-align:center;">${idx + 1}</div>
-           <div style="flex:1; font-weight:700; color:${isMe ? "#ff8080" : "#eee"};">${lb.name} ${isMe ? "(أنت)" : ""}</div>
-           <div style="font-size:0.85rem; color:#aaa;"><strong style="color:#22c55e;">${lb.done}</strong> / ${lb.total}</div>
-         </div>
-       `;
-              })
-              .join("")
-          : '<div style="padding:20px;text-align:center;color:#666;">لا يوجد طلاب للمنافسة.</p>';
-
-        // Evaluate Portfolio
-        window.renderPortfolio = (filter = "all") => {
-          const dnTasks = myTasks.filter((t) => t.status === "خلص");
-          const allTasksToRender = filter === "done" ? dnTasks : myTasks;
-
-          g("s-port-msg").innerHTML = dnTasks.length
-            ? `لقد أتممت بنجاح <strong style="color:#C41818;">${dnTasks.length}</strong> مهام/مشاريع! 🎉`
-            : "ابدأ أول مهمة لك وسيظهر عملك هنا 🎯";
-
-          // Highlights
-          if (dnTasks.length >= 1) {
-            const sortedDn = [...dnTasks].sort(
-              (a, b) =>
-                new Date(a.completedAt || a.updatedAt || 0) -
-                new Date(b.completedAt || b.updatedAt || 0),
-            );
-            const first = sortedDn[0];
-            const latest = sortedDn[sortedDn.length - 1];
-            let hHtml = "";
-
-            const buildHighlight = (lbl, t) => `
-                  <div style="background:#1a1a1a; padding:16px; border-radius:12px; border:1px solid #333; display:flex; align-items:center; gap:16px;">
-                    <div style="background:rgba(196,24,24,0.1); border:1px solid rgba(196,24,24,0.2); width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">${lbl.includes("أول") ? "🌟" : "🔥"}</div>
-                    <div style="flex:1;">
-                      <div style="color:#888; font-size:0.8rem; margin-bottom:4px; font-weight:bold;">${lbl}</div>
-                      <div style="color:#fff; font-weight:700; font-size:1.05rem;">${t.name}</div>
-                      <div style="color:#aaa; font-size:0.8rem; margin-top:4px;">${t.completedAt ? new Date(t.completedAt).toLocaleDateString("ar-EG") : ""}</div>
-                    </div>
-                  </div>
-                `;
-
-            if (first.id !== latest.id) {
-              hHtml =
-                buildHighlight("أول مشروع", first) +
-                buildHighlight("آخر مشروع", latest);
-            } else {
-              hHtml = buildHighlight("أول وآخر مشروع (حتى الآن)", first);
-            }
-            g("s-port-highlights").innerHTML = hHtml;
-            g("s-port-highlights").style.display = "grid";
+        // 3. Render Tasks (Main Grid)
+        const tasksCont = g("s-tasks-list");
+        if (tasksCont) {
+          if (myTasks.length === 0) {
+            tasksCont.innerHTML = `
+              <div style="grid-column: 1 / -1; padding: 60px 20px; text-align: center; background: #111; border-radius: 16px; border: 1px dashed #333;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">🎯</div>
+                <h3 style="color: #fff; margin-bottom: 8px;">لا توجد مهام حالياً</h3>
+                <p style="color: #888;">سيتم عرض المهام الموكلة إليك هنا بمجرد إضافتها.</p>
+              </div>`;
           } else {
-            g("s-port-highlights").style.display = "none";
-          }
+            // Sort by status and deadline
+            const sorted = [...myTasks].sort((a,b) => {
+               const ord = { "متأخر": 0, "لسه": 1, "شغال": 2, "خلص": 3 };
+               return ord[a.status] - ord[b.status];
+            });
 
-          // Grid Items
-          g("s-port-grid").innerHTML = allTasksToRender.length
-            ? allTasksToRender
-                .map((t) => {
-                  const imgStr =
-                    t.attachment &&
-                    t.attachment.match(/\.(jpeg|jpg|gif|png|webp)$/i)
-                      ? t.attachment
-                      : null;
-                  const isDone = t.status === "خلص";
-                  return `
-                  <div style="background:#1a1a1a; display:flex; flex-direction:column; border-radius:12px; overflow:hidden; border:1px solid #333; transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
-                    <div style="height:150px; background:#222; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #333; position:relative;">
-                      ${imgStr ? `<img src="${imgStr}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:3rem; opacity:0.1; filter:grayscale(1);">🖼️</span>`}
-                      ${isDone ? '<div style="position:absolute; top:12px; right:12px; background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.3); color:#4ade80; font-size:0.75rem; padding:4px 8px; border-radius:6px; font-weight:bold;">مكتمل ✅</div>' : '<div style="position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#ddd; font-size:0.75rem; padding:4px 8px; border-radius:6px;">قيد العمل ⏳</div>'}
+            tasksCont.innerHTML = sorted.map(t => {
+              const isLate = t.status !== "خلص" && t.deadline && new Date(t.deadline) < new Date();
+              const statusClass = t.status === "خلص" ? "status-done" : (t.status === "شغال" ? "status-active" : "status-pending");
+              const statusLabel = t.status === "خلص" ? "مكتمل" : (t.status === "شغال" ? "قيد العمل" : "بانتظار البدء");
+              
+              let actionBtn = "بدأ المهمة";
+              if (t.status === "شغال") actionBtn = "تسليم الحل";
+              else if (t.status === "خلص") actionBtn = t.reviewed ? "تعديل المرفق" : "تعديل التسليم";
+
+              const hasAttach = t.attachment || t.link;
+
+              return `
+                <div class="stu-task-card">
+                  <div class="stu-task-header">
+                    <div>
+                      <div class="stu-task-name">${t.name}</div>
+                      <div class="stu-task-meta">${t.groupName || "عامة"} • ${t.deadline || "بدون موعد"}</div>
                     </div>
-                    <div style="padding:20px; flex:1; display:flex; flex-direction:column;">
-                      <div style="font-weight:800; font-size:1.15rem; color:#fff; margin-bottom:8px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${t.name}</div>
-                      <div style="color:#888; font-size:0.85rem; margin-bottom:16px; flex:1;">${t.completedAt ? "📅 سلمت في " + new Date(t.completedAt).toLocaleDateString("ar-EG") : "📅 التقييم: " + (t.grade || "غير مسجل")}</div>
-                      
-                      ${
-                        t.link || t.attachment
-                          ? `<a href="${t.link || t.attachment}" target="_blank" style="display:block; text-align:center; padding:10px; background:#C41818; color:#fff; border-radius:8px; text-decoration:none; font-size:0.9rem; font-weight:bold; transition:0.2s;" onmouseover="this.style.background='#a51414'" onmouseout="this.style.background='#C41818'">${t.link ? "🔗 عرض المشروع" : "📁 تصفح المرفق"}</a>`
-                          : `<div style="display:block; text-align:center; padding:10px; background:#222; color:#666; border-radius:8px; font-size:0.9rem; font-weight:bold; cursor:not-allowed;">لا يوجد مرفقات</div>`
-                      }
-                    </div>
+                    <div class="stu-task-status ${statusClass}">${statusLabel}</div>
                   </div>
-                `;
-                })
-                .join("")
-            : `
-              <div style="grid-column: 1 / -1; padding:40px; text-align:center; background:rgba(255,255,255,0.02); border:1px dashed #333; border-radius:12px;">
-                <span style="font-size:3rem; display:block; margin-bottom:16px; opacity:0.5;">🎨</span>
-                <h3 style="color:#fff; margin:0 0 8px 0; font-size:1.2rem;">لم يتم العثور على أي مشاريع</h3>
-                <p style="color:#888; margin:0; font-size:0.95rem;">عندما تنهي مهامك وتُرفق ملفاتها، ستظهر هنا كأعمال في معرضك!</p>
-              </div>
-            `;
-        };
+                  
+                  ${t.notes ? `<div class="stu-task-desc">${t.notes}</div>` : ""}
 
-        window.filterPortfolio = (filter) => {
-          document.getElementById("pf-all").style =
-            filter === "all"
-              ? "padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; background:#C41818; color:#fff; border:none; transition:0.2s;"
-              : "padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; background:rgba(255,255,255,0.05); color:#aaa; border:1px solid #333; transition:0.2s;";
-          document.getElementById("pf-done").style =
-            filter === "done"
-              ? "padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; background:#C41818; color:#fff; border:none; transition:0.2s;"
-              : "padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; background:rgba(255,255,255,0.05); color:#aaa; border:1px solid #333; transition:0.2s;";
-          window.renderPortfolio(filter);
-        };
+                  <div class="stu-task-actions">
+                    <button class="stu-btn-action prim" onclick="updStatus('${t.id}', '${t.status === "لسه" ? "شغال" : "خلص"}')">
+                      ${actionBtn}
+                    </button>
+                    ${t.reflink ? `
+                      <a href="${t.reflink}" target="_blank" class="stu-btn-action" style="text-align:center; text-decoration:none;">المتطلبات</a>
+                    ` : ""}
+                  </div>
 
-        window.renderPortfolio("all");
-
-        // Evaluate Profile Stats
-        const pTasks = myTasks;
-        const totR = pTasks.length;
-        const dnR = pTasks.filter((t) => t.status === "خلص").length;
-        const pendR = totR - dnR;
-        let lateCount = 0;
-        let onTimeCount = 0;
-        let totalScore = 0;
-        let scoreCount = 0;
-        let latestReview = null;
-
-        pTasks.forEach((t) => {
-          if (t.status === "خلص") {
-            if (
-              t.deadline &&
-              new Date(t.deadline) <
-                new Date(t.completedAt || new Date().toISOString())
-            ) {
-              lateCount++;
-            } else {
-              onTimeCount++;
-            }
-
-            if (t.grade) {
-              const sc = parseInt(t.grade.split("/")[0]);
-              if (!isNaN(sc)) {
-                totalScore += sc;
-                scoreCount++;
-              }
-            }
-
-            if (t.reviewed && t.feedback) {
-              if (
-                !latestReview ||
-                new Date(t.updatedAt || t.completedAt) >
-                  new Date(latestReview.updatedAt || latestReview.completedAt)
-              ) {
-                latestReview = t;
-              }
-            }
+                  <!-- Submission & Feedback -->
+                  <div class="stu-task-footer">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                       <div style="font-size:0.8rem; color:#888;">${hasAttach ? '✅ تم الرفع' : '⏳ لم يتم الرفع'}</div>
+                       <div style="display:flex; gap:8px;">
+                          <label style="cursor:pointer; padding:6px 12px; background:#222; border-radius:6px; font-size:0.8rem; color:#eee;">
+                            📁 ملف <input type="file" style="display:none" onchange="uploadFile('${t.id}', event)">
+                          </label>
+                          <button onclick="addLink('${t.id}')" style="cursor:pointer; padding:6px 12px; background:#222; border-radius:6px; font-size:0.8rem; color:#eee; border:none;">🔗 رابط</button>
+                       </div>
+                    </div>
+                    
+                    ${t.reviewed ? `
+                      <div style="margin-top:12px; padding-top:12px; border-top:1px solid #222;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                           <span style="color:#22c55e; font-weight:700;">التقييم: ${t.grade || "100/100"}</span>
+                           <span style="color:#aaa; font-size:0.8rem;">بواسطة المعلم</span>
+                        </div>
+                        ${t.feedback ? `<div style="color:#ccc; font-size:0.85rem; line-height:1.5;">💬 ${t.feedback}</div>` : ""}
+                      </div>
+                    ` : ""}
+                  </div>
+                </div>`;
+            }).join("");
           }
-        });
-
-        const compRate = totR ? Math.round((dnR / totR) * 100) : 0;
-        const avgScore = scoreCount ? Math.round(totalScore / scoreCount) : 0;
-
-        let statusLabel = "يحتاج متابعة";
-        let statusColor = "#ef4444";
-        let statusMsg = "استمر في العمل وانتبه للملاحظات لرفع مستواك!";
-        let levelLabel = "مبتدئ";
-
-        if (compRate >= 80 && avgScore >= 80) {
-          statusLabel = "متطور 🚀";
-          statusColor = "#4ade80";
-          levelLabel = avgScore >= 90 ? "متقدم 🌟" : "جيد جداً";
-          statusMsg = "أداؤك رائع ومستمر في التطور بنجاح!";
-        } else if (compRate >= 40) {
-          statusLabel = "منتظم";
-          statusColor = "#fbbf24";
-          levelLabel = "جيد";
-          statusMsg = "مستواك في تحسن، حافظ على تسليم مهامك في الوقت!";
         }
 
-        if (totR === 0) {
-          statusLabel = "جديد";
-          statusColor = "#888";
-          levelLabel = "في البداية";
-          statusMsg =
-            "ابدأ بتنفيذ المهام المطلوبة منك وسيظهر تقييم مستواك هنا! 🎯";
+        // 4. Render Leaderboard
+        const allS = [];
+        const ssSnap = await getDocs(collection(db, "students"));
+        ssSnap.forEach(d => allS.push({ id: d.id, ...d.data() }));
+        
+        const lbStats = allS.map(s => {
+           // We count tasks where status is "خلص"
+           // Note: In a production app, we should probably join this differently, but for now we have it all
+           const sTasks = snap.docs.filter(d => d.data().studentId === s.id && d.data().status === "خلص");
+           return { id: s.id, name: s.name, avatar: s.avatar, score: sTasks.length };
+        }).sort((a,b) => b.score - a.score);
+
+        // Podium (Top 3)
+        const podiumCont = g("s-leader-podium");
+        if (podiumCont) {
+          const top3 = lbStats.slice(0, 3);
+          podiumCont.innerHTML = top3.map((p, idx) => {
+            const ranks = ["gold", "silver", "bronze"];
+            const colors = ["#fbbf24", "#94a3b8", "#b45309"];
+            const crown = idx === 0 ? "👑" : (idx === 1 ? "🥈" : "🥉");
+            
+            return `
+              <div class="stu-podium-item ${ranks[idx]}">
+                <div class="stu-podium-rank" style="background:${colors[idx]}">${crown}</div>
+                <div class="stu-podium-avatar">
+                   ${p.avatar ? `<img src="${p.avatar}" style="width:100%; height:100%; object-fit:cover;">` : p.name.charAt(0)}
+                </div>
+                <div class="stu-podium-name">${p.name}</div>
+                <div class="stu-podium-score">${p.score} مشروع</div>
+              </div>`;
+          }).join("");
         }
 
-        g("sprof-name").textContent = stu.name || "بدون اسم";
-        if (stu.avatar) {
-          g("sprof-avatar").innerHTML =
-            `<img src="${stu.avatar}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
-        } else {
-          g("sprof-avatar").innerHTML = stu.name
-            ? stu.name.charAt(0).toUpperCase()
-            : "👤";
-        }
-
-        // Load social media links
-        const linkedinLink = stu.linkedin || "";
-        const behanceLink = stu.behance || "";
-
-        g("linkedin-input").value = linkedinLink;
-        g("behance-input").value = behanceLink;
-
-        if (linkedinLink) {
-          g("sprof-linkedin").href = linkedinLink;
-          g("sprof-linkedin").style.display = "inline-block";
-        } else {
-          g("sprof-linkedin").style.display = "none";
-        }
-
-        if (behanceLink) {
-          g("sprof-behance").href = behanceLink;
-          g("sprof-behance").style.display = "inline-block";
-        } else {
-          g("sprof-behance").style.display = "none";
-        }
-        g("sprof-lvl-badge").innerHTML = `${levelLabel} • ${statusLabel}`;
-        g("sprof-lvl-badge").style.color = statusColor;
-        g("sprof-lvl-badge").style.borderColor = statusColor;
-        g("sprof-lvl-badge").style.background =
-          `rgba(${statusColor === "#ef4444" ? "239,68,68" : statusColor === "#4ade80" ? "74,222,128" : statusColor === "#fbbf24" ? "251,191,36" : "150,150,150"}, 0.15)`;
-        g("sprof-msg").textContent = statusMsg;
-
-        g("sprof-tot").textContent = totR;
-        g("sprof-dn").textContent = dnR;
-        g("sprof-pend").textContent = pendR;
-        g("sprof-avg").textContent = avgScore > 0 ? `${avgScore}%` : "—";
-
-        g("sprof-comp-pct").textContent = `${compRate}%`;
-        g("sprof-comp-bar").style.width = `${compRate}%`;
-        g("sprof-comp-bar").style.backgroundColor =
-          compRate > 75 ? "#22c55e" : compRate > 40 ? "#fbbf24" : "#ef4444";
-
-        g("sprof-ontime").textContent = onTimeCount;
-        g("sprof-late").textContent = lateCount;
-
-        // Badges
-        let bHtml = "";
-        if (dnR >= 1)
-          bHtml +=
-            '<span style="background:rgba(255,255,255,0.05); border:1px solid #444; padding:4px 10px; border-radius:6px; font-size:0.8rem; color:#ddd;">🎯 أنهى أول مشروع</span>';
-        if (onTimeCount >= 3 && lateCount === 0)
-          bHtml +=
-            '<span style="background:rgba(34,197,94,0.1); border:1px solid #22c55e; padding:4px 10px; border-radius:6px; font-size:0.8rem; color:#4ade80;">⏰ سريع التسليم</span>';
-        if (compRate >= 85 && avgScore >= 85)
-          bHtml +=
-            '<span style="background:rgba(196,24,24,0.15); border:1px solid #C41818; padding:4px 10px; border-radius:6px; font-size:0.8rem; color:#ff8080;">👑 ملتزم وإحترافي</span>';
-        else if (
-          compRate > 0 &&
-          avgScore > 0 &&
-          dnR >= 2 &&
-          !bHtml.includes("ملتزم")
-        )
-          bHtml +=
-            '<span style="background:rgba(96,165,250,0.15); border:1px solid #3b82f6; padding:4px 10px; border-radius:6px; font-size:0.8rem; color:#93c5fd;">📈 تحسن ملحوظ</span>';
-
-        if (!bHtml && totR > 0)
-          bHtml =
-            '<span style="color:#666; font-size:0.8rem;">استمر في العمل لجمع الأوسمة!</span>';
-        else if (!bHtml)
-          bHtml =
-            '<span style="color:#666; font-size:0.8rem;">سيتم منحك الأوسمة بمرور الوقت بناءً على التزامك.</span>';
-        g("sprof-badges").innerHTML = bHtml;
-
-        // Latest Review
-        if (latestReview) {
-          g("sprof-feedback-box").innerHTML = `
-              <div style="background:#1a1a1a; padding:16px; border-radius:8px; border:1px solid #333;">
-                <div style="font-weight:bold; color:#fff; margin-bottom:8px; font-size:1.05rem;">${latestReview.name}</div>
-                <div style="color:#4ade80; font-size:0.95rem; margin-bottom:12px; line-height:1.5;">${latestReview.feedback}</div>
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:#aaa; border-top:1px solid #333; padding-top:12px;">
-                  <span>التقييم: <strong style="color:#ef4444; font-size:1.1rem;">${latestReview.grade || "—"}</strong></span>
-                  <span>📅 ${new Date(latestReview.updatedAt || latestReview.completedAt).toLocaleDateString("ar-EG")}</span>
+        // List (Rest)
+        const listCont = g("s-leader-full");
+        if (listCont) {
+          const rest = lbStats.slice(3);
+          listCont.innerHTML = rest.map((p, idx) => `
+            <div class="stu-leader-row">
+              <div class="stu-leader-rank">#${idx + 4}</div>
+              <div class="stu-leader-info">
+                <div class="stu-leader-avatar">
+                   ${p.avatar ? `<img src="${p.avatar}" style="width:100%; height:100%; object-fit:cover;">` : p.name.charAt(0)}
+                </div>
+                <div>
+                   <div class="stu-leader-name">${p.name}</div>
+                   <div style="font-size:0.75rem; color:#666;">طالب نشط</div>
                 </div>
               </div>
-            `;
-        } else {
-          g("sprof-feedback-box").innerHTML = `
-              <div style="text-align:center; color:#666; font-size:0.95rem; background:#1a1a1a; padding:24px 20px; border-radius:10px; border:1px dashed #333; flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                <span style="font-size:2rem; display:block; margin-bottom:12px; opacity:0.4;">💬</span>
-                لا توجد تقييمات أو ملاحظات مسجلة حتى الآن.<br>أنهِ مهامك لتصلك تغذية راجعة تساهم في تطورك!
-              </div>
-            `;
+              <div class="stu-leader-score">${p.score}</div>
+            </div>`).join("");
         }
 
-        // Evaluate Smart Assistant Tip
-        if (pendR > 0) {
-          g("smart-ai-msg").textContent =
-            `لديك مهام بانتظارك لم تنهيها بعد! (${pendR} مهام) ⏳`;
-          g("smart-ai-action").textContent = "اذهب للمهام";
-          g("smart-ai-action").onclick = () =>
-            switchTab("s-tasks");
-        } else if (latestReview) {
-          g("smart-ai-msg").textContent =
-            "ألقِ نظرة على أحدث ملاحظات المعلم وتقييمك 💬";
-          g("smart-ai-action").textContent = "عرض التقييم";
-          g("smart-ai-action").onclick = () =>
-            switchTab("s-profile");
-        } else if (dnR > 0) {
-          g("smart-ai-msg").textContent = "كل المهام مكتملة، مستواك رائع! 🌟";
-          g("smart-ai-action").textContent = "تصفح أعمالك";
-          g("smart-ai-action").onclick = () =>
-            switchTab("s-portfolio");
-        } else {
-          g("smart-ai-msg").textContent =
-            "استعد لمهامك القادمة بمجرد تعيينها 🎯";
-          g("smart-ai-action").onclick = () => window.location.reload();
-        }
-
-        // Evaluate Weekly Goal
-        let targetTasks = pendR > 0 ? (pendR >= 2 ? 2 : pendR) : 1;
-
-        let doneThisWeek = 0;
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-        pTasks.forEach((t) => {
-          if (
-            t.status === "خلص" &&
-            t.completedAt &&
-            new Date(t.completedAt) > sevenDaysAgo
-          ) {
-            doneThisWeek++;
-          }
-        });
-
-        if (pendR === 0 && doneThisWeek >= targetTasks) {
-          g("weekly-goal-msg").textContent = "حققت هدفك بقوة! 🎉";
-          g("weekly-goal-desc").textContent = "مكتمل!";
-          g("weekly-goal-pct").textContent = `${targetTasks}/${targetTasks}`;
-          g("weekly-goal-bar").style.width = "100%";
-          g("weekly-goal-bar").style.background =
-            "linear-gradient(90deg, #22c55e, #86efac)";
-          g("weekly-goal-action").style.display = "none";
-        } else if (pendR === 0 && doneThisWeek === 0 && dnR > 0) {
-          g("weekly-goal-msg").textContent = "جميع مهامك منجزة 🌟";
-          g("weekly-goal-desc").textContent = "جاهز للتحدي القادم";
-          g("weekly-goal-pct").textContent = `0/0`;
-          g("weekly-goal-bar").style.width = "100%";
-          g("weekly-goal-bar").style.background =
-            "linear-gradient(90deg, #22c55e, #86efac)";
-          g("weekly-goal-action").style.display = "none";
-        } else if (totR === 0) {
-          g("weekly-goal-msg").textContent = "سيظهر هدفك الأسبوعي هنا";
-          g("weekly-goal-desc").textContent = "في انتظار المهام";
-          g("weekly-goal-pct").textContent = `0/0`;
-          g("weekly-goal-bar").style.width = "0%";
-          g("weekly-goal-action").style.display = "none";
-        } else {
-          g("weekly-goal-msg").textContent =
-            `أنجز ${targetTasks} مهام هذا الأسبوع 🚀`;
-          let pVal = Math.min((doneThisWeek / targetTasks) * 100, 100);
-          g("weekly-goal-desc").textContent = "المهام المكتملة حديثاً";
-          g("weekly-goal-pct").textContent = `${doneThisWeek}/${targetTasks}`;
-          g("weekly-goal-bar").style.width = `${pVal}%`;
-          g("weekly-goal-action").style.display = "block";
-          g("weekly-goal-action").textContent = "شاهد المهام";
-          g("weekly-goal-action").onclick = () =>
-            switchTab("s-tasks");
-
-          if (doneThisWeek >= targetTasks) {
-            g("weekly-goal-msg").textContent = "حققت هدف الأسبوع! 🎉";
-            g("weekly-goal-bar").style.background =
-              "linear-gradient(90deg, #22c55e, #86efac)";
-            g("weekly-goal-action").style.display = "none";
-          }
-        }
-
-        // Update notification badges
-        checkNotifications();
-        renderTeamsView("s-teams-container", true);
         loader(false);
       }
 
